@@ -1,0 +1,142 @@
+<!--CRUD de productos-->
+<main class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-12 col-lg-4">
+            <div class="card shadow-sm border-0 p-4 bg-white rounded">
+                <h4 class="fw-bold text-secondary mb-3" id="formTitulo">
+                    <i
+                        [class]="editandoId ? 'bi bi-pencil-square me-2 text-warning' : 'bi bi-plus-circle-fill me-2'"></i>
+                    {{ editandoId ? 'Editar Producto' : 'Agregar Producto' }}
+                </h4>
+                <hr>
+
+                <form [formGroup]="productoForm" (ngSubmit)="onGuardarProducto()" id="formProducto">
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label fw-semibold text-muted">Nombre del Producto</label>
+                        <input type="text" class="form-control" id="nombre" formControlName="nombre"
+                            placeholder="EJ: Taza Megumi Fushiguro">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label fw-semibold text-muted">Categoría</label>
+                        <select class="form-select" id="categoria" formControlName="categoria">
+                            <option value="" disabled selected>Selecciona una categoría</option>
+                            <option value="tazas">Tazas</option>
+                            <option value="platos">Platos</option>
+                            <option value="maceteros">Maceteros</option>
+                            <option value="bowls">Bowls</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="precio" class="form-label fw-semibold text-muted">Precio Base ($)</label>
+                            <input type="number" class="form-control" id="precio" min="0" formControlName="precio"
+                                placeholder="12990">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="descuento" class="form-label fw-semibold text-muted">Descuento (%)</label>
+                            <input type="number" class="form-control" id="descuento" min="0" max="100"
+                                formControlName="descuento">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="stock" class="form-label fw-semibold text-muted">Stock Inicial</label>
+                        <input type="number" class="form-control" id="stock" min="0" formControlName="stock"
+                            placeholder="10">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label fw-semibold text-muted">Ruta de la Imagen</label>
+                        <input type="text" class="form-control" id="imagen" formControlName="imagen"
+                            placeholder="assets/img/tazas/nueva.jpg">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label fw-semibold text-muted">Descripción</label>
+                        <textarea class="form-control" id="descripcion" rows="3" formControlName="descripcion"
+                            placeholder="Breve descripción del producto..."></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" [disabled]="productoForm.invalid"
+                            [className]="editandoId ? 'btn btn-warning fw-semibold' : 'btn btn-primary fw-semibold'"
+                            id="btnGuardar">
+                            {{ editandoId ? 'Actualizar Cambios' : 'Guardar Producto' }}
+                        </button>
+
+                        <button *ngIf="editandoId" (click)="cancelarEdicion()" type="button"
+                            class="btn btn-secondary fw-semibold" id="btnCancelar">
+                            Cancelar Edición
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm border-0 p-4 bg-white rounded">
+                <h4 class="fw-bold text-secondary mb-3"><i class="bi bi-collection-fill me-2"></i>Inventario de
+                    Productos
+                </h4>
+                <hr>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light text-muted">
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio Base</th>
+                                <th>Desc.</th>
+                                <th>Stock</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProductosBody">
+                            <tr *ngIf="listaProductos.length === 0">
+                                <td colspan="7" class="text-center text-muted py-4">No hay productos en el inventario.
+                                </td>
+                            </tr>
+
+                            <tr *ngFor="let p of listaProductos">
+                                <td>
+                                    <img [src]="p.imagen" [alt]="p.nombre" class="rounded border shadow-sm"
+                                        style="width: 50px; height: 50px; object-fit: cover;">
+                                </td>
+                                <td>
+                                    <span class="fw-bold text-dark d-block">{{ p.nombre }}</span>
+                                    <small class="text-muted text-truncate d-inline-block" style="max-width: 150px;">{{
+                                        p.descripcion }}</small>
+                                </td>
+                                <td><span class="badge bg-secondary text-capitalize">{{ p.categoria }}</span></td>
+                                <td class="fw-semibold">{{ dataService.formatearPrecio(p.precio) }}</td>
+                                <td class="text-danger fw-bold">{{ p.descuento }}%</td>
+                                <td>
+                                    <span [className]="p.stock > 5 ? 'badge bg-success' : 'badge bg-danger'">{{ p.stock
+                                        }} u.</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
+                                        <button (click)="activarEdicion(p)" class="btn btn-outline-primary btn-editar"
+                                            title="Editar">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button (click)="eliminarProducto(p.id)"
+                                            class="btn btn-outline-danger btn-eliminar" title="Eliminar">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

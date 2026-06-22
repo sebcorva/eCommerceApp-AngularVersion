@@ -1,0 +1,105 @@
+<main>
+    <section class="container-registro">
+        <div class="row justify-content-center">
+            <div class="col-md-6 bg-light p-4 rounded shadow my-lg-5">
+                <h2 class="text-center mb-4 text-secondary">Registro</h2>
+
+                <div *ngIf="mensajeAlert" class="alert alert-{{ mensajeAlert.tipo }} text-center py-2 small"
+                    role="alert">
+                    {{ mensajeAlert.texto }}
+                </div>
+
+                <form [formGroup]="formularioRegistro" (ngSubmit)="onRegistro()" novalidate>
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" formControlName="nombre"
+                            placeholder="Ingrese su nombre completo"
+                            [ngClass]="{'is-invalid': campoInvalido('nombre')}">
+                        <div *ngIf="campoInvalido('nombre')" class="invalid-feedback">El nombre es obligatorio.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" id="fecha_nacimiento" formControlName="fechaNacimiento"
+                            [ngClass]="{'is-invalid': campoInvalido('fechaNacimiento')}">
+                        <div *ngIf="campoInvalido('fechaNacimiento')" class="invalid-feedback">
+                            <span *ngIf="controles['fechaNacimiento'].errors?.['required']">La fecha de nacimiento es
+                                obligatoria.</span>
+                            <span *ngIf="controles['fechaNacimiento'].errors?.['menorDeEdad']">Debes tener al menos 13
+                                años para registrarte.</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email"
+                            placeholder="Ingrese su email" [ngClass]="{'is-invalid': campoInvalido('email')}">
+                        <div *ngIf="campoInvalido('email')" class="invalid-feedback">
+                            <span *ngIf="controles['email'].errors?.['required']">El email es obligatorio.</span>
+                            <span *ngIf="controles['email'].errors?.['email']">Por favor, ingrese un formato de correo
+                                válido.</span>
+                            <span *ngIf="controles['email'].errors?.['duplicado']">El correo electrónico ya está
+                                registrado.</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección de Despacho (Opcional)</label>
+                        <input type="text" class="form-control" id="direccion" formControlName="direccion"
+                            placeholder="Ingrese su dirección de despacho">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="username" formControlName="username"
+                            placeholder="Ingrese su nombre de usuario"
+                            [ngClass]="{'is-invalid': campoInvalido('username')}">
+                        <div *ngIf="campoInvalido('username')" class="invalid-feedback">
+                            <span *ngIf="controles['username'].errors?.['required']">El nombre de usuario es
+                                obligatorio.</span>
+                            <span *ngIf="controles['username'].errors?.['duplicado']">El nombre de usuario ya está
+                                registrado.</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" formControlName="password"
+                            placeholder="Ingrese su contraseña" [ngClass]="{'is-invalid': campoInvalido('password')}">
+
+                        <div *ngIf="campoInvalido('password')" class="invalid-feedback">
+                            <span *ngIf="controles['password'].errors?.['required']">La contraseña es
+                                obligatoria.</span>
+                            <span
+                                *ngIf="controles['password'].errors?.['minlength'] || controles['password'].errors?.['maxlength']">
+                                La contraseña debe tener entre 6 y 18 caracteres.
+                            </span>
+                            <span *ngIf="controles['password'].errors?.['pattern']">
+                                La contraseña debe incluir al menos una letra mayúscula y un número.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="password2" formControlName="password2"
+                            placeholder="Repita su contraseña" [ngClass]="{'is-invalid': campoInvalido('password2')}">
+
+                        <div *ngIf="campoInvalido('password2')" class="invalid-feedback">
+                            <span *ngIf="controles['password2'].errors?.['required']">Por favor, confirme su
+                                contraseña.</span>
+                            <span *ngIf="controles['password2'].errors?.['noCoincide']">Las contraseñas no
+                                coinciden.</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary me-2">Registrarse</button>
+                        <button type="button" (click)="limpiar()" class="btn btn-secondary">Limpiar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,46 @@
+<section class="container-login">
+    <div class="row justify-content-center mx-2">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-9 bg-light rounded shadow my-4 my-lg-5 overflow-hidden">
+            <div class="row g-0 align-items-center">
+
+                <div class="col-lg-5 d-none d-lg-flex p-0">
+                    <img src="assets/img/login.jpg" alt="Login AniMug" class="img-fluid w-100 loginImage">
+                </div>
+
+                <div class="col-12 col-lg-7 p-4 p-lg-5">
+                    <h2 class="text-center mb-4 text-secondary">Bienvenido a AniMug</h2>
+                    <p class="text-center my-4">Ingresa tus datos de usuario</p>
+
+                    <div *ngIf="mensajeAlert" class="alert alert-{{ mensajeAlert.tipo }} alert-dismissible fade show"
+                        role="alert">
+                        {{ mensajeAlert.texto }}
+                    </div>
+
+                    <form [formGroup]="formularioLogin" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo</label>
+                            <input type="email" id="email" formControlName="email" class="form-control"
+                                placeholder="ejemplo@animug.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" id="password" formControlName="password" class="form-control"
+                                placeholder="********">
+                        </div>
+                        <div class="text-end">
+                            <a routerLink="/recuperar" class="text-decoration-none text-primary">¿Olvidaste tu
+                                contraseña?</a>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <p class="mb-0">¿No tienes una cuenta? <a routerLink="/registro"
+                                    class="text-primary text-decoration-none">Regístrate aquí</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

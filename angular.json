@@ -2,11 +2,12 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "5d94c144-808d-4f62-863a-fb774e2f5ef1"
   },
   "newProjectRoot": "projects",
   "projects": {
-    "appPrueba": {
+    "eCommerceApp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -22,9 +23,12 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/styles.css"
             ],
             "server": "src/main.server.ts",
@@ -64,10 +68,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "appPrueba:build:production"
+              "buildTarget": "eCommerceApp:build:production"
             },
             "development": {
-              "buildTarget": "appPrueba:build:development"
+              "buildTarget": "eCommerceApp:build:development"
             }
           },
           "defaultConfiguration": "development"

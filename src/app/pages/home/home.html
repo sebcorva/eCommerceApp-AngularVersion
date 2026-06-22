@@ -1,0 +1,72 @@
+<div class="banner container-fluid p-0 mb-5">
+    <img src="../assets/img/banner.jpg" alt="Banner de aniMug" class="img-fluid w-100"
+        style="max-height: 500px; object-fit: cover;">
+</div>
+<!--Seccion Categorias-->
+<main class="container my-5" id="categoria">
+    <section class="mb-5">
+        <h2 class="about-us-title text-center mb-5">Categorías</h2>
+        <div class="row g-4 justify-content-center m-0">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card categoria-card shadow-sm h-100">
+                    <img src="assets/img/tazas/taza.jpg" class="card-img-top" alt="Categoría Tazas">
+                    <div class="card-body text-center">
+                        <a [routerLink]="['/categoria', 'tazas']"
+                            class="h5 card-title text-decoration-none text-primary fw-bold d-block">Tazas
+                            Cerámica</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card categoria-card shadow-sm h-100">
+                    <img src="assets/img/platos/plato.jpg" class="card-img-top" alt="Categoría Platos">
+                    <div class="card-body text-center">
+                        <a [routerLink]="['/categoria', 'platos']"
+                            class="h5 card-title text-decoration-none text-primary fw-bold d-block">Platos
+                            Cerámica</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card categoria-card shadow-sm h-100">
+                    <img src="assets/img/maceteros/macetero.jpg" class="card-img-top" alt="Categoría Maceteros">
+                    <div class="card-body text-center">
+                        <a [routerLink]="['/categoria', 'maceteros']"
+                            class="h5 card-title text-decoration-none text-primary fw-bold d-block">Maceteros
+                            Cerámica</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card categoria-card shadow-sm h-100">
+                    <img src="assets/img/bowls/bowl.jpg" class="card-img-top" alt="Categoría Bowls">
+                    <div class="card-body text-center">
+                        <a [routerLink]="['/categoria', 'bowls']"
+                            class="h5 card-title text-decoration-none text-primary fw-bold d-block">Bolws
+                            Cerámica</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Seccion Sobre Nosotros-->
+    <section class="about-us my-5">
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <h2 class="about-us-title mb-4">Sobre Nosotros</h2>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <p class="about-us-text">
+                    En aniMug, nos apasiona la cerámica y el arte de crear piezas únicas. Nuestra misión es ofrecer
+                    productos de alta calidad que combinen funcionalidad y diseño, inspirados en la naturaleza y la
+                    cultura. Cada pieza es cuidadosamente elaborada por artesanos expertos, utilizando técnicas
+                    tradicionales y materiales sostenibles. Nos esforzamos por brindar a nuestros clientes una
+                    experiencia excepcional, desde la selección de productos hasta el servicio al cliente. ¡Gracias
+                    por elegir aniMug para tus necesidades de cerámica!
+                </p>
+            </div>
+        </div>
+    </section>
+</main>

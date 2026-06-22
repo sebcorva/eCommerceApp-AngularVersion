@@ -1,0 +1,68 @@
+<!--Panel de Administrador-->
+<main>
+    <section class="container-perfil">
+        <div class="row justify-content-center mx-2">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-9 bg-light rounded shadow my-4 my-lg-5 overflow-hidden">
+                <div class="row g-0 align-items-stretch">
+
+                    <div class="col-lg-5 d-none d-lg-flex p-0" style="position: relative;">
+                        <img src="assets/img/login.jpg" alt="Perfil AniMug" class="w-100 h-100 loginImage">
+                    </div>
+
+                    <div class="col-12 col-lg-7 p-4 p-lg-5">
+                        <h2 class="text-center mb-4 text-secondary">Panel de Administrador</h2>
+
+                        <div class="card shadow-sm border-0 mb-4 p-3 bg-white">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="assets/img/admin.jpg" alt="Foto de perfil"
+                                        class="rounded-circle perfilImage">
+
+                                    <div>
+                                        <h5 class="m-0 h6 fw-bold text-dark" id="perfilNombre"></h5>
+                                        <small class="text-muted d-block" id="perfilEmail"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card shadow-sm border-0 p-4 bg-white">
+                            <div class="d-flex flex-column gap-3">
+
+                                <div class="d-flex justify-content-center justify-content-sm-start">
+                                    <a routerLink="/productoPanel"
+                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-bag-check"></i> <span>Productos</span>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex justify-content-center justify-content-sm-start">
+                                    <button
+                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-people"></i> <span>Usuarios</span>
+                                    </button>
+                                </div>
+
+                                <div class="d-flex justify-content-center justify-content-sm-start">
+                                    <button
+                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-people"></i> <span>Compras</span>
+                                    </button>
+                                </div>
+
+                                <div class="d-flex justify-content-center justify-content-sm-start">
+                                    <button
+                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-people"></i> <span>Despachos</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

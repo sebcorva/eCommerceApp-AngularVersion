@@ -1,0 +1,104 @@
+<!--Carrito de compras-->
+<main>
+    <section class="container-carrito">
+        <div class="row justify-content-center mx-2">
+            <div class="col-12 col-sm-10 col-md-11 col-lg-9 bg-light rounded shadow my-4 my-lg-5 p-4 p-lg-5">
+                <h2 class="mb-4 text-secondary fw-bold"><i class="bi bi-cart3 me-2"></i>Carrito</h2>
+
+                <div class="row g-4">
+                    <div class="col-12 col-lg-8">
+                        <div class="card shadow-sm border-0 p-4 bg-white rounded" id="contenedorProductosCarrito">
+
+                            <div *ngIf="carrito.length === 0" class="text-center py-5">
+                                <i class="bi bi-cart-x fs-1 text-muted mb-3 d-block"></i>
+                                <p class="text-muted fs-5">Tu carrito está vacío.</p>
+                                <a routerLink="/" class="btn btn-primary btn-sm mt-2">Ver Productos</a>
+                            </div>
+
+                            <div *ngIf="carrito.length > 0">
+                                <div *ngFor="let item of carrito"
+                                    class="row align-items-center justify-content-between pb-3 mb-3 border-bottom g-3">
+
+                                    <div class="col-4 col-sm-2 text-center">
+                                        <img [src]="item.producto.imagen" [alt]="item.producto.nombre"
+                                            class="img-fluid rounded shadow-sm"
+                                            style="max-height: 80px; width: 100%; object-fit: cover;">
+                                    </div>
+
+                                    <div class="col-8 col-sm-4">
+                                        <h6 class="m-0 fw-bold text-dark text-truncate">{{ item.producto.nombre }}</h6>
+                                        <small class="text-muted d-block">
+                                            Valor: {{
+                                            dataService.formatearPrecio(dataService.calcularPrecioFinal(item.producto))
+                                            }}
+                                        </small>
+                                    </div>
+
+                                    <div
+                                        class="col-7 col-sm-3 d-flex align-items-center justify-content-center justify-content-sm-start gap-2">
+                                        <button (click)="restarCantidad(item)" type="button"
+                                            class="btn btn-sm btn-outline-secondary px-2 py-1">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <span class="fw-semibold px-2">{{ item.cantidad }}</span>
+                                        <button (click)="sumarCantidad(item)" type="button"
+                                            class="btn btn-sm btn-outline-secondary px-2 py-1">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+
+                                        <button (click)="eliminarProducto(item)" type="button"
+                                            class="btn btn-sm btn-link text-danger ms-2 p-0" title="Eliminar producto">
+                                            <i class="bi bi-trash3-fill fs-5"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="col-5 col-sm-3 text-end">
+                                        <span class="fw-bold text-primary fs-5">
+                                            {{
+                                            dataService.formatearPrecio(dataService.calcularPrecioFinal(item.producto) *
+                                            item.cantidad) }}
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="card shadow-sm border-0 p-4 bg-white rounded text-end text-lg-start">
+                            <h4 class="fw-bold text-secondary mb-3 h5 text-center text-lg-start">Resumen de la orden
+                            </h4>
+                            <hr class="d-none d-lg-block">
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted fs-6">Subtotal:</span>
+                                <span class="fw-bold text-dark fs-6" id="resumenSubtotal">
+                                    {{ dataService.formatearPrecio(subtotalAcumulado) }}
+                                </span>
+                            </div>
+
+                            <hr>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <span class="text-dark fw-bold fs-5">Total a pagar:</span>
+                                <span class="fw-bold text-primary fs-4" id="resumenTotal">
+                                    {{ dataService.formatearPrecio(totalAPagar) }}
+                                </span>
+                            </div>
+
+                            <div>
+                                <button (click)="procesarPago()" type="button" id="btnRealizarPago"
+                                    class="btn btn-success btn-lg px-4 fw-semibold w-100 shadow-sm">
+                                    <i class="bi bi-credit-card me-2"></i>Pagar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,88 @@
+<!--Recuperar contraseña-->
+<main>
+    <section class="container-recuperar">
+        <div class="row justify-content-center mx-2">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-9 bg-light rounded shadow my-4 my-lg-5 overflow-hidden">
+                <div class="row g-0 align-items-stretch">
+
+                    <div class="col-lg-5 d-none d-lg-flex p-0" style="position: relative;">
+                        <img src="assets/img/login.jpg" alt="Login AniMug" class="w-100 h-100"
+                            style="position: absolute; top: 0; left: 0; object-fit: cover;">
+                    </div>
+
+                    <div class="col-12 col-lg-7 p-4 p-lg-5">
+                        <h2 class="text-center mb-4 text-secondary">Recuperar Contraseña</h2>
+
+                        <p [className]="pasoActual === 2 ? 'text-center my-4 fw-semibold text-success' : 'text-center my-4 text-muted'"
+                            id="instruccionesTexto">
+                            {{ instruccionesTexto }}
+                        </p>
+
+                        <div *ngIf="mensajeAlert" class="alert alert-{{ mensajeAlert.tipo }} text-center py-2 small"
+                            role="alert">
+                            {{ mensajeAlert.texto }}
+                        </div>
+
+                        <form [formGroup]="recuperarForm" (ngSubmit)="onProcesarRecuperacion()" novalidate>
+
+                            <div [hidden]="pasoActual !== 1" class="mb-3" id="grupoEmail">
+                                <label for="email" class="form-label fw-semibold text-muted">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" formControlName="email"
+                                    placeholder="Ingrese su correo electrónico"
+                                    [ngClass]="{'is-invalid': campoInvalido('email')}">
+
+                                <div *ngIf="campoInvalido('email')" class="invalid-feedback" id="errorEmail">
+                                    <span *ngIf="erroresControles['email'].errors?.['required']">El correo electrónico
+                                        es obligatorio.</span>
+                                    <span *ngIf="erroresControles['email'].errors?.['email']">Por favor, ingresa un
+                                        formato de correo válido.</span>
+                                    <span *ngIf="erroresControles['email'].errors?.['noRegistrado']">Este correo
+                                        electrónico no está registrado en aniMug.</span>
+                                </div>
+                            </div>
+
+                            <div [hidden]="pasoActual !== 2" id="seccionNuevasClaves">
+                                <div class="mb-3">
+                                    <label for="newPassword" class="form-label fw-semibold text-muted">Nueva
+                                        Contraseña</label>
+                                    <input type="password" class="form-control" id="newPassword"
+                                        formControlName="newPassword" placeholder="Ingrese su nueva contraseña"
+                                        [ngClass]="{'is-invalid': campoInvalido('newPassword')}">
+                                    <div *ngIf="campoInvalido('newPassword')" class="invalid-feedback">
+                                        <span *ngIf="erroresControles['newPassword'].errors?.['required']">La contraseña
+                                            nueva es obligatoria.</span>
+                                        <span *ngIf="erroresControles['newPassword'].errors?.['minlength']">La
+                                            contraseña debe tener al menos 4 caracteres.</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="repeatPassword" class="form-label fw-semibold text-muted">Repetir
+                                        Contraseña</label>
+                                    <input type="password" class="form-control" id="repeatPassword"
+                                        formControlName="repeatPassword" placeholder="Repita su nueva contraseña"
+                                        [ngClass]="{'is-invalid': campoInvalido('repeatPassword')}">
+                                    <div *ngIf="campoInvalido('repeatPassword')" class="invalid-feedback">
+                                        <span *ngIf="erroresControles['repeatPassword'].errors?.['required']">Por favor,
+                                            confirme su contraseña.</span>
+                                        <span *ngIf="erroresControles['repeatPassword'].errors?.['noCoincide']">Las
+                                            contraseñas deben coincidir.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit"
+                                    [className]="pasoActual === 1 ? 'btn btn-primary w-100 fw-semibold' : 'btn btn-success w-100 fw-semibold'"
+                                    id="btnAccionForm">
+                                    {{ pasoActual === 1 ? 'Siguiente' : 'Confirmar Nueva Contraseña' }}
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
