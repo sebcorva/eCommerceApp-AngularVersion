@@ -1,0 +1,1333 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecommerce-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ecommerce-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  Carrito</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/carrito/carrito.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente que administra la vista y operaciones del carrito de compras de aniMug.
+Permite listar artículos seleccionados, incrementar o decrementar cantidades interactuando
+con las limitaciones de stock, calcular subtotales dinámicos y simular el cierre de la orden de compra.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-carrito</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./carrito.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./carrito.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#carrito" >carrito</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dataService" >dataService</a>
+                            </li>
+                            <li>
+                                <a href="#emailUsuario" >emailUsuario</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#actualizarAlmacenamiento" >actualizarAlmacenamiento</a>
+                            </li>
+                            <li>
+                                <a href="#cargarCarrito" >cargarCarrito</a>
+                            </li>
+                            <li>
+                                <a href="#eliminarProducto" >eliminarProducto</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#procesarPago" >procesarPago</a>
+                            </li>
+                            <li>
+                                <a href="#restarCantidad" >restarCantidad</a>
+                            </li>
+                            <li>
+                                <a href="#sumarCantidad" >sumarCantidad</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#subtotalAcumulado" >subtotalAcumulado</a>
+                                </li>
+                                <li>
+                                    <a href="#totalAPagar" >totalAPagar</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dataService: <a href="../injectables/DataService.html" target="_self">DataService</a>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/carrito/carrito.ts:26</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actualizarAlmacenamiento"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>actualizarAlmacenamiento</b></span>
+                        <a href="#actualizarAlmacenamiento"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>actualizarAlmacenamiento()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/pages/carrito/carrito.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sincroniza y persiste el estado actual del arreglo local del carrito en el almacenamiento del navegador.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarCarrito"></a>
+                    <span class="name">
+                        <span ><b>cargarCarrito</b></span>
+                        <a href="#cargarCarrito"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarCarrito()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/pages/carrito/carrito.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recupera el estado actual del carrito del cliente consultando la persistencia a través de <code>DataService</code>.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eliminarProducto"></a>
+                    <span class="name">
+                        <span ><b>eliminarProducto</b></span>
+                        <a href="#eliminarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>eliminarProducto(item: <a href="../interfaces/ElementoCarrito.html" target="_self">ElementoCarrito</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/pages/carrito/carrito.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Remueve de forma definitiva un producto del arreglo del carrito aplicando un filtro por ID.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ElementoCarrito.html" target="_self" >ElementoCarrito</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Elemento a descartar del listado.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/pages/carrito/carrito.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ciclo de inicialización. Verifica que exista un usuario en sesión; si es anónimo,
+redirige forzosamente hacia la pantalla de Login. De estar autenticado, extrae
+su correo e inicia la carga de datos del carrito.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="procesarPago"></a>
+                    <span class="name">
+                        <span ><b>procesarPago</b></span>
+                        <a href="#procesarPago"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>procesarPago()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/pages/carrito/carrito.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Simula la finalización del flujo de checkout. Despliega una notificación de éxito,
+vacía el estado del carrito tanto en memoria como en almacenamiento y redirige al usuario a la página de inicio.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="restarCantidad"></a>
+                    <span class="name">
+                        <span ><b>restarCantidad</b></span>
+                        <a href="#restarCantidad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>restarCantidad(item: <a href="../interfaces/ElementoCarrito.html" target="_self">ElementoCarrito</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/pages/carrito/carrito.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Decrementa en una unidad la cantidad de un artículo. Si la cantidad resultante llega a cero,
+remueve el ítem por completo del listado del carrito.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ElementoCarrito.html" target="_self" >ElementoCarrito</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>El elemento del carrito cuya cantidad se desea reducir.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sumarCantidad"></a>
+                    <span class="name">
+                        <span ><b>sumarCantidad</b></span>
+                        <a href="#sumarCantidad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sumarCantidad(item: <a href="../interfaces/ElementoCarrito.html" target="_self">ElementoCarrito</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/pages/carrito/carrito.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Incrementa en una unidad la cantidad de un artículo en el carrito, siempre que no exceda
+el stock físico disponible en el inventario global del producto.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ElementoCarrito.html" target="_self" >ElementoCarrito</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>El elemento del carrito cuya cantidad se desea aumentar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="carrito"></a>
+                    <span class="name">
+                        <span ><b>carrito</b></span>
+                        <a href="#carrito"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ElementoCarrito.html" target="_self" >ElementoCarrito[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/carrito/carrito.ts:23</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Almacena la colección de productos y cantidades agregadas por el cliente actual.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dataService</b></span>
+                        <a href="#dataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/carrito/carrito.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emailUsuario"></a>
+                    <span class="name">
+                        <span ><b>emailUsuario</b></span>
+                        <a href="#emailUsuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/carrito/carrito.ts:26</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Identificador único (email) del cliente activo, ocupado como índice de persistencia del carrito.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subtotalAcumulado"></a>
+                        <span class="name"><b>subtotalAcumulado</b><a href="#subtotalAcumulado"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>subtotalAcumulado()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">src/app/pages/carrito/carrito.ts:111</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Getter que computa de forma reactiva la suma de los precios finales multiplicados por su cantidad,
+aplicando de forma dinámica los descuentos que posea cada producto.</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="totalAPagar"></a>
+                        <span class="name"><b>totalAPagar</b><a href="#totalAPagar"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>totalAPagar()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/app/pages/carrito/carrito.ts:121</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Getter que expone la cuantía total final que el cliente debe pagar.</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterLink, Router } from &#x27;@angular/router&#x27;;
+import { DataService } from &#x27;../../services/data.service&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { ElementoCarrito } from &#x27;../../services/modelos&#x27;;
+
+/**
+ * Componente que administra la vista y operaciones del carrito de compras de aniMug.
+ * Permite listar artículos seleccionados, incrementar o decrementar cantidades interactuando 
+ * con las limitaciones de stock, calcular subtotales dinámicos y simular el cierre de la orden de compra.
+ */
+@Component({
+  selector: &#x27;app-carrito&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: &#x27;./carrito.html&#x27;,
+  styleUrl: &#x27;./carrito.css&#x27;,
+})
+export class Carrito implements OnInit {
+
+  /** Almacena la colección de productos y cantidades agregadas por el cliente actual. */
+  carrito: ElementoCarrito[] &#x3D; [];
+
+  /** Identificador único (email) del cliente activo, ocupado como índice de persistencia del carrito. */
+  emailUsuario: string &#x3D; &#x27;&#x27;;
+
+  constructor(
+    public dataService: DataService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  /**
+   * Ciclo de inicialización. Verifica que exista un usuario en sesión; si es anónimo,
+   * redirige forzosamente hacia la pantalla de Login. De estar autenticado, extrae 
+   * su correo e inicia la carga de datos del carrito.
+   * @returns {void}
+   */
+  ngOnInit(): void {
+    if (!this.authService.autenticado || !this.authService.sesion) {
+      this.router.navigate([&#x27;/login&#x27;]);
+      return;
+    }
+    this.emailUsuario &#x3D; this.authService.sesion.email;
+    this.cargarCarrito();
+  }
+
+  /**
+   * Recupera el estado actual del carrito del cliente consultando la persistencia a través de &#x60;DataService&#x60;.
+   * @returns {void}
+   */
+  cargarCarrito(): void {
+    this.carrito &#x3D; this.dataService.getCarritoUsuario(this.emailUsuario);
+  }
+
+  /**
+   * Incrementa en una unidad la cantidad de un artículo en el carrito, siempre que no exceda 
+   * el stock físico disponible en el inventario global del producto.
+   * @param {ElementoCarrito} item El elemento del carrito cuya cantidad se desea aumentar.
+   * @returns {void}
+   */
+  sumarCantidad(item: ElementoCarrito): void {
+    if (item.cantidad &lt; item.producto.stock) {
+      item.cantidad +&#x3D; 1;
+      this.actualizarAlmacenamiento();
+    } else {
+      alert(&#x27;Alcanzaste el límite de stock disponible.&#x27;);
+    }
+  }
+
+  /**
+   * Decrementa en una unidad la cantidad de un artículo. Si la cantidad resultante llega a cero, 
+   * remueve el ítem por completo del listado del carrito.
+   * @param {ElementoCarrito} item El elemento del carrito cuya cantidad se desea reducir.
+   * @returns {void}
+   */
+  restarCantidad(item: ElementoCarrito): void {
+    item.cantidad -&#x3D; 1;
+    if (item.cantidad &lt;&#x3D; 0) {
+      this.eliminarProducto(item);
+    } else {
+      this.actualizarAlmacenamiento();
+    }
+  }
+
+  /**
+   * Remueve de forma definitiva un producto del arreglo del carrito aplicando un filtro por ID.
+   * @param {ElementoCarrito} item Elemento a descartar del listado.
+   * @returns {void}
+   */
+  eliminarProducto(item: ElementoCarrito): void {
+    this.carrito &#x3D; this.carrito.filter(x &#x3D;&gt; x.producto.id !&#x3D;&#x3D; item.producto.id);
+    this.actualizarAlmacenamiento();
+  }
+
+  /**
+   * Sincroniza y persiste el estado actual del arreglo local del carrito en el almacenamiento del navegador.
+   * @private
+   * @returns {void}
+   */
+  private actualizarAlmacenamiento(): void {
+    this.dataService.guardarCarritoUsuario(this.emailUsuario, this.carrito);
+  }
+
+  /**
+   * Getter que computa de forma reactiva la suma de los precios finales multiplicados por su cantidad, 
+   * aplicando de forma dinámica los descuentos que posea cada producto.
+   * @returns {number} Suma monetaria total acumulada de los artículos del carro.
+   */
+  get subtotalAcumulado(): number {
+    return this.carrito.reduce((suma, item) &#x3D;&gt; {
+      return suma + (this.dataService.calcularPrecioFinal(item.producto) * item.cantidad);
+    }, 0);
+  }
+
+  /**
+   * Getter que expone la cuantía total final que el cliente debe pagar.
+   * @returns {number} Valor idéntico al subtotal acumulado.
+   */
+  get totalAPagar(): number {
+    return this.subtotalAcumulado;
+  }
+
+  /**
+   * Simula la finalización del flujo de checkout. Despliega una notificación de éxito,
+   * vacía el estado del carrito tanto en memoria como en almacenamiento y redirige al usuario a la página de inicio.
+   * @returns {void}
+   */
+  procesarPago(): void {
+    alert(&#x27;¡Gracias por tu compra en aniMug! Procesando pago...&#x27;);
+    this.dataService.limpiarCarritoUsuario(this.emailUsuario);
+    this.router.navigate([&#x27;/&#x27;]);
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!--Carrito de compras--&gt;
+&lt;main&gt;
+    &lt;section class&#x3D;&quot;container-carrito&quot;&gt;
+        &lt;div class&#x3D;&quot;row justify-content-center mx-2&quot;&gt;
+            &lt;div class&#x3D;&quot;col-12 col-sm-10 col-md-11 col-lg-9 bg-light rounded shadow my-4 my-lg-5 p-4 p-lg-5&quot;&gt;
+                &lt;h2 class&#x3D;&quot;mb-4 text-secondary fw-bold&quot;&gt;&lt;i class&#x3D;&quot;bi bi-cart3 me-2&quot;&gt;&lt;/i&gt;Carrito&lt;/h2&gt;
+
+                &lt;div class&#x3D;&quot;row g-4&quot;&gt;
+                    &lt;div class&#x3D;&quot;col-12 col-lg-8&quot;&gt;
+                        &lt;div class&#x3D;&quot;card shadow-sm border-0 p-4 bg-white rounded&quot; id&#x3D;&quot;contenedorProductosCarrito&quot;&gt;
+
+                            &lt;div *ngIf&#x3D;&quot;carrito.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;text-center py-5&quot;&gt;
+                                &lt;i class&#x3D;&quot;bi bi-cart-x fs-1 text-muted mb-3 d-block&quot;&gt;&lt;/i&gt;
+                                &lt;p class&#x3D;&quot;text-muted fs-5&quot;&gt;Tu carrito está vacío.&lt;/p&gt;
+                                &lt;a routerLink&#x3D;&quot;/&quot; class&#x3D;&quot;btn btn-primary btn-sm mt-2&quot;&gt;Ver Productos&lt;/a&gt;
+                            &lt;/div&gt;
+
+                            &lt;div *ngIf&#x3D;&quot;carrito.length &gt; 0&quot;&gt;
+                                &lt;div *ngFor&#x3D;&quot;let item of carrito&quot;
+                                    class&#x3D;&quot;row align-items-center justify-content-between pb-3 mb-3 border-bottom g-3&quot;&gt;
+
+                                    &lt;div class&#x3D;&quot;col-4 col-sm-2 text-center&quot;&gt;
+                                        &lt;img [src]&#x3D;&quot;item.producto.imagen&quot; [alt]&#x3D;&quot;item.producto.nombre&quot;
+                                            class&#x3D;&quot;img-fluid rounded shadow-sm&quot;
+                                            style&#x3D;&quot;max-height: 80px; width: 100%; object-fit: cover;&quot;&gt;
+                                    &lt;/div&gt;
+
+                                    &lt;div class&#x3D;&quot;col-8 col-sm-4&quot;&gt;
+                                        &lt;h6 class&#x3D;&quot;m-0 fw-bold text-dark text-truncate&quot;&gt;{{ item.producto.nombre }}&lt;/h6&gt;
+                                        &lt;small class&#x3D;&quot;text-muted d-block&quot;&gt;
+                                            Valor: {{
+                                            dataService.formatearPrecio(dataService.calcularPrecioFinal(item.producto))
+                                            }}
+                                        &lt;/small&gt;
+                                    &lt;/div&gt;
+
+                                    &lt;div
+                                        class&#x3D;&quot;col-7 col-sm-3 d-flex align-items-center justify-content-center justify-content-sm-start gap-2&quot;&gt;
+                                        &lt;button (click)&#x3D;&quot;restarCantidad(item)&quot; type&#x3D;&quot;button&quot;
+                                            class&#x3D;&quot;btn btn-sm btn-outline-secondary px-2 py-1&quot;&gt;
+                                            &lt;i class&#x3D;&quot;bi bi-dash&quot;&gt;&lt;/i&gt;
+                                        &lt;/button&gt;
+                                        &lt;span class&#x3D;&quot;fw-semibold px-2&quot;&gt;{{ item.cantidad }}&lt;/span&gt;
+                                        &lt;button (click)&#x3D;&quot;sumarCantidad(item)&quot; type&#x3D;&quot;button&quot;
+                                            class&#x3D;&quot;btn btn-sm btn-outline-secondary px-2 py-1&quot;&gt;
+                                            &lt;i class&#x3D;&quot;bi bi-plus&quot;&gt;&lt;/i&gt;
+                                        &lt;/button&gt;
+
+                                        &lt;button (click)&#x3D;&quot;eliminarProducto(item)&quot; type&#x3D;&quot;button&quot;
+                                            class&#x3D;&quot;btn btn-sm btn-link text-danger ms-2 p-0&quot; title&#x3D;&quot;Eliminar producto&quot;&gt;
+                                            &lt;i class&#x3D;&quot;bi bi-trash3-fill fs-5&quot;&gt;&lt;/i&gt;
+                                        &lt;/button&gt;
+                                    &lt;/div&gt;
+
+                                    &lt;div class&#x3D;&quot;col-5 col-sm-3 text-end&quot;&gt;
+                                        &lt;span class&#x3D;&quot;fw-bold text-primary fs-5&quot;&gt;
+                                            {{
+                                            dataService.formatearPrecio(dataService.calcularPrecioFinal(item.producto) *
+                                            item.cantidad) }}
+                                        &lt;/span&gt;
+                                    &lt;/div&gt;
+
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class&#x3D;&quot;col-12 col-lg-4&quot;&gt;
+                        &lt;div class&#x3D;&quot;card shadow-sm border-0 p-4 bg-white rounded text-end text-lg-start&quot;&gt;
+                            &lt;h4 class&#x3D;&quot;fw-bold text-secondary mb-3 h5 text-center text-lg-start&quot;&gt;Resumen de la orden
+                            &lt;/h4&gt;
+                            &lt;hr class&#x3D;&quot;d-none d-lg-block&quot;&gt;
+
+                            &lt;div class&#x3D;&quot;d-flex justify-content-between align-items-center mb-3&quot;&gt;
+                                &lt;span class&#x3D;&quot;text-muted fs-6&quot;&gt;Subtotal:&lt;/span&gt;
+                                &lt;span class&#x3D;&quot;fw-bold text-dark fs-6&quot; id&#x3D;&quot;resumenSubtotal&quot;&gt;
+                                    {{ dataService.formatearPrecio(subtotalAcumulado) }}
+                                &lt;/span&gt;
+                            &lt;/div&gt;
+
+                            &lt;hr&gt;
+
+                            &lt;div class&#x3D;&quot;d-flex justify-content-between align-items-center mb-4&quot;&gt;
+                                &lt;span class&#x3D;&quot;text-dark fw-bold fs-5&quot;&gt;Total a pagar:&lt;/span&gt;
+                                &lt;span class&#x3D;&quot;fw-bold text-primary fs-4&quot; id&#x3D;&quot;resumenTotal&quot;&gt;
+                                    {{ dataService.formatearPrecio(totalAPagar) }}
+                                &lt;/span&gt;
+                            &lt;/div&gt;
+
+                            &lt;div&gt;
+                                &lt;button (click)&#x3D;&quot;procesarPago()&quot; type&#x3D;&quot;button&quot; id&#x3D;&quot;btnRealizarPago&quot;
+                                    class&#x3D;&quot;btn btn-success btn-lg px-4 fw-semibold w-100 shadow-sm&quot;&gt;
+                                    &lt;i class&#x3D;&quot;bi bi-credit-card me-2&quot;&gt;&lt;/i&gt;Pagar
+                                &lt;/button&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!--Carrito de compras--><main>    <section class="container-carrito">        <div class="row justify-content-center mx-2">            <div class="col-12 col-sm-10 col-md-11 col-lg-9 bg-light rounded shadow my-4 my-lg-5 p-4 p-lg-5">                <h2 class="mb-4 text-secondary fw-bold"><i class="bi bi-cart3 me-2"></i>Carrito</h2>                <div class="row g-4">                    <div class="col-12 col-lg-8">                        <div class="card shadow-sm border-0 p-4 bg-white rounded" id="contenedorProductosCarrito">                            <div *ngIf="carrito.length === 0" class="text-center py-5">                                <i class="bi bi-cart-x fs-1 text-muted mb-3 d-block"></i>                                <p class="text-muted fs-5">Tu carrito está vacío.</p>                                <a routerLink="/" class="btn btn-primary btn-sm mt-2">Ver Productos</a>                            </div>                            <div *ngIf="carrito.length > 0">                                <div *ngFor="let item of carrito"                                    class="row align-items-center justify-content-between pb-3 mb-3 border-bottom g-3">                                    <div class="col-4 col-sm-2 text-center">                                        <img [src]="item.producto.imagen" [alt]="item.producto.nombre"                                            class="img-fluid rounded shadow-sm"                                            style="max-height: 80px; width: 100%; object-fit: cover;">                                    </div>                                    <div class="col-8 col-sm-4">                                        <h6 class="m-0 fw-bold text-dark text-truncate">{{ item.producto.nombre }}</h6>                                        <small class="text-muted d-block">                                            Valor: {{                                            dataService.formatearPrecio(dataService.calcularPrecioFinal(item.producto))                                            }}                                        </small>                                    </div>                                    <div                                        class="col-7 col-sm-3 d-flex align-items-center justify-content-center justify-content-sm-start gap-2">                                        <button (click)="restarCantidad(item)" type="button"                                            class="btn btn-sm btn-outline-secondary px-2 py-1">                                            <i class="bi bi-dash"></i>                                        </button>                                        <span class="fw-semibold px-2">{{ item.cantidad }}</span>                                        <button (click)="sumarCantidad(item)" type="button"                                            class="btn btn-sm btn-outline-secondary px-2 py-1">                                            <i class="bi bi-plus"></i>                                        </button>                                        <button (click)="eliminarProducto(item)" type="button"                                            class="btn btn-sm btn-link text-danger ms-2 p-0" title="Eliminar producto">                                            <i class="bi bi-trash3-fill fs-5"></i>                                        </button>                                    </div>                                    <div class="col-5 col-sm-3 text-end">                                        <span class="fw-bold text-primary fs-5">                                            {{                                            dataService.formatearPrecio(dataService.calcularPrecioFinal(item.producto) *                                            item.cantidad) }}                                        </span>                                    </div>                                </div>                            </div>                        </div>                    </div>                    <div class="col-12 col-lg-4">                        <div class="card shadow-sm border-0 p-4 bg-white rounded text-end text-lg-start">                            <h4 class="fw-bold text-secondary mb-3 h5 text-center text-lg-start">Resumen de la orden                            </h4>                            <hr class="d-none d-lg-block">                            <div class="d-flex justify-content-between align-items-center mb-3">                                <span class="text-muted fs-6">Subtotal:</span>                                <span class="fw-bold text-dark fs-6" id="resumenSubtotal">                                    {{ dataService.formatearPrecio(subtotalAcumulado) }}                                </span>                            </div>                            <hr>                            <div class="d-flex justify-content-between align-items-center mb-4">                                <span class="text-dark fw-bold fs-5">Total a pagar:</span>                                <span class="fw-bold text-primary fs-4" id="resumenTotal">                                    {{ dataService.formatearPrecio(totalAPagar) }}                                </span>                            </div>                            <div>                                <button (click)="procesarPago()" type="button" id="btnRealizarPago"                                    class="btn btn-success btn-lg px-4 fw-semibold w-100 shadow-sm">                                    <i class="bi bi-credit-card me-2"></i>Pagar                                </button>                            </div>                        </div>                    </div>                </div>            </div>        </div>    </section></main></div>'
+    var COMPONENTS = [{'name': 'AdminPanel', 'selector': 'app-admin-panel'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoPanel', 'selector': 'app-producto-panel'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'Carrito'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'Carrito.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

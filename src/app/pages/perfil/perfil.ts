@@ -11,6 +11,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Sesion, MensajeVista } from '../../services/modelos';
 
+/**
+* Componente Perfil de usuarios clientes
+* Este componente permite ver informacion del usuario logeado y actualizar su direccion de despacho
+* Se espera permitir al usuario ver su historial de compras y pedidos en el futuro
+*/
+
 @Component({
   selector: 'app-perfil',
   standalone: true,
@@ -19,12 +25,24 @@ import { Sesion, MensajeVista } from '../../services/modelos';
   styleUrl: './perfil.css',
 })
 export class Perfil implements OnInit {
-  //Guardar datos usuario conectado
+  /**
+   * Almacena la información de la sesión del usuario actualmente conectado.
+   * Si es `null`, significa que no hay un usuario autenticado.
+   */
   usuarioLogeado: Sesion | null = null;
+  /**
+   * Controla las alertas informativas (éxito o error) que se muestran en la interfaz.
+   */
   mensajeAlert: MensajeVista | null = null;
 
-  //Modal Direcciones
+  /**
+   * Formulario reactivo para la edición y validación de la dirección del usuario.
+   */
   direccionForm: FormGroup;
+  /**
+   * Flag que indica si el usuario ya intentó enviar/guardar el formulario.
+   * Utilizado para forzar la visualización de errores visuales.
+   */
   enviado = false;
 
   constructor(
@@ -36,27 +54,33 @@ export class Perfil implements OnInit {
       direccion: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
-
+  /**
+   * Ciclo de inicialización. Valida la sesión activa; si no existe, redirige al Login.
+   * Si existe, precarga la dirección actual en el formulario.
+   */
   ngOnInit(): void {
-    //Validar que el usuario este logueado
     if (!this.authService.autenticado) {
       this.router.navigate(['login']);
       return;
     }
-    //Recuperar el usuario
     this.usuarioLogeado = this.authService.sesion;
-    //Cargar dirección si existe
     if (this.usuarioLogeado?.direccion) {
       this.direccionForm.patchValue({
         direccion: this.usuarioLogeado.direccion
       });
     }
   }
-
+  /**
+   * Getter que facilita el acceso directo a los controles del formulario desde el HTML.
+   */
   get controles(): { [key: string]: AbstractControl } {
     return this.direccionForm.controls;
   }
-
+  /**
+   * Evalúa si un campo específico del formulario debe marcarse con error visual.
+   * @param nombreCampo Nombre del control a validar dentro del `direccionForm`.
+   * @returns `true` si el campo es inválido y ha sido interactuado o el formulario fue enviado.
+   */
   campoInvalido(nombreCampo: string): boolean {
     const control = this.direccionForm.get(nombreCampo);
     return !!(
@@ -65,7 +89,11 @@ export class Perfil implements OnInit {
       (control.touched || control.dirty || this.enviado)
     );
   }
-
+  /**
+   * Procesa el envío del formulario de dirección.
+   * Si es válido, actualiza el perfil mediante el `AuthService`, refresca la sesión local,
+   * cierra el modal de Bootstrap de forma programática y limpia las alertas temporales.
+   */
   onGuardarDireccion() {
     this.enviado = true;
 

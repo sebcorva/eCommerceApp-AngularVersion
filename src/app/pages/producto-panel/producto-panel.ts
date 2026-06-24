@@ -13,6 +13,11 @@ import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { Producto } from '../../services/modelos';
 
+/**
+ * Componente que representa el panel de administración de productos (CRUD).
+ * Permite a los usuarios con rol de administrador listar, agregar, editar y eliminar 
+ * productos del catálogo global de la tienda aniMug de manera reactiva.
+ */
 @Component({
   selector: 'app-producto-panel',
   standalone: true,
@@ -22,10 +27,18 @@ import { Producto } from '../../services/modelos';
 })
 export class ProductoPanel implements OnInit {
 
+  /** Colección local de productos recuperados para renderizar en la tabla de administración. */
   listaProductos: Producto[] = [];
+
+  /** * Almacena el ID numérico del producto en proceso de edición. 
+   * Si su valor es `null`, el formulario opera bajo el modo de **Creación**.
+   */
   editandoId: number | null = null;
 
+  /** Formulario reactivo que agrupa las propiedades y validaciones del producto. */
   productoForm: FormGroup;
+
+  /** Flag de control de envío para manejar de forma visual el despliegue de validaciones. */
   enviado = false;
 
   constructor(
@@ -45,6 +58,12 @@ export class ProductoPanel implements OnInit {
     });
   }
 
+  /**
+   * Ciclo de inicialización del componente.
+   * Actúa como barrera de seguridad; si el usuario no está autenticado o no posee el rol de 'admin',
+   * bloquea el flujo con una alerta y lo redirige automáticamente a la raíz de la aplicación.
+   * @returns {void}
+   */
   ngOnInit(): void {
     if (!this.authService.autenticado || this.authService.sesion?.role !== 'admin') {
       alert('Acceso denegado. Se requieren permisos de Administrador.');
@@ -55,10 +74,19 @@ export class ProductoPanel implements OnInit {
     this.cargarTabla();
   }
 
+  /**
+   * Getter que expone el mapa interno de controles del formulario reactivo hacia la vista HTML.
+   * @returns {{ [key: string]: AbstractControl }} Diccionario asociativo de controles.
+   */
   get controles(): { [key: string]: AbstractControl } {
     return this.productoForm.controls;
   }
 
+  /**
+   * Determina si un campo específico debe resaltar con un estado de error en la interfaz.
+   * @param {string} nombreCampo Identificador interno del control del formulario.
+   * @returns {boolean} `true` si el control es inválido y se detectó interacción (`touched`, `dirty`) o envío forzado.
+   */
   campoInvalido(nombreCampo: string): boolean {
     const control = this.productoForm.get(nombreCampo);
     return !!(
@@ -68,10 +96,21 @@ export class ProductoPanel implements OnInit {
     );
   }
 
+  /**
+   * Sincroniza la propiedad local `listaProductos` con los registros actualizados provistos por el `DataService`.
+   * @returns {void}
+   */
   cargarTabla(): void {
     this.listaProductos = this.dataService.getProductosGlobales();
   }
 
+  /**
+   * Procesa la sumisión del formulario. Ejecuta lógicas diferenciadas:
+   * 1. **Modo Edición (`editandoId` activo):** Envía el objeto completo actualizado al servicio.
+   * 2. **Modo Creación:** Valida nombres duplicados (insensible a mayúsculas) e inserta el nuevo registro.
+   * Finalmente, limpia el formulario y refresca la grilla gráfica de datos.
+   * @returns {void}
+   */
   onGuardarProducto(): void {
     this.enviado = true;
 
@@ -124,6 +163,12 @@ export class ProductoPanel implements OnInit {
     this.cargarTabla();
   }
 
+  /**
+   * Activa el estado de edición del componente. Carga el ID del producto seleccionado y 
+   * realiza una inyección de valores parciales (*patchValue*) directamente en los controles de formulario.
+   * @param {Producto} producto Entidad del producto que se desea modificar.
+   * @returns {void}
+   */
   activarEdicion(producto: Producto): void {
     this.editandoId = producto.id;
     this.enviado = false;
@@ -139,6 +184,12 @@ export class ProductoPanel implements OnInit {
     });
   }
 
+  /**
+   * Intercepta la eliminación de un artículo solicitando una confirmación nativa al usuario.
+   * De ser aprobada, remueve el registro a través del servicio de persistencia de datos.
+   * @param {number | string} id Identificador único del producto a eliminar.
+   * @returns {void}
+   */
   eliminarProducto(id: number | string): void {
     if (confirm('¿Estás completamente seguro de eliminar este producto del catálogo?')) {
       this.dataService.eliminarProductoGlobal(id);
@@ -146,6 +197,11 @@ export class ProductoPanel implements OnInit {
     }
   }
 
+  /**
+   * Cancela la operación de edición actual regresando al componente a su modo base (Creación),
+   * reseteando los estados de validación y devolviendo el descuento inicial a cero.
+   * @returns {void}
+   */
   cancelarEdicion(): void {
     this.editandoId = null;
     this.enviado = false;

@@ -1,0 +1,3274 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecommerce-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ecommerce-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >DataService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/data.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Servicio encargado de centralizar, persistir y transformar los datos operacionales de la tienda.
+Actúa como una capa de abstracción sobre <code>localStorage</code> y <code>sessionStorage</code>, garantizando la sincronización
+segura del estado en el navegador y resolviendo cálculos de precios y lógicas CRUD globales.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#categorias" >categorias</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#KEYS" >KEYS</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#productos" >productos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#usuarios" >usuarios</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actualizarProductoGlobal" >actualizarProductoGlobal</a>
+                            </li>
+                            <li>
+                                <a href="#agregarProductoGlobal" >agregarProductoGlobal</a>
+                            </li>
+                            <li>
+                                <a href="#calcularPrecioFinal" >calcularPrecioFinal</a>
+                            </li>
+                            <li>
+                                <a href="#categoriaEntradas" >categoriaEntradas</a>
+                            </li>
+                            <li>
+                                <a href="#categoriaNombre" >categoriaNombre</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarSesion" >cerrarSesion</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#clonar" >clonar</a>
+                            </li>
+                            <li>
+                                <a href="#eliminarProductoGlobal" >eliminarProductoGlobal</a>
+                            </li>
+                            <li>
+                                <a href="#formatearPrecio" >formatearPrecio</a>
+                            </li>
+                            <li>
+                                <a href="#generarId" >generarId</a>
+                            </li>
+                            <li>
+                                <a href="#getCarritos" >getCarritos</a>
+                            </li>
+                            <li>
+                                <a href="#getCarritoUsuario" >getCarritoUsuario</a>
+                            </li>
+                            <li>
+                                <a href="#getProductoPorId" >getProductoPorId</a>
+                            </li>
+                            <li>
+                                <a href="#getProductos" >getProductos</a>
+                            </li>
+                            <li>
+                                <a href="#getProductosGlobales" >getProductosGlobales</a>
+                            </li>
+                            <li>
+                                <a href="#getProductosPorCategoria" >getProductosPorCategoria</a>
+                            </li>
+                            <li>
+                                <a href="#getSesion" >getSesion</a>
+                            </li>
+                            <li>
+                                <a href="#getUsuarioPorEmail" >getUsuarioPorEmail</a>
+                            </li>
+                            <li>
+                                <a href="#getUsuarioPorId" >getUsuarioPorId</a>
+                            </li>
+                            <li>
+                                <a href="#getUsuarios" >getUsuarios</a>
+                            </li>
+                            <li>
+                                <a href="#guardarCarritos" >guardarCarritos</a>
+                            </li>
+                            <li>
+                                <a href="#guardarCarritoUsuario" >guardarCarritoUsuario</a>
+                            </li>
+                            <li>
+                                <a href="#guardarJSON" >guardarJSON</a>
+                            </li>
+                            <li>
+                                <a href="#guardarProductos" >guardarProductos</a>
+                            </li>
+                            <li>
+                                <a href="#guardarSesion" >guardarSesion</a>
+                            </li>
+                            <li>
+                                <a href="#guardarUsuarios" >guardarUsuarios</a>
+                            </li>
+                            <li>
+                                <a href="#inicializarDatos" >inicializarDatos</a>
+                            </li>
+                            <li>
+                                <a href="#leerJSON" >leerJSON</a>
+                            </li>
+                            <li>
+                                <a href="#limpiarCarritoUsuario" >limpiarCarritoUsuario</a>
+                            </li>
+                            <li>
+                                <a href="#normalizarRutaImagen" >normalizarRutaImagen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#sessionDisponible" >sessionDisponible</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#storageDisponible" >storageDisponible</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">src/app/services/data.service.ts:201</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actualizarProductoGlobal"></a>
+                    <span class="name">
+                        <span ><b>actualizarProductoGlobal</b></span>
+                        <a href="#actualizarProductoGlobal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>actualizarProductoGlobal(productoEditado: <a href="../interfaces/Producto.html" target="_self">Producto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="325"
+                                    class="link-to-prism">src/app/services/data.service.ts:325</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Busca y actualiza las propiedades de un producto existente manteniendo inalterado su identificador original.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>productoEditado</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Producto.html" target="_self" >Producto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto del producto modificado con sus nuevos valores.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="agregarProductoGlobal"></a>
+                    <span class="name">
+                        <span ><b>agregarProductoGlobal</b></span>
+                        <a href="#agregarProductoGlobal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>agregarProductoGlobal(nuevoProducto: unknown)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="307"
+                                    class="link-to-prism">src/app/services/data.service.ts:307</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Añade un nuevo producto al catálogo asignándole automáticamente un identificador incremental e unificado.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>nuevoProducto</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto del producto sin la obligación de incluir el ID.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calcularPrecioFinal"></a>
+                    <span class="name">
+                        <span ><b>calcularPrecioFinal</b></span>
+                        <a href="#calcularPrecioFinal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calcularPrecioFinal(producto: <a href="../interfaces/Producto.html" target="_self">Producto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="482"
+                                    class="link-to-prism">src/app/services/data.service.ts:482</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcula de forma matemática el costo real final de un ítem procesando el porcentaje de descuento asignado.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>producto</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Producto.html" target="_self" >Producto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto del producto analizado.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Precio numérico final redondeado con <code>Math.round</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoriaEntradas"></a>
+                    <span class="name">
+                        <span ><b>categoriaEntradas</b></span>
+                        <a href="#categoriaEntradas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>categoriaEntradas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="510"
+                                    class="link-to-prism">src/app/services/data.service.ts:510</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Transforma el diccionario de categorías en un arreglo plano indexado con su clave interna para iteraciones complejas en la vista (como un <code>*ngFor</code>).</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Array&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Lista mapeada con llaves y objetos completos de categorías.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoriaNombre"></a>
+                    <span class="name">
+                        <span ><b>categoriaNombre</b></span>
+                        <a href="#categoriaNombre"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>categoriaNombre(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="503"
+                                    class="link-to-prism">src/app/services/data.service.ts:503</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retorna la propiedad de visualización amigable (<code>nombre</code>) asociada a un ID de categoría.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Llave identificadora interna de la categoría.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Nombre estético listo para el HTML o en su defecto la misma llave recibida.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarSesion"></a>
+                    <span class="name">
+                        <span ><b>cerrarSesion</b></span>
+                        <a href="#cerrarSesion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarSesion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="417"
+                                    class="link-to-prism">src/app/services/data.service.ts:417</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Destruye de forma definitiva las credenciales temporales de sesión activas en SessionStorage.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clonar"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>clonar</b></span>
+                        <a href="#clonar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>clonar(valor: T)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="549"
+                                    class="link-to-prism">src/app/services/data.service.ts:549</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Rompe de forma intencional la referencia en memoria de un objeto o arreglo creando una copia idéntica e independiente mediante serialización por texto.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>valor</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Estructura de origen a clonar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>T</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Una nueva copia profunda sin referencias cruzadas al original.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eliminarProductoGlobal"></a>
+                    <span class="name">
+                        <span ><b>eliminarProductoGlobal</b></span>
+                        <a href="#eliminarProductoGlobal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>eliminarProductoGlobal(id: number | string)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="341"
+                                    class="link-to-prism">src/app/services/data.service.ts:341</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Remueve de forma definitiva un producto del catálogo global según su identificador.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                        <code>number | string</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Identificador único del producto que se desea eliminar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatearPrecio"></a>
+                    <span class="name">
+                        <span ><b>formatearPrecio</b></span>
+                        <a href="#formatearPrecio"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatearPrecio(valor: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="470"
+                                    class="link-to-prism">src/app/services/data.service.ts:470</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Aplica reglas de localización internacional utilizando el estándar &#39;es-CL&#39; para formatear números en formato de moneda chilena (CLP).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>valor</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Monto numérico en bruto.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Cadena formateada bajo la máscara de divisa nacional (ej. $12.990).</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generarId"></a>
+                    <span class="name">
+                        <span ><b>generarId</b></span>
+                        <a href="#generarId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generarId(lista: Array<literal type>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="493"
+                                    class="link-to-prism">src/app/services/data.service.ts:493</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Analiza una lista de objetos dotados con ID numérico e identifica el valor máximo para generar un nuevo identificador secuencial no repetitivo.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>lista</td>
+                                            <td>
+                                                        <code>Array&lt;literal type&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Colección de ítems sobre los cuales inferir el ID correlativo.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Identificador numérico correlativo disponible (<code>max + 1</code>).</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCarritos"></a>
+                    <span class="name">
+                        <span ><b>getCarritos</b></span>
+                        <a href="#getCarritos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCarritos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="426"
+                                    class="link-to-prism">src/app/services/data.service.ts:426</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recupera el mapa relacional completo de todos los carritos registrados por los usuarios del sistema.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ElementoCarrito.html" target="_self" >Record&lt;string, ElementoCarrito[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Diccionario indexado por el correo del usuario con sus respectivos carritos.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCarritoUsuario"></a>
+                    <span class="name">
+                        <span ><b>getCarritoUsuario</b></span>
+                        <a href="#getCarritoUsuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCarritoUsuario(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="441"
+                                    class="link-to-prism">src/app/services/data.service.ts:441</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene de forma única la lista de artículos guardados en el carrito pertenecientes a un usuario en específico.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Correo electrónico identificador del usuario propietario.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ElementoCarrito.html" target="_self" >ElementoCarrito[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Arreglo de artículos añadidos al carrito.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductoPorId"></a>
+                    <span class="name">
+                        <span ><b>getProductoPorId</b></span>
+                        <a href="#getProductoPorId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProductoPorId(id: number | string | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="291"
+                                    class="link-to-prism">src/app/services/data.service.ts:291</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Busca un producto específico por su identificador único controlando nulidades o vacíos de forma segura.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                        <code>number | string | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Identificador del producto a buscar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Producto.html" target="_self" >Producto | undefined</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>El producto encontrado o <code>undefined</code> si no coincide ninguno.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductos"></a>
+                    <span class="name">
+                        <span ><b>getProductos</b></span>
+                        <a href="#getProductos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProductos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="257"
+                                    class="link-to-prism">src/app/services/data.service.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Extrae el catálogo completo de productos vigentes normalizando de forma dinámica sus rutas de imágenes.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Listado completo de productos mapeados.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductosGlobales"></a>
+                    <span class="name">
+                        <span ><b>getProductosGlobales</b></span>
+                        <a href="#getProductosGlobales"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProductosGlobales()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="300"
+                                    class="link-to-prism">src/app/services/data.service.ts:300</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene el listado sin filtros alternativos de los productos almacenados a nivel global.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Listado completo de productos globales.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductosPorCategoria"></a>
+                    <span class="name">
+                        <span ><b>getProductosPorCategoria</b></span>
+                        <a href="#getProductosPorCategoria"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProductosPorCategoria(categoriaKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="268"
+                                    class="link-to-prism">src/app/services/data.service.ts:268</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Filtra los productos de acuerdo con un identificador de categoría ignorando mayúsculas y minúsculas.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>categoriaKey</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre interno de la categoría (ej: &#39;tazas&#39;).</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Colección filtrada correspondiente a la categoría.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSesion"></a>
+                    <span class="name">
+                        <span ><b>getSesion</b></span>
+                        <a href="#getSesion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSesion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="401"
+                                    class="link-to-prism">src/app/services/data.service.ts:401</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Extrae el estado actual de la sesión desde SessionStorage controlando errores de casteo de objetos.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Sesion.html" target="_self" >Sesion | null</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Estructura de sesión del usuario logueado o <code>null</code> si no se registra actividad.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUsuarioPorEmail"></a>
+                    <span class="name">
+                        <span ><b>getUsuarioPorEmail</b></span>
+                        <a href="#getUsuarioPorEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUsuarioPorEmail(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="365"
+                                    class="link-to-prism">src/app/services/data.service.ts:365</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Busca a un usuario por su correo electrónico ignorando espacios y variaciones de capitalización.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Correo a consultar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | undefined</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Instancia de usuario encontrada o <code>undefined</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUsuarioPorId"></a>
+                    <span class="name">
+                        <span ><b>getUsuarioPorId</b></span>
+                        <a href="#getUsuarioPorId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUsuarioPorId(id: number | string)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="374"
+                                    class="link-to-prism">src/app/services/data.service.ts:374</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Localiza a un usuario específico mediante la comparación directa de su ID numérico.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                        <code>number | string</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Identificador numérico o en cadena del usuario.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | undefined</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Instancia de usuario encontrada o <code>undefined</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUsuarios"></a>
+                    <span class="name">
+                        <span ><b>getUsuarios</b></span>
+                        <a href="#getUsuarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUsuarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="350"
+                                    class="link-to-prism">src/app/services/data.service.ts:350</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recupera el conjunto completo de usuarios registrados en LocalStorage.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Lista de usuarios registrados.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarCarritos"></a>
+                    <span class="name">
+                        <span ><b>guardarCarritos</b></span>
+                        <a href="#guardarCarritos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarCarritos(carritos: <a href="../interfaces/ElementoCarrito.html" target="_self">Record&lt;string | ElementoCarrito[]&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="433"
+                                    class="link-to-prism">src/app/services/data.service.ts:433</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Guarda en LocalStorage las actualizaciones de los estados globales de los carritos.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>carritos</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ElementoCarrito.html" target="_self" >Record&lt;string | ElementoCarrito[]&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Diccionario indexado a guardar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarCarritoUsuario"></a>
+                    <span class="name">
+                        <span ><b>guardarCarritoUsuario</b></span>
+                        <a href="#guardarCarritoUsuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarCarritoUsuario(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, carrito: <a href="../interfaces/ElementoCarrito.html" target="_self">ElementoCarrito[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="450"
+                                    class="link-to-prism">src/app/services/data.service.ts:450</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza o inserta el carrito de compras particular de un usuario asociándolo unívocamente a su email.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Identificador del cliente.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>carrito</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ElementoCarrito.html" target="_self" >ElementoCarrito[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Lista actualizada de artículos agregados.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarJSON"></a>
+                    <span class="name">
+                        <span ><b>guardarJSON</b></span>
+                        <a href="#guardarJSON"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarJSON(clave: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, valor: T)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="248"
+                                    class="link-to-prism">src/app/services/data.service.ts:248</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Serializa y guarda cualquier estructura de datos dentro de LocalStorage de manera segura.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>clave</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Identificador único del registro en LocalStorage.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>valor</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>El objeto o arreglo que se desea almacenar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarProductos"></a>
+                    <span class="name">
+                        <span ><b>guardarProductos</b></span>
+                        <a href="#guardarProductos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarProductos(productos: <a href="../interfaces/Producto.html" target="_self">Producto[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="275"
+                                    class="link-to-prism">src/app/services/data.service.ts:275</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza masivamente el catálogo de productos en LocalStorage forzando el tipado numérico en sus campos críticos.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>productos</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Arreglo completo de productos a persistir.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarSesion"></a>
+                    <span class="name">
+                        <span ><b>guardarSesion</b></span>
+                        <a href="#guardarSesion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarSesion(usuario: <a href="../interfaces/Usuario.html" target="_self">Usuario</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="381"
+                                    class="link-to-prism">src/app/services/data.service.ts:381</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Genera y guarda de manera volátil un objeto de tipo <code>Sesion</code> en SessionStorage marcándolo con estado activo.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>usuario</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Usuario.html" target="_self" >Usuario</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Cuenta de usuario que inicia la sesión actual.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarUsuarios"></a>
+                    <span class="name">
+                        <span ><b>guardarUsuarios</b></span>
+                        <a href="#guardarUsuarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarUsuarios(usuarios: <a href="../interfaces/Usuario.html" target="_self">Usuario[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="357"
+                                    class="link-to-prism">src/app/services/data.service.ts:357</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Guarda de forma atómica la lista completa de usuarios actualizados en el almacenamiento local.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>usuarios</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Colección de usuarios a guardar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inicializarDatos"></a>
+                    <span class="name">
+                        <span ><b>inicializarDatos</b></span>
+                        <a href="#inicializarDatos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>inicializarDatos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">src/app/services/data.service.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Evalúa la disponibilidad de almacenamiento en el navegador e inyecta los datos de respaldo (<code>DATOS_BASE</code>)
+en el <code>localStorage</code> en caso de que sea la primera ejecución de la aplicación.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="leerJSON"></a>
+                    <span class="name">
+                        <span ><b>leerJSON</b></span>
+                        <a href="#leerJSON"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>leerJSON(clave: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, respaldo: T)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="231"
+                                    class="link-to-prism">src/app/services/data.service.ts:231</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recupera y parsea un objeto JSON guardado en el almacenamiento del navegador de manera segura.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>clave</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Identificador único del registro en LocalStorage.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>respaldo</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Estructura por defecto que retornará en caso de fallo o inexistencia.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>T</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Los datos recuperados tipados correctamente o el elemento de respaldo clonado.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="limpiarCarritoUsuario"></a>
+                    <span class="name">
+                        <span ><b>limpiarCarritoUsuario</b></span>
+                        <a href="#limpiarCarritoUsuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>limpiarCarritoUsuario(correo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="459"
+                                    class="link-to-prism">src/app/services/data.service.ts:459</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Vacía por completo el carro de compras activo de un cliente dejándolo como un arreglo vacío.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>correo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Correo electrónico del cliente.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="normalizarRutaImagen"></a>
+                    <span class="name">
+                        <span ><b>normalizarRutaImagen</b></span>
+                        <a href="#normalizarRutaImagen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>normalizarRutaImagen(ruta: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="521"
+                                    class="link-to-prism">src/app/services/data.service.ts:521</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Normaliza rutas de strings de imágenes arbitrarias para asegurar que cumplan de forma uniforme el estándar relacional de carpetas internas de Angular (<code>assets/img/</code>).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ruta</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Dirección física o virtual guardada del recurso gráfico.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Ruta normalizada y válida hacia los recursos o imagen del logo por defecto.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sessionDisponible"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>sessionDisponible</b></span>
+                        <a href="#sessionDisponible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sessionDisponible()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="541"
+                                    class="link-to-prism">src/app/services/data.service.ts:541</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valida si el contexto global de ejecución posee acceso seguro a la API de <code>sessionStorage</code>.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> si está disponible de forma nativa.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="storageDisponible"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>storageDisponible</b></span>
+                        <a href="#storageDisponible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>storageDisponible()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="534"
+                                    class="link-to-prism">src/app/services/data.service.ts:534</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valida si el contexto global de ejecución posee acceso nativo a la API de <code>window</code> y de <code>localStorage</code> de forma segura frente a escenarios SSR.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> si se puede interactuar con el almacenamiento del navegador en el hilo de ejecución actual.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categorias"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>categorias</b></span>
+                        <a href="#categorias"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Categorias.html" target="_self" >Record&lt;string | Categorias&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.clonar(DATOS_BASE.categorias) as Record&lt;string, Categorias&gt;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="197" class="link-to-prism">src/app/services/data.service.ts:197</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Listado de categorías base clonadas listas para lectura en la aplicación.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="KEYS"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>KEYS</b></span>
+                        <a href="#KEYS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        productos: &#x27;animug_productos&#x27;,
+        usuarios: &#x27;animug_usuarios&#x27;,
+        carritos: &#x27;animug_carritos&#x27;,
+        compras: &#x27;animug_compras&#x27;,
+        sesion: &#x27;animug_sesion&#x27;
+    }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="188" class="link-to-prism">src/app/services/data.service.ts:188</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Diccionario estático que define las llaves exclusivas para la persistencia en la Web Storage API.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="productos"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>productos</b></span>
+                        <a href="#productos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.clonar(DATOS_BASE.productos) as unknown as Producto[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="199" class="link-to-prism">src/app/services/data.service.ts:199</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Colección por defecto de productos en la aplicación.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuarios"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>usuarios</b></span>
+                        <a href="#usuarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.clonar(DATOS_BASE.usuarios) as unknown as Usuario[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">src/app/services/data.service.ts:201</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Colección por defecto de usuarios registrados en la aplicación.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable, PLATFORM_ID } from &#x27;@angular/core&#x27;;
+import { isPlatformBrowser } from &#x27;@angular/common&#x27;;
+import { Categorias, Producto, Usuario, Sesion, ElementoCarrito } from &quot;./modelos&quot;;
+
+/**
+ * Constante estática con los datos de inicialización por defecto del sistema aniMug.
+ * Contiene el catálogo inicial estructurado por categorías, lista de productos base y cuentas de prueba.
+ */
+const DATOS_BASE &#x3D; {
+    &quot;categorias&quot;: {
+        &quot;tazas&quot;: {
+            &quot;nombre&quot;: &quot;Tazas&quot;,
+            &quot;imagen&quot;: &quot;/assets/img/tazas.png&quot;
+        },
+        &quot;platos&quot;: {
+            &quot;nombre&quot;: &quot;Platos&quot;,
+            &quot;imagen&quot;: &quot;/assets/img/platos.png&quot;
+        },
+        &quot;maceteros&quot;: {
+            &quot;nombre&quot;: &quot;Maceteros&quot;,
+            &quot;imagen&quot;: &quot;/assets/img/maceteros.png&quot;
+        },
+        &quot;bowls&quot;: {
+            &quot;nombre&quot;: &quot;Bowls&quot;,
+            &quot;imagen&quot;: &quot;/assets/img/bowls.png&quot;
+        }
+    },
+    &quot;productos&quot;: [
+        //Tazas
+        {
+            &quot;id&quot;: 1,
+            &quot;nombre&quot;: &quot;Main Character Energy&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que comienzan su día con energía.&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 0,
+            &quot;imagen&quot;: &quot;/assets/img/tazas/taza.jpg&quot;,
+            &quot;stock&quot;: 15,
+            &quot;categoria&quot;: &quot;tazas&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;nombre&quot;: &quot;But First Coffee&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que no pueden conocer su día sin café&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 30,
+            &quot;imagen&quot;: &quot;/assets/img/tazas/taza2.jpg&quot;,
+            &quot;stock&quot;: 30,
+            &quot;categoria&quot;: &quot;tazas&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;nombre&quot;: &quot;Ask Me About My Cat&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que aman hablar de sus gatos.&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 45,
+            &quot;imagen&quot;: &quot;/assets/img/tazas/taza3.jpg&quot;,
+            &quot;stock&quot;: 8,
+            &quot;categoria&quot;: &quot;tazas&quot;
+        },
+        //Platos
+        {
+            &quot;id&quot;: 4,
+            &quot;nombre&quot;: &quot;Diseño Clásico&quot;,
+            &quot;descripcion&quot;: &quot;Un plato con un diseño clásico y elegante.&quot;,
+            &quot;precio&quot;: 15990,
+            &quot;descuento&quot;: 0,
+            &quot;imagen&quot;: &quot;/assets/img/platos/plato.jpg&quot;,
+            &quot;stock&quot;: 15,
+            &quot;categoria&quot;: &quot;platos&quot;
+        },
+        {
+            &quot;id&quot;: 5,
+            &quot;nombre&quot;: &quot;But First Coffee&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que no pueden conocer su día sin café&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 30,
+            &quot;imagen&quot;: &quot;/assets/img/platos/plato2.jpg&quot;,
+            &quot;stock&quot;: 30,
+            &quot;categoria&quot;: &quot;platos&quot;
+        },
+        {
+            &quot;id&quot;: 6,
+            &quot;nombre&quot;: &quot;Ask Me About My Cat&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que aman hablar de sus gatos.&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 0,
+            &quot;imagen&quot;: &quot;/assets/img/platos/plato3.jpg&quot;,
+            &quot;stock&quot;: 5,
+            &quot;categoria&quot;: &quot;platos&quot;
+        },
+        //Maceteros
+        {
+            &quot;id&quot;: 7,
+            &quot;nombre&quot;: &quot;Macetero de Diseño Montaña&quot;,
+            &quot;descripcion&quot;: &quot;Un macetero con un diseño inspirado en la naturaleza.&quot;,
+            &quot;precio&quot;: 13000,
+            &quot;descuento&quot;: 15,
+            &quot;imagen&quot;: &quot;/assets/img/maceteros/macetero.jpg&quot;,
+            &quot;stock&quot;: 15,
+            &quot;categoria&quot;: &quot;maceteros&quot;
+        },
+        {
+            &quot;id&quot;: 8,
+            &quot;nombre&quot;: &quot;But First Coffee&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que no pueden conocer su día sin café&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 30,
+            &quot;imagen&quot;: &quot;/assets/img/maceteros/macetero2.jpg&quot;,
+            &quot;stock&quot;: 30,
+            &quot;categoria&quot;: &quot;maceteros&quot;
+        },
+        {
+            &quot;id&quot;: 9,
+            &quot;nombre&quot;: &quot;Ask Me About My Cat&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que aman hablar de sus gatos.&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 45,
+            &quot;imagen&quot;: &quot;/assets/img/maceteros/macetero3.jpg&quot;,
+            &quot;stock&quot;: 8,
+            &quot;categoria&quot;: &quot;maceteros&quot;
+        },
+        //Bowls
+        {
+            &quot;id&quot;: 10,
+            &quot;nombre&quot;: &quot;Macetero de Diseño Montaña&quot;,
+            &quot;descripcion&quot;: &quot;Un macetero con un diseño inspirado en la naturaleza.&quot;,
+            &quot;precio&quot;: 13000,
+            &quot;descuento&quot;: 15,
+            &quot;imagen&quot;: &quot;/assets/img/bowls/bowl.jpg&quot;,
+            &quot;stock&quot;: 15,
+            &quot;categoria&quot;: &quot;bowls&quot;
+        },
+        {
+            &quot;id&quot;: 11,
+            &quot;nombre&quot;: &quot;But First Coffee&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que no pueden conocer su día sin café&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 30,
+            &quot;imagen&quot;: &quot;/assets/img/bowls/bowl2.jpg&quot;,
+            &quot;stock&quot;: 30,
+            &quot;categoria&quot;: &quot;bowls&quot;
+        },
+        {
+            &quot;id&quot;: 12,
+            &quot;nombre&quot;: &quot;Ask Me About My Cat&quot;,
+            &quot;descripcion&quot;: &quot;Una taza diseñada para aquellos que aman hablar de sus gatos.&quot;,
+            &quot;precio&quot;: 12990,
+            &quot;descuento&quot;: 45,
+            &quot;imagen&quot;: &quot;/assets/img/bowls/bowl3.jpg&quot;,
+            &quot;stock&quot;: 8,
+            &quot;categoria&quot;: &quot;bowls&quot;
+        }
+    ],
+    &quot;usuarios&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;nombre&quot;: &quot;Sebastian Corvalan&quot;,
+            &quot;username&quot;: &quot;sebastian&quot;,
+            &quot;email&quot;: &quot;seba@gmail.com&quot;,
+            &quot;password&quot;: &quot;seba1234!&quot;,
+            &quot;fechaNacimiento&quot;: &quot;1994-03-31&quot;,
+            &quot;direccion&quot;: &quot;Los Duraznos #323&quot;,
+            &quot;role&quot;: &quot;cliente&quot;,
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;nombre&quot;: &quot;Administrador&quot;,
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;email&quot;: &quot;admin@animug.com&quot;,
+            &quot;password&quot;: &quot;admin1234!&quot;,
+            &quot;fechaNacimiento&quot;: &quot;1994-03-31&quot;,
+            &quot;direccion&quot;: &quot;Los Admin #67&quot;,
+            &quot;role&quot;: &quot;admin&quot;,
+        }
+    ]
+} as const;
+
+/**
+ * Servicio encargado de centralizar, persistir y transformar los datos operacionales de la tienda.
+ * Actúa como una capa de abstracción sobre &#x60;localStorage&#x60; y &#x60;sessionStorage&#x60;, garantizando la sincronización
+ * segura del estado en el navegador y resolviendo cálculos de precios y lógicas CRUD globales.
+ */
+@Injectable({ providedIn: &#x27;root&#x27; })
+export class DataService {
+    /**
+     * Diccionario estático que define las llaves exclusivas para la persistencia en la Web Storage API.
+     */
+    readonly KEYS &#x3D; {
+        productos: &#x27;animug_productos&#x27;,
+        usuarios: &#x27;animug_usuarios&#x27;,
+        carritos: &#x27;animug_carritos&#x27;,
+        compras: &#x27;animug_compras&#x27;,
+        sesion: &#x27;animug_sesion&#x27;
+    };
+
+    /** Listado de categorías base clonadas listas para lectura en la aplicación. */
+    readonly categorias: Record&lt;string, Categorias&gt; &#x3D; this.clonar(DATOS_BASE.categorias) as Record&lt;string, Categorias&gt;;
+    /** Colección por defecto de productos en la aplicación. */
+    readonly productos: Producto[] &#x3D; this.clonar(DATOS_BASE.productos) as unknown as Producto[];
+    /** Colección por defecto de usuarios registrados en la aplicación. */
+    readonly usuarios: Usuario[] &#x3D; this.clonar(DATOS_BASE.usuarios) as unknown as Usuario[];
+
+    constructor() {
+        this.inicializarDatos();
+    }
+
+    /**
+     * Evalúa la disponibilidad de almacenamiento en el navegador e inyecta los datos de respaldo (&#x60;DATOS_BASE&#x60;)
+     * en el &#x60;localStorage&#x60; en caso de que sea la primera ejecución de la aplicación.
+     */
+    inicializarDatos(): void {
+        if (!this.storageDisponible()) return;
+
+        if (!localStorage.getItem(this.KEYS.productos)) {
+            this.guardarProductos(this.productos);
+        }
+        if (!localStorage.getItem(this.KEYS.usuarios)) {
+            this.guardarUsuarios(this.usuarios);
+        }
+        if (!localStorage.getItem(this.KEYS.carritos)) {
+            this.guardarCarritos({});
+        }
+    }
+
+    /**
+     * Recupera y parsea un objeto JSON guardado en el almacenamiento del navegador de manera segura.
+     * @param {string} clave Identificador único del registro en LocalStorage.
+     * @param {T} respaldo Estructura por defecto que retornará en caso de fallo o inexistencia.
+     * @returns {T} Los datos recuperados tipados correctamente o el elemento de respaldo clonado.
+     */
+    leerJSON&lt;T&gt;(clave: string, respaldo: T): T {
+        if (!this.storageDisponible()) return this.clonar(respaldo);
+
+        const valor &#x3D; localStorage.getItem(clave);
+        if (!valor) return this.clonar(respaldo);
+
+        try {
+            return JSON.parse(valor) as T;
+        } catch {
+            return this.clonar(respaldo);
+        }
+    }
+    /**
+     * Serializa y guarda cualquier estructura de datos dentro de LocalStorage de manera segura.
+     * @param {string} clave Identificador único del registro en LocalStorage.
+     * @param {T} valor El objeto o arreglo que se desea almacenar.
+     */
+    guardarJSON&lt;T&gt;(clave: string, valor: T): void {
+        if (!this.storageDisponible()) return;
+
+        localStorage.setItem(clave, JSON.stringify(valor));
+    }
+    /**
+     * Extrae el catálogo completo de productos vigentes normalizando de forma dinámica sus rutas de imágenes.
+     * @returns {Producto[]} Listado completo de productos mapeados.
+     */
+    getProductos(): Producto[] {
+        return this.leerJSON&lt;Producto[]&gt;(this.KEYS.productos, this.productos).map(producto &#x3D;&gt; ({
+            ...producto,
+            imagen: this.normalizarRutaImagen(producto.imagen)
+        }));
+    }
+    /**
+     * Filtra los productos de acuerdo con un identificador de categoría ignorando mayúsculas y minúsculas.
+     * @param {string} categoriaKey Nombre interno de la categoría (ej: &#x27;tazas&#x27;).
+     * @returns {Producto[]} Colección filtrada correspondiente a la categoría.
+     */
+    getProductosPorCategoria(categoriaKey: string): Producto[] {
+        return this.getProductos().filter(p &#x3D;&gt; p.categoria.toLowerCase() &#x3D;&#x3D;&#x3D; categoriaKey.toLowerCase());
+    }
+    /**
+     * Actualiza masivamente el catálogo de productos en LocalStorage forzando el tipado numérico en sus campos críticos.
+     * @param {Producto[]} productos Arreglo completo de productos a persistir.
+     */
+    guardarProductos(productos: Producto[]): void {
+        const normalizados &#x3D; productos.map(producto &#x3D;&gt; ({
+            ...producto,
+            precio: Number(producto.precio),
+            descuento: Number(producto.descuento),
+            stock: Number(producto.stock),
+            imagen: this.normalizarRutaImagen(producto.imagen)
+        }));
+
+        this.guardarJSON(this.KEYS.productos, normalizados);
+    }
+    /**
+     * Busca un producto específico por su identificador único controlando nulidades o vacíos de forma segura.
+     * @param {number | string | null} id Identificador del producto a buscar.
+     * @returns {Producto | undefined} El producto encontrado o &#x60;undefined&#x60; si no coincide ninguno.
+     */
+    getProductoPorId(id: number | string | null): Producto | undefined {
+        if (id &#x3D;&#x3D;&#x3D; null || id &#x3D;&#x3D;&#x3D; undefined || id &#x3D;&#x3D;&#x3D; &#x27;&#x27;) return undefined;
+
+        return this.getProductos().find(producto &#x3D;&gt; Number(producto.id) &#x3D;&#x3D;&#x3D; Number(id));
+    }
+    /**
+     * Obtiene el listado sin filtros alternativos de los productos almacenados a nivel global.
+     * @returns {Producto[]} Listado completo de productos globales.
+     */
+    getProductosGlobales(): Producto[] {
+        return this.getProductos();
+    }
+    /**
+     * Añade un nuevo producto al catálogo asignándole automáticamente un identificador incremental e unificado.
+     * @param {Omit&lt;Producto, &#x27;id&#x27;&gt; &amp; { id?: number | string }} nuevoProducto Objeto del producto sin la obligación de incluir el ID.
+     */
+    agregarProductoGlobal(nuevoProducto: Omit&lt;Producto, &#x27;id&#x27;&gt; &amp; { id?: number | string }): void {
+        const productosActuales &#x3D; this.getProductos();
+
+        // Usamos la función generarId que ya programaste en tu servicio
+        const proximoId &#x3D; this.generarId(productosActuales as unknown as Array&lt;{ id: number }&gt;);
+
+        const productoFinal: Producto &#x3D; {
+            ...nuevoProducto,
+            id: proximoId // Asignamos el ID numérico unificado
+        } as unknown as Producto;
+
+        productosActuales.push(productoFinal);
+        this.guardarProductos(productosActuales);
+    }
+    /**
+     * Busca y actualiza las propiedades de un producto existente manteniendo inalterado su identificador original.
+     * @param {Producto} productoEditado Objeto del producto modificado con sus nuevos valores.
+     */
+    actualizarProductoGlobal(productoEditado: Producto): void {
+        const productosActuales &#x3D; this.getProductos();
+        const index &#x3D; productosActuales.findIndex(p &#x3D;&gt; Number(p.id) &#x3D;&#x3D;&#x3D; Number(productoEditado.id));
+
+        if (index !&#x3D;&#x3D; -1) {
+            productosActuales[index] &#x3D; {
+                ...productoEditado,
+                id: productosActuales[index].id // Preservamos el ID original
+            };
+            this.guardarProductos(productosActuales);
+        }
+    }
+    /**
+     * Remueve de forma definitiva un producto del catálogo global según su identificador.
+     * @param {number | string} id Identificador único del producto que se desea eliminar.
+     */
+    eliminarProductoGlobal(id: number | string): void {
+        let productosActuales &#x3D; this.getProductos();
+        productosActuales &#x3D; productosActuales.filter(p &#x3D;&gt; Number(p.id) !&#x3D;&#x3D; Number(id));
+        this.guardarProductos(productosActuales);
+    }
+    /**
+     * Recupera el conjunto completo de usuarios registrados en LocalStorage.
+     * @returns {Usuario[]} Lista de usuarios registrados.
+     */
+    getUsuarios(): Usuario[] {
+        return this.leerJSON&lt;Usuario[]&gt;(this.KEYS.usuarios, this.usuarios);
+    }
+    /**
+     * Guarda de forma atómica la lista completa de usuarios actualizados en el almacenamiento local.
+     * @param {Usuario[]} usuarios Colección de usuarios a guardar.
+     */
+    guardarUsuarios(usuarios: Usuario[]): void {
+        this.guardarJSON(this.KEYS.usuarios, usuarios);
+    }
+    /**
+     * Busca a un usuario por su correo electrónico ignorando espacios y variaciones de capitalización.
+     * @param {string} email Correo a consultar.
+     * @returns {Usuario | undefined} Instancia de usuario encontrada o &#x60;undefined&#x60;.
+     */
+    getUsuarioPorEmail(email: string): Usuario | undefined {
+        const emailNormalizado &#x3D; email.trim().toLowerCase();
+        return this.getUsuarios().find(usuario &#x3D;&gt; usuario.email.toLowerCase() &#x3D;&#x3D;&#x3D; emailNormalizado);
+    }
+    /**
+     * Localiza a un usuario específico mediante la comparación directa de su ID numérico.
+     * @param {number | string} id Identificador numérico o en cadena del usuario.
+     * @returns {Usuario | undefined} Instancia de usuario encontrada o &#x60;undefined&#x60;.
+     */
+    getUsuarioPorId(id: number | string): Usuario | undefined {
+        return this.getUsuarios().find(usuario &#x3D;&gt; Number(usuario.id) &#x3D;&#x3D;&#x3D; Number(id));
+    }
+    /**
+     * Genera y guarda de manera volátil un objeto de tipo &#x60;Sesion&#x60; en SessionStorage marcándolo con estado activo.
+     * @param {Usuario} usuario Cuenta de usuario que inicia la sesión actual.
+     */
+    guardarSesion(usuario: Usuario): void {
+        if (!this.sessionDisponible()) return;
+
+        const sesion: Sesion &#x3D; {
+            id: usuario.id,
+            nombre: usuario.nombre,
+            username: usuario.username,
+            email: usuario.email,
+            fechaNacimiento: usuario.fechaNacimiento,
+            direccion: usuario.direccion,
+            role: usuario.role,
+            logueado: true
+        };
+
+        sessionStorage.setItem(this.KEYS.sesion, JSON.stringify(sesion));
+    }
+    /**
+     * Extrae el estado actual de la sesión desde SessionStorage controlando errores de casteo de objetos.
+     * @returns {Sesion | null} Estructura de sesión del usuario logueado o &#x60;null&#x60; si no se registra actividad.
+     */
+    getSesion(): Sesion | null {
+        if (!this.sessionDisponible()) return null;
+
+        const valor &#x3D; sessionStorage.getItem(this.KEYS.sesion);
+
+        if (!valor) return null;
+
+        try {
+            return JSON.parse(valor) as Sesion;
+        } catch {
+            return null;
+        }
+    }
+    /**
+     * Destruye de forma definitiva las credenciales temporales de sesión activas en SessionStorage.
+     */
+    cerrarSesion(): void {
+        if (!this.sessionDisponible()) return;
+
+        sessionStorage.removeItem(this.KEYS.sesion);
+    }
+    /**
+     * Recupera el mapa relacional completo de todos los carritos registrados por los usuarios del sistema.
+     * @returns {Record&lt;string, ElementoCarrito[]&gt;} Diccionario indexado por el correo del usuario con sus respectivos carritos.
+     */
+    getCarritos(): Record&lt;string, ElementoCarrito[]&gt; {
+        return this.leerJSON&lt;Record&lt;string, ElementoCarrito[]&gt;&gt;(this.KEYS.carritos, {});
+    }
+    /**
+     * Guarda en LocalStorage las actualizaciones de los estados globales de los carritos.
+     * @param {Record&lt;string, ElementoCarrito[]&gt;} carritos Diccionario indexado a guardar.
+     */
+    guardarCarritos(carritos: Record&lt;string, ElementoCarrito[]&gt;): void {
+        this.guardarJSON(this.KEYS.carritos, carritos);
+    }
+    /**
+     * Obtiene de forma única la lista de artículos guardados en el carrito pertenecientes a un usuario en específico.
+     * @param {string} email Correo electrónico identificador del usuario propietario.
+     * @returns {ElementoCarrito[]} Arreglo de artículos añadidos al carrito.
+     */
+    getCarritoUsuario(email: string): ElementoCarrito[] {
+        const carritos &#x3D; this.getCarritos();
+        return carritos[email] || [];
+    }
+    /**
+     * Actualiza o inserta el carrito de compras particular de un usuario asociándolo unívocamente a su email.
+     * @param {string} email Identificador del cliente.
+     * @param {ElementoCarrito[]} carrito Lista actualizada de artículos agregados.
+     */
+    guardarCarritoUsuario(email: string, carrito: ElementoCarrito[]): void {
+        const carritos &#x3D; this.getCarritos();
+        carritos[email] &#x3D; carrito;
+        this.guardarCarritos(carritos);
+    }
+    /**
+     * Vacía por completo el carro de compras activo de un cliente dejándolo como un arreglo vacío.
+     * @param {string} correo Correo electrónico del cliente.
+     */
+    limpiarCarritoUsuario(correo: string): void {
+        this.guardarCarritoUsuario(correo, []);
+    }
+
+    //Mis compras(en proceso)
+
+    /**
+     * Aplica reglas de localización internacional utilizando el estándar &#x27;es-CL&#x27; para formatear números en formato de moneda chilena (CLP).
+     * @param {number} valor Monto numérico en bruto.
+     * @returns {string} Cadena formateada bajo la máscara de divisa nacional (ej. $12.990).
+     */
+    formatearPrecio(valor: number): string {
+        return new Intl.NumberFormat(&#x27;es-CL&#x27;, {
+            style: &#x27;currency&#x27;,
+            currency: &#x27;CLP&#x27;,
+            maximumFractionDigits: 0
+        }).format(Number(valor));
+    }
+    /**
+     * Calcula de forma matemática el costo real final de un ítem procesando el porcentaje de descuento asignado.
+     * @param {Producto} producto Objeto del producto analizado.
+     * @returns {number} Precio numérico final redondeado con &#x60;Math.round&#x60;.
+     */
+    calcularPrecioFinal(producto: Producto): number {
+        if (!producto.descuento || Number(producto.descuento) &#x3D;&#x3D;&#x3D; 0) {
+            return Number(producto.precio);
+        }
+        return Math.round(Number(producto.precio) * (1 - Number(producto.descuento) / 100));
+    }
+    /**
+     * Analiza una lista de objetos dotados con ID numérico e identifica el valor máximo para generar un nuevo identificador secuencial no repetitivo.
+     * @param {Array&lt;{ id: number }&gt;} lista Colección de ítems sobre los cuales inferir el ID correlativo.
+     * @returns {number} Identificador numérico correlativo disponible (&#x60;max + 1&#x60;).
+     */
+    generarId(lista: Array&lt;{ id: number }&gt;): number {
+        if (!lista.length) return 1;
+
+        return Math.max(...lista.map(item &#x3D;&gt; Number(item.id))) + 1;
+    }
+    /**
+     * Retorna la propiedad de visualización amigable (&#x60;nombre&#x60;) asociada a un ID de categoría.
+     * @param {string} key Llave identificadora interna de la categoría.
+     * @returns {string} Nombre estético listo para el HTML o en su defecto la misma llave recibida.
+     */
+    categoriaNombre(key: string): string {
+        return this.categorias[key]?.nombre || key;
+    }
+    /**
+     * Transforma el diccionario de categorías en un arreglo plano indexado con su clave interna para iteraciones complejas en la vista (como un &#x60;*ngFor&#x60;).
+     * @returns {Array&lt;{ key: string; categoria: Categorias }&gt;} Lista mapeada con llaves y objetos completos de categorías.
+     */
+    categoriaEntradas(): Array&lt;{ key: string; categoria: Categorias }&gt; {
+        return Object.keys(this.categorias).map(key &#x3D;&gt; ({
+            key,
+            categoria: this.categorias[key]
+        }));
+    }
+    /**
+     * Normaliza rutas de strings de imágenes arbitrarias para asegurar que cumplan de forma uniforme el estándar relacional de carpetas internas de Angular (&#x60;assets/img/&#x60;).
+     * @param {string} ruta Dirección física o virtual guardada del recurso gráfico.
+     * @returns {string} Ruta normalizada y válida hacia los recursos o imagen del logo por defecto.
+     */
+    normalizarRutaImagen(ruta: string): string {
+        const limpia &#x3D; (ruta || &#x27;&#x27;).trim();
+        if (limpia.startsWith(&#x27;assets/&#x27;)) return limpia;
+        if (limpia.startsWith(&#x27;src/assets/&#x27;)) return limpia.replace(&#x27;src/&#x27;, &#x27;&#x27;);
+        if (limpia.startsWith(&#x27;img/&#x27;)) return limpia.replace(&#x27;img/&#x27;, &#x27;assets/img/&#x27;);
+        if (limpia.startsWith(&#x27;/img/&#x27;)) return limpia.replace(&#x27;/img/&#x27;, &#x27;assets/img/&#x27;);
+
+        return limpia || &#x27;assets/img/logo.png&#x27;;
+    }
+    /**
+     * Valida si el contexto global de ejecución posee acceso nativo a la API de &#x60;window&#x60; y de &#x60;localStorage&#x60; de forma segura frente a escenarios SSR.
+     * @returns {boolean} &#x60;true&#x60; si se puede interactuar con el almacenamiento del navegador en el hilo de ejecución actual.
+     */
+    private storageDisponible(): boolean {
+        return typeof window !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; typeof localStorage !&#x3D;&#x3D; &#x27;undefined&#x27;;
+    }
+    /**
+     * Valida si el contexto global de ejecución posee acceso seguro a la API de &#x60;sessionStorage&#x60;.
+     * @returns {boolean} &#x60;true&#x60; si está disponible de forma nativa.
+     */
+    private sessionDisponible(): boolean {
+        return typeof window !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; typeof sessionStorage !&#x3D;&#x3D; &#x27;undefined&#x27;;
+    }
+    /**
+     * Rompe de forma intencional la referencia en memoria de un objeto o arreglo creando una copia idéntica e independiente mediante serialización por texto.
+     * @param {T} valor Estructura de origen a clonar.
+     * @returns {T} Una nueva copia profunda sin referencias cruzadas al original.
+     */
+    private clonar&lt;T&gt;(valor: T): T { return JSON.parse(JSON.stringify(valor)) as T; }
+}</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'DataService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

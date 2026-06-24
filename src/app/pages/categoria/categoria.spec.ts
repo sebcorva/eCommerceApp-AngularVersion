@@ -8,7 +8,10 @@ describe('Categoria', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Categoria, provideRouter([])],
+      imports: [Categoria], 
+      providers: [
+        provideRouter([]) 
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Categoria);

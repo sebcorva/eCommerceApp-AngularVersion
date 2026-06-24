@@ -1,0 +1,900 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecommerce-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ecommerce-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  Categoria</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/categoria/categoria.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-categoria</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./categoria.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./categoria.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categoriaInfo" >categoriaInfo</a>
+                            </li>
+                            <li>
+                                <a href="#categoriaNombre" >categoriaNombre</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dataService" >dataService</a>
+                            </li>
+                            <li>
+                                <a href="#productosFiltrados" >productosFiltrados</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#agregarProducto" >agregarProducto</a>
+                            </li>
+                            <li>
+                                <a href="#cargarDatos" >cargarDatos</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, dataService: <a href="../injectables/DataService.html" target="_self">DataService</a>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/categoria/categoria.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="agregarProducto"></a>
+                    <span class="name">
+                        <span ><b>agregarProducto</b></span>
+                        <a href="#agregarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>agregarProducto(producto: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/pages/categoria/categoria.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>producto</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarDatos"></a>
+                    <span class="name">
+                        <span ><b>cargarDatos</b></span>
+                        <a href="#cargarDatos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarDatos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/pages/categoria/categoria.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/app/pages/categoria/categoria.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoriaInfo"></a>
+                    <span class="name">
+                        <span ><b>categoriaInfo</b></span>
+                        <a href="#categoriaInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Categorias.html" target="_self" >Categorias | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/pages/categoria/categoria.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoriaNombre"></a>
+                    <span class="name">
+                        <span ><b>categoriaNombre</b></span>
+                        <a href="#categoriaNombre"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/categoria/categoria.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dataService</b></span>
+                        <a href="#dataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/categoria/categoria.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="productosFiltrados"></a>
+                    <span class="name">
+                        <span ><b>productosFiltrados</b></span>
+                        <a href="#productosFiltrados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/categoria/categoria.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { ActivatedRoute, RouterLink } from &quot;@angular/router&quot;;
+import { DataService } from &#x27;../../services/data.service&#x27;;
+import { Producto, Categorias } from &#x27;../../services/modelos&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+
+@Component({
+  selector: &#x27;app-categoria&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: &#x27;./categoria.html&#x27;,
+  styleUrl: &#x27;./categoria.css&#x27;,
+})
+export class Categoria implements OnInit {
+
+  categoriaNombre: string &#x3D; &#x27;&#x27;;
+  categoriaInfo: Categorias | null &#x3D; null;
+  productosFiltrados: Producto[] &#x3D; [];
+
+  constructor(
+    private route: ActivatedRoute,
+    public dataService: DataService,
+    private authService: AuthService
+  ) { }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params &#x3D;&gt; {
+      this.categoriaNombre &#x3D; params.get(&#x27;nombre&#x27;) || &#x27;&#x27;;
+      this.cargarDatos();
+    });
+  }
+
+  cargarDatos(): void {
+    const categoriasMapa &#x3D; this.dataService.categorias;
+    this.categoriaInfo &#x3D; categoriasMapa[this.categoriaNombre] || null;
+
+    this.productosFiltrados &#x3D; this.dataService.getProductosPorCategoria(this.categoriaNombre);
+  }
+
+  agregarProducto(producto: any): void {
+
+    if (!this.authService.autenticado || !this.authService.sesion) {
+      alert(&#x27;Debes iniciar sesión para añadir productos al carrito.&#x27;);
+      return;
+    }
+
+    const emailUsuario &#x3D; this.authService.sesion.email;
+    //Obtener carrito de usuario segun su email
+    let carrito &#x3D; this.dataService.getCarritoUsuario(emailUsuario);
+
+    //Verificar si el producto ya existe en el carrito
+    const existente &#x3D; carrito.find(item &#x3D;&gt; Number(item.producto.id) &#x3D;&#x3D;&#x3D; Number(producto.id));
+
+    if (existente) {
+      if (existente.cantidad &lt; producto.stock) {
+        existente.cantidad +&#x3D; 1;
+      } else {
+        alert(&#x27;No puedes agregar más de este producto, superaría el stock disponible.&#x27;);
+        return;
+      }
+    } else {
+      carrito.push({
+        producto: producto,
+        cantidad: 1
+      });
+    }
+    this.dataService.guardarCarritoUsuario(emailUsuario, carrito);
+    alert(&#x60;¡${producto.nombre} añadido al carrito con éxito!&#x60;);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main&gt;
+    &lt;section class&#x3D;&quot;categoria-productos my-5&quot;&gt;
+        &lt;div class&#x3D;&quot;row align-items-center mb-4 m-0&quot;&gt;
+            &lt;!--Botón Volver--&gt;
+            &lt;div class&#x3D;&quot;col-4 d-flex justify-content-start align-items-center p-0&quot;&gt;
+                &lt;a routerLink&#x3D;&quot;/home&quot; class&#x3D;&quot;btn btn-outline-secondary ms-3 d-none d-md-inline-block&quot;&gt;Volver a
+                    Inicio&lt;/a&gt;
+
+                &lt;a routerLink&#x3D;&quot;/home&quot; class&#x3D;&quot;btn btn-outline-secondary ms-3 d-inline-block d-md-none&quot;
+                    aria-label&#x3D;&quot;Volver a Inicio&quot;&gt;
+                    &lt;i class&#x3D;&quot;bi bi-arrow-left&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;
+            &lt;/div&gt;
+            &lt;!--Categoria--&gt;
+            &lt;div class&#x3D;&quot;col-4 d-flex justify-content-center align-items-center p-0&quot; *ngIf&#x3D;&quot;categoriaInfo&quot;&gt;
+                &lt;h3 class&#x3D;&quot;about-us-title m-0 text-center&quot;&gt;{{ categoriaInfo.nombre }}&lt;/h3&gt;
+            &lt;/div&gt;
+
+            &lt;div *ngIf&#x3D;&quot;productosFiltrados.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;alert alert-warning text-center my-5&quot; role&#x3D;&quot;alert&quot;&gt;
+                &lt;i class&#x3D;&quot;bi bi-exclamation-triangle-fill fs-4 d-block mb-2&quot;&gt;&lt;/i&gt;
+                Lo sentimos, actualmente no tenemos stock disponible en la categoría &lt;strong&gt;{{ categoriaInfo?.nombre
+                    }}&lt;/strong&gt;.
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;col-4 p-0&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- &lt;p class&#x3D;&quot;text-center text-primary mt-2 px-3&quot;&gt;Explora nuestra colección exclusiva de tazas cerámicas.&lt;/p&gt; --&gt;
+        &lt;!-- Productos--&gt;
+        &lt;div id&#x3D;&quot;contenedor-productos&quot; class&#x3D;&quot;row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center m-0&quot;
+            *ngIf&#x3D;&quot;productosFiltrados.length &gt; 0&quot;&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4&quot; *ngIf&#x3D;&quot;productosFiltrados.length &gt; 0&quot;&gt;
+
+            &lt;div class&#x3D;&quot;col&quot; *ngFor&#x3D;&quot;let producto of productosFiltrados&quot;&gt;
+                &lt;div class&#x3D;&quot;card h-100 shadow-sm border-0 rounded-3 overflow-hidden&quot;&gt;
+
+                    &lt;div class&#x3D;&quot;bg-light position-relative&quot; style&#x3D;&quot;height: 250px;&quot;&gt;
+                        &lt;img [src]&#x3D;&quot;producto.imagen&quot; [alt]&#x3D;&quot;producto.nombre&quot; class&#x3D;&quot;w-100 h-100 object-fit-cover&quot;&gt;
+
+                        &lt;span *ngIf&#x3D;&quot;producto.descuento &gt; 0 &amp;&amp; producto.stock &gt; 0&quot;
+                            class&#x3D;&quot;badge bg-danger position-absolute top-0 start-0 m-2 fs-6&quot;&gt;
+                            -{{ producto.descuento }}%
+                        &lt;/span&gt;
+
+                        &lt;span *ngIf&#x3D;&quot;producto.stock &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;badge bg-secondary position-absolute top-0 end-0 m-2&quot;&gt;
+                            Agotado
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class&#x3D;&quot;card-body d-flex flex-column&quot;&gt;
+                        &lt;h5 class&#x3D;&quot;card-title h6 fw-bold text-dark text-truncate mb-1&quot;&gt;{{ producto.nombre }}&lt;/h5&gt;
+                        &lt;p class&#x3D;&quot;card-text text-muted small text-truncate-2 flex-grow-1&quot;&gt;{{ producto.descripcion }}&lt;/p&gt;
+
+                        &lt;div class&#x3D;&quot;my-2&quot;&gt;
+                            &lt;div *ngIf&#x3D;&quot;producto.descuento &gt; 0; else precioNormal&quot;&gt;
+                                &lt;span class&#x3D;&quot;fs-5 fw-bold text-danger me-2&quot;&gt;
+                                    {{ dataService.formatearPrecio(dataService.calcularPrecioFinal(producto)) }}
+                                &lt;/span&gt;
+                                &lt;span class&#x3D;&quot;text-muted text-decoration-line-through small&quot;&gt;
+                                    {{ dataService.formatearPrecio(producto.precio) }}
+                                &lt;/span&gt;
+                            &lt;/div&gt;
+
+                            &lt;ng-template #precioNormal&gt;
+                                &lt;span class&#x3D;&quot;fs-5 fw-bold text-dark&quot;&gt;
+                                    {{ dataService.formatearPrecio(producto.precio) }}
+                                &lt;/span&gt;
+                            &lt;/ng-template&gt;
+                        &lt;/div&gt;
+
+                        &lt;button (click)&#x3D;&quot;agregarProducto(producto)&quot; class&#x3D;&quot;btn btn-outline-danger w-100 btn-sm mt-2&quot;
+                            [disabled]&#x3D;&quot;producto.stock &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+                            &lt;i class&#x3D;&quot;bi bi-cart-plus&quot;&gt;&lt;/i&gt;
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main>    <section class="categoria-productos my-5">        <div class="row align-items-center mb-4 m-0">            <!--Botón Volver-->            <div class="col-4 d-flex justify-content-start align-items-center p-0">                <a routerLink="/home" class="btn btn-outline-secondary ms-3 d-none d-md-inline-block">Volver a                    Inicio</a>                <a routerLink="/home" class="btn btn-outline-secondary ms-3 d-inline-block d-md-none"                    aria-label="Volver a Inicio">                    <i class="bi bi-arrow-left"></i>                </a>            </div>            <!--Categoria-->            <div class="col-4 d-flex justify-content-center align-items-center p-0" *ngIf="categoriaInfo">                <h3 class="about-us-title m-0 text-center">{{ categoriaInfo.nombre }}</h3>            </div>            <div *ngIf="productosFiltrados.length === 0" class="alert alert-warning text-center my-5" role="alert">                <i class="bi bi-exclamation-triangle-fill fs-4 d-block mb-2"></i>                Lo sentimos, actualmente no tenemos stock disponible en la categoría <strong>{{ categoriaInfo?.nombre                    }}</strong>.            </div>            <div class="col-4 p-0"></div>        </div>        <!-- <p class="text-center text-primary mt-2 px-3">Explora nuestra colección exclusiva de tazas cerámicas.</p> -->        <!-- Productos-->        <div id="contenedor-productos" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center m-0"            *ngIf="productosFiltrados.length > 0">        </div>        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" *ngIf="productosFiltrados.length > 0">            <div class="col" *ngFor="let producto of productosFiltrados">                <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">                    <div class="bg-light position-relative" style="height: 250px;">                        <img [src]="producto.imagen" [alt]="producto.nombre" class="w-100 h-100 object-fit-cover">                        <span *ngIf="producto.descuento > 0 && producto.stock > 0"                            class="badge bg-danger position-absolute top-0 start-0 m-2 fs-6">                            -{{ producto.descuento }}%                        </span>                        <span *ngIf="producto.stock === 0" class="badge bg-secondary position-absolute top-0 end-0 m-2">                            Agotado                        </span>                    </div>                    <div class="card-body d-flex flex-column">                        <h5 class="card-title h6 fw-bold text-dark text-truncate mb-1">{{ producto.nombre }}</h5>                        <p class="card-text text-muted small text-truncate-2 flex-grow-1">{{ producto.descripcion }}</p>                        <div class="my-2">                            <div *ngIf="producto.descuento > 0; else precioNormal">                                <span class="fs-5 fw-bold text-danger me-2">                                    {{ dataService.formatearPrecio(dataService.calcularPrecioFinal(producto)) }}                                </span>                                <span class="text-muted text-decoration-line-through small">                                    {{ dataService.formatearPrecio(producto.precio) }}                                </span>                            </div>                            <ng-template #precioNormal>                                <span class="fs-5 fw-bold text-dark">                                    {{ dataService.formatearPrecio(producto.precio) }}                                </span>                            </ng-template>                        </div>                        <button (click)="agregarProducto(producto)" class="btn btn-outline-danger w-100 btn-sm mt-2"                            [disabled]="producto.stock === 0">                            <i class="bi bi-cart-plus"></i>                        </button>                    </div>                </div>            </div>        </div>    </section></main></div>'
+    var COMPONENTS = [{'name': 'AdminPanel', 'selector': 'app-admin-panel'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoPanel', 'selector': 'app-producto-panel'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'Categoria'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'Categoria.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

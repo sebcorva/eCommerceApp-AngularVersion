@@ -8,7 +8,10 @@ describe('ProductoPanel', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductoPanel, provideRouter([])],
+      imports: [ProductoPanel], 
+      providers: [
+        provideRouter([]) 
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProductoPanel);

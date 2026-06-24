@@ -1,0 +1,1093 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecommerce-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ecommerce-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  Recuperar</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/recuperar/recuperar.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-recuperar</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./recuperar.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./recuperar.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#enviado" >enviado</a>
+                            </li>
+                            <li>
+                                <a href="#instruccionesTexto" >instruccionesTexto</a>
+                            </li>
+                            <li>
+                                <a href="#mensajeAlert" >mensajeAlert</a>
+                            </li>
+                            <li>
+                                <a href="#pasoActual" >pasoActual</a>
+                            </li>
+                            <li>
+                                <a href="#recuperarForm" >recuperarForm</a>
+                            </li>
+                            <li>
+                                <a href="#usuarioEncontrado" >usuarioEncontrado</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#campoInvalido" >campoInvalido</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#coincidenPasswordsValidator" >coincidenPasswordsValidator</a>
+                            </li>
+                            <li>
+                                <a href="#onProcesarRecuperacion" >onProcesarRecuperacion</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#erroresControles" >erroresControles</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, dataService: <a href="../injectables/DataService.html" target="_self">DataService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:30</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="campoInvalido"></a>
+                    <span class="name">
+                        <span ><b>campoInvalido</b></span>
+                        <a href="#campoInvalido"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>campoInvalido(nombreCampo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/pages/recuperar/recuperar.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>nombreCampo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="coincidenPasswordsValidator"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>coincidenPasswordsValidator</b></span>
+                        <a href="#coincidenPasswordsValidator"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>coincidenPasswordsValidator(group: <a href="https://angular.io/api/forms/AbstractControl" target="_blank">AbstractControl</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/pages/recuperar/recuperar.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>group</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/forms/AbstractControl" target="_blank" >AbstractControl</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>ValidationErrors | null</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onProcesarRecuperacion"></a>
+                    <span class="name">
+                        <span ><b>onProcesarRecuperacion</b></span>
+                        <a href="#onProcesarRecuperacion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onProcesarRecuperacion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/pages/recuperar/recuperar.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enviado"></a>
+                    <span class="name">
+                        <span ><b>enviado</b></span>
+                        <a href="#enviado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instruccionesTexto"></a>
+                    <span class="name">
+                        <span ><b>instruccionesTexto</b></span>
+                        <a href="#instruccionesTexto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Ingresa tu correo electrónico para recuperar tu contraseña.&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensajeAlert"></a>
+                    <span class="name">
+                        <span ><b>mensajeAlert</b></span>
+                        <a href="#mensajeAlert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/MensajeVista.html" target="_self" >MensajeVista | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pasoActual"></a>
+                    <span class="name">
+                        <span ><b>pasoActual</b></span>
+                        <a href="#pasoActual"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recuperarForm"></a>
+                    <span class="name">
+                        <span ><b>recuperarForm</b></span>
+                        <a href="#recuperarForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuarioEncontrado"></a>
+                    <span class="name">
+                        <span ><b>usuarioEncontrado</b></span>
+                        <a href="#usuarioEncontrado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="erroresControles"></a>
+                        <span class="name"><b>erroresControles</b><a href="#erroresControles"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>erroresControles()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/recuperar/recuperar.ts:47</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  ValidationErrors
+} from &#x27;@angular/forms&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { DataService } from &#x27;../../services/data.service&#x27;;
+import { MensajeVista, Usuario } from &#x27;../../services/modelos&#x27;;
+
+@Component({
+  selector: &#x27;app-recuperar&#x27;,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: &#x27;./recuperar.html&#x27;,
+  styleUrl: &#x27;./recuperar.css&#x27;,
+})
+export class Recuperar {
+
+  recuperarForm: FormGroup;
+  enviado &#x3D; false;
+  mensajeAlert: MensajeVista | null &#x3D; null;
+
+  pasoActual &#x3D; 1;
+  usuarioEncontrado: Usuario | null &#x3D; null;
+  instruccionesTexto &#x3D; &#x27;Ingresa tu correo electrónico para recuperar tu contraseña.&#x27;;
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly dataService: DataService,
+    private readonly router: Router
+  ) {
+
+    this.recuperarForm &#x3D; this.fb.group({
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      newPassword: [&#x27;&#x27;, [Validators.required, Validators.minLength(4)]],
+      repeatPassword: [&#x27;&#x27;, [Validators.required]]
+    }, {
+      validators: this.coincidenPasswordsValidator
+    });
+  }
+
+  get erroresControles(): { [key: string]: AbstractControl } {
+    return this.recuperarForm.controls;
+  }
+
+  campoInvalido(nombreCampo: string): boolean {
+    const control &#x3D; this.recuperarForm.get(nombreCampo);
+    return !!(
+      control &amp;&amp;
+      control.invalid &amp;&amp;
+      (control.touched || control.dirty || this.enviado)
+    );
+  }
+
+  private coincidenPasswordsValidator(group: AbstractControl): ValidationErrors | null {
+    const newPass &#x3D; group.get(&#x27;newPassword&#x27;)?.value;
+    const repeatPass &#x3D; group.get(&#x27;repeatPassword&#x27;)?.value;
+
+    if (newPass !&#x3D;&#x3D; repeatPass &amp;&amp; repeatPass !&#x3D;&#x3D; &#x27;&#x27;) {
+      group.get(&#x27;repeatPassword&#x27;)?.setErrors({ noCoincide: true });
+      return { noCoincide: true };
+    }
+    return null;
+  }
+
+  onProcesarRecuperacion(): void {
+    this.enviado &#x3D; true;
+    const formValues &#x3D; this.recuperarForm.getRawValue();
+
+    //1: Validar correo
+    if (this.pasoActual &#x3D;&#x3D;&#x3D; 1) {
+      const emailControl &#x3D; this.recuperarForm.get(&#x27;email&#x27;);
+
+      if (!emailControl || emailControl.invalid) {
+        this.mensajeAlert &#x3D; { tipo: &#x27;danger&#x27;, texto: &#x27;Por favor, ingresa un formato de correo válido.&#x27; };
+        return;
+      }
+
+      const correoIngresado &#x3D; formValues.email.trim().toLowerCase();
+      const usuarios &#x3D; this.dataService.getUsuarios();
+
+      this.usuarioEncontrado &#x3D; usuarios.find(u &#x3D;&gt; u.email &amp;&amp; u.email.toLowerCase() &#x3D;&#x3D;&#x3D; correoIngresado) || null;
+
+      if (!this.usuarioEncontrado) {
+        emailControl.setErrors({ noRegistrado: true });
+        this.mensajeAlert &#x3D; { tipo: &#x27;danger&#x27;, texto: &#x27;Este correo electrónico no está registrado en aniMug.&#x27; };
+        return;
+      }
+
+      this.instruccionesTexto &#x3D; &#x60;Hola ${this.usuarioEncontrado.username}, ingresa tu nueva contraseña:&#x60;;
+      this.mensajeAlert &#x3D; null;
+      this.enviado &#x3D; false;
+      this.pasoActual &#x3D; 2;
+      return;
+    }
+    //2: Cambio de contraseña
+    if (this.pasoActual &#x3D;&#x3D;&#x3D; 2) {
+      if (this.recuperarForm.invalid) {
+        this.recuperarForm.markAllAsTouched();
+        this.mensajeAlert &#x3D; { tipo: &#x27;danger&#x27;, texto: &#x27;Por favor, rellena las contraseñas correctamente.&#x27; };
+        return;
+      }
+
+      const usuarios &#x3D; this.dataService.getUsuarios();
+      const index &#x3D; usuarios.findIndex(u &#x3D;&gt; u.username.toLowerCase() &#x3D;&#x3D;&#x3D; this.usuarioEncontrado?.username.toLowerCase());
+
+      if (index !&#x3D;&#x3D; -1) {
+        usuarios[index].password &#x3D; formValues.newPassword;
+        this.dataService.guardarUsuarios(usuarios);
+
+        this.dataService.cerrarSesion();
+
+        alert(&#x27;¡Contraseña actualizada con éxito!&#x27;);
+        this.router.navigate([&#x27;/login&#x27;]);
+      } else {
+        this.mensajeAlert &#x3D; { tipo: &#x27;danger&#x27;, texto: &#x27;Error del sistema al localizar tu cuenta.&#x27; };
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!--Recuperar contraseña--&gt;
+&lt;main&gt;
+    &lt;section class&#x3D;&quot;container-recuperar&quot;&gt;
+        &lt;div class&#x3D;&quot;row justify-content-center mx-2&quot;&gt;
+            &lt;div class&#x3D;&quot;col-12 col-sm-10 col-md-8 col-lg-9 bg-light rounded shadow my-4 my-lg-5 overflow-hidden&quot;&gt;
+                &lt;div class&#x3D;&quot;row g-0 align-items-stretch&quot;&gt;
+
+                    &lt;div class&#x3D;&quot;col-lg-5 d-none d-lg-flex p-0&quot; style&#x3D;&quot;position: relative;&quot;&gt;
+                        &lt;img src&#x3D;&quot;assets/img/login.jpg&quot; alt&#x3D;&quot;Login AniMug&quot; class&#x3D;&quot;w-100 h-100&quot;
+                            style&#x3D;&quot;position: absolute; top: 0; left: 0; object-fit: cover;&quot;&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class&#x3D;&quot;col-12 col-lg-7 p-4 p-lg-5&quot;&gt;
+                        &lt;h2 class&#x3D;&quot;text-center mb-4 text-secondary&quot;&gt;Recuperar Contraseña&lt;/h2&gt;
+
+                        &lt;p [className]&#x3D;&quot;pasoActual &#x3D;&#x3D;&#x3D; 2 ? &#x27;text-center my-4 fw-semibold text-success&#x27; : &#x27;text-center my-4 text-muted&#x27;&quot;
+                            id&#x3D;&quot;instruccionesTexto&quot;&gt;
+                            {{ instruccionesTexto }}
+                        &lt;/p&gt;
+
+                        &lt;div *ngIf&#x3D;&quot;mensajeAlert&quot; class&#x3D;&quot;alert alert-{{ mensajeAlert.tipo }} text-center py-2 small&quot;
+                            role&#x3D;&quot;alert&quot;&gt;
+                            {{ mensajeAlert.texto }}
+                        &lt;/div&gt;
+
+                        &lt;form [formGroup]&#x3D;&quot;recuperarForm&quot; (ngSubmit)&#x3D;&quot;onProcesarRecuperacion()&quot; novalidate&gt;
+
+                            &lt;div [hidden]&#x3D;&quot;pasoActual !&#x3D;&#x3D; 1&quot; class&#x3D;&quot;mb-3&quot; id&#x3D;&quot;grupoEmail&quot;&gt;
+                                &lt;label for&#x3D;&quot;email&quot; class&#x3D;&quot;form-label fw-semibold text-muted&quot;&gt;Correo Electrónico&lt;/label&gt;
+                                &lt;input type&#x3D;&quot;email&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;email&quot; formControlName&#x3D;&quot;email&quot;
+                                    placeholder&#x3D;&quot;Ingrese su correo electrónico&quot;
+                                    [ngClass]&#x3D;&quot;{&#x27;is-invalid&#x27;: campoInvalido(&#x27;email&#x27;)}&quot;&gt;
+
+                                &lt;div *ngIf&#x3D;&quot;campoInvalido(&#x27;email&#x27;)&quot; class&#x3D;&quot;invalid-feedback&quot; id&#x3D;&quot;errorEmail&quot;&gt;
+                                    &lt;span *ngIf&#x3D;&quot;erroresControles[&#x27;email&#x27;].errors?.[&#x27;required&#x27;]&quot;&gt;El correo electrónico
+                                        es obligatorio.&lt;/span&gt;
+                                    &lt;span *ngIf&#x3D;&quot;erroresControles[&#x27;email&#x27;].errors?.[&#x27;email&#x27;]&quot;&gt;Por favor, ingresa un
+                                        formato de correo válido.&lt;/span&gt;
+                                    &lt;span *ngIf&#x3D;&quot;erroresControles[&#x27;email&#x27;].errors?.[&#x27;noRegistrado&#x27;]&quot;&gt;Este correo
+                                        electrónico no está registrado en aniMug.&lt;/span&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;div [hidden]&#x3D;&quot;pasoActual !&#x3D;&#x3D; 2&quot; id&#x3D;&quot;seccionNuevasClaves&quot;&gt;
+                                &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+                                    &lt;label for&#x3D;&quot;newPassword&quot; class&#x3D;&quot;form-label fw-semibold text-muted&quot;&gt;Nueva
+                                        Contraseña&lt;/label&gt;
+                                    &lt;input type&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;newPassword&quot;
+                                        formControlName&#x3D;&quot;newPassword&quot; placeholder&#x3D;&quot;Ingrese su nueva contraseña&quot;
+                                        [ngClass]&#x3D;&quot;{&#x27;is-invalid&#x27;: campoInvalido(&#x27;newPassword&#x27;)}&quot;&gt;
+                                    &lt;div *ngIf&#x3D;&quot;campoInvalido(&#x27;newPassword&#x27;)&quot; class&#x3D;&quot;invalid-feedback&quot;&gt;
+                                        &lt;span *ngIf&#x3D;&quot;erroresControles[&#x27;newPassword&#x27;].errors?.[&#x27;required&#x27;]&quot;&gt;La contraseña
+                                            nueva es obligatoria.&lt;/span&gt;
+                                        &lt;span *ngIf&#x3D;&quot;erroresControles[&#x27;newPassword&#x27;].errors?.[&#x27;minlength&#x27;]&quot;&gt;La
+                                            contraseña debe tener al menos 4 caracteres.&lt;/span&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                                &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+                                    &lt;label for&#x3D;&quot;repeatPassword&quot; class&#x3D;&quot;form-label fw-semibold text-muted&quot;&gt;Repetir
+                                        Contraseña&lt;/label&gt;
+                                    &lt;input type&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;repeatPassword&quot;
+                                        formControlName&#x3D;&quot;repeatPassword&quot; placeholder&#x3D;&quot;Repita su nueva contraseña&quot;
+                                        [ngClass]&#x3D;&quot;{&#x27;is-invalid&#x27;: campoInvalido(&#x27;repeatPassword&#x27;)}&quot;&gt;
+                                    &lt;div *ngIf&#x3D;&quot;campoInvalido(&#x27;repeatPassword&#x27;)&quot; class&#x3D;&quot;invalid-feedback&quot;&gt;
+                                        &lt;span *ngIf&#x3D;&quot;erroresControles[&#x27;repeatPassword&#x27;].errors?.[&#x27;required&#x27;]&quot;&gt;Por favor,
+                                            confirme su contraseña.&lt;/span&gt;
+                                        &lt;span *ngIf&#x3D;&quot;erroresControles[&#x27;repeatPassword&#x27;].errors?.[&#x27;noCoincide&#x27;]&quot;&gt;Las
+                                            contraseñas deben coincidir.&lt;/span&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;div class&#x3D;&quot;text-center mt-4&quot;&gt;
+                                &lt;button type&#x3D;&quot;submit&quot;
+                                    [className]&#x3D;&quot;pasoActual &#x3D;&#x3D;&#x3D; 1 ? &#x27;btn btn-primary w-100 fw-semibold&#x27; : &#x27;btn btn-success w-100 fw-semibold&#x27;&quot;
+                                    id&#x3D;&quot;btnAccionForm&quot;&gt;
+                                    {{ pasoActual &#x3D;&#x3D;&#x3D; 1 ? &#x27;Siguiente&#x27; : &#x27;Confirmar Nueva Contraseña&#x27; }}
+                                &lt;/button&gt;
+                            &lt;/div&gt;
+
+                        &lt;/form&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!--Recuperar contraseña--><main>    <section class="container-recuperar">        <div class="row justify-content-center mx-2">            <div class="col-12 col-sm-10 col-md-8 col-lg-9 bg-light rounded shadow my-4 my-lg-5 overflow-hidden">                <div class="row g-0 align-items-stretch">                    <div class="col-lg-5 d-none d-lg-flex p-0" style="position: relative;">                        <img src="assets/img/login.jpg" alt="Login AniMug" class="w-100 h-100"                            style="position: absolute; top: 0; left: 0; object-fit: cover;">                    </div>                    <div class="col-12 col-lg-7 p-4 p-lg-5">                        <h2 class="text-center mb-4 text-secondary">Recuperar Contraseña</h2>                        <p [className]="pasoActual === 2 ? \'text-center my-4 fw-semibold text-success\' : \'text-center my-4 text-muted\'"                            id="instruccionesTexto">                            {{ instruccionesTexto }}                        </p>                        <div *ngIf="mensajeAlert" class="alert alert-{{ mensajeAlert.tipo }} text-center py-2 small"                            role="alert">                            {{ mensajeAlert.texto }}                        </div>                        <form [formGroup]="recuperarForm" (ngSubmit)="onProcesarRecuperacion()" novalidate>                            <div [hidden]="pasoActual !== 1" class="mb-3" id="grupoEmail">                                <label for="email" class="form-label fw-semibold text-muted">Correo Electrónico</label>                                <input type="email" class="form-control" id="email" formControlName="email"                                    placeholder="Ingrese su correo electrónico"                                    [ngClass]="{\'is-invalid\': campoInvalido(\'email\')}">                                <div *ngIf="campoInvalido(\'email\')" class="invalid-feedback" id="errorEmail">                                    <span *ngIf="erroresControles[\'email\'].errors?.[\'required\']">El correo electrónico                                        es obligatorio.</span>                                    <span *ngIf="erroresControles[\'email\'].errors?.[\'email\']">Por favor, ingresa un                                        formato de correo válido.</span>                                    <span *ngIf="erroresControles[\'email\'].errors?.[\'noRegistrado\']">Este correo                                        electrónico no está registrado en aniMug.</span>                                </div>                            </div>                            <div [hidden]="pasoActual !== 2" id="seccionNuevasClaves">                                <div class="mb-3">                                    <label for="newPassword" class="form-label fw-semibold text-muted">Nueva                                        Contraseña</label>                                    <input type="password" class="form-control" id="newPassword"                                        formControlName="newPassword" placeholder="Ingrese su nueva contraseña"                                        [ngClass]="{\'is-invalid\': campoInvalido(\'newPassword\')}">                                    <div *ngIf="campoInvalido(\'newPassword\')" class="invalid-feedback">                                        <span *ngIf="erroresControles[\'newPassword\'].errors?.[\'required\']">La contraseña                                            nueva es obligatoria.</span>                                        <span *ngIf="erroresControles[\'newPassword\'].errors?.[\'minlength\']">La                                            contraseña debe tener al menos 4 caracteres.</span>                                    </div>                                </div>                                <div class="mb-3">                                    <label for="repeatPassword" class="form-label fw-semibold text-muted">Repetir                                        Contraseña</label>                                    <input type="password" class="form-control" id="repeatPassword"                                        formControlName="repeatPassword" placeholder="Repita su nueva contraseña"                                        [ngClass]="{\'is-invalid\': campoInvalido(\'repeatPassword\')}">                                    <div *ngIf="campoInvalido(\'repeatPassword\')" class="invalid-feedback">                                        <span *ngIf="erroresControles[\'repeatPassword\'].errors?.[\'required\']">Por favor,                                            confirme su contraseña.</span>                                        <span *ngIf="erroresControles[\'repeatPassword\'].errors?.[\'noCoincide\']">Las                                            contraseñas deben coincidir.</span>                                    </div>                                </div>                            </div>                            <div class="text-center mt-4">                                <button type="submit"                                    [className]="pasoActual === 1 ? \'btn btn-primary w-100 fw-semibold\' : \'btn btn-success w-100 fw-semibold\'"                                    id="btnAccionForm">                                    {{ pasoActual === 1 ? \'Siguiente\' : \'Confirmar Nueva Contraseña\' }}                                </button>                            </div>                        </form>                    </div>                </div>            </div>        </div>    </section></main></div>'
+    var COMPONENTS = [{'name': 'AdminPanel', 'selector': 'app-admin-panel'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoPanel', 'selector': 'app-producto-panel'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'Recuperar'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'Recuperar.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

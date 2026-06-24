@@ -8,7 +8,10 @@ describe('Footer', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Footer, provideRouter([])],
+      imports: [Footer], 
+      providers: [
+        provideRouter([]) 
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Footer);

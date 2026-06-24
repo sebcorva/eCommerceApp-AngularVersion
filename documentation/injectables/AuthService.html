@@ -1,0 +1,1145 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecommerce-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ecommerce-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >AuthService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/auth.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>authService esta encargado de gestionar los procesos de autenticación, sesión y perfil del usuario.
+Provee herramientas para iniciar sesión, registrarse, recuperar accesos y validar los roles dentro del sistema aniMug.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actualizarPerfil" >actualizarPerfil</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarSesion" >cerrarSesion</a>
+                            </li>
+                            <li>
+                                <a href="#login" >login</a>
+                            </li>
+                            <li>
+                                <a href="#recuperar" >recuperar</a>
+                            </li>
+                            <li>
+                                <a href="#registrar" >registrar</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#sesion" >sesion</a>
+                                </li>
+                                <li>
+                                    <a href="#autenticado" >autenticado</a>
+                                </li>
+                                <li>
+                                    <a href="#esCliente" >esCliente</a>
+                                </li>
+                                <li>
+                                    <a href="#esAdmin" >esAdmin</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(data: <a href="../injectables/DataService.html" target="_self">DataService</a>, validacion: <a href="../injectables/ValidacionService.html" target="_self">ValidacionService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/services/auth.service.ts:11</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>validacion</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ValidacionService.html" target="_self" >ValidacionService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actualizarPerfil"></a>
+                    <span class="name">
+                        <span ><b>actualizarPerfil</b></span>
+                        <a href="#actualizarPerfil"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>actualizarPerfil(datos: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/services/auth.service.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Modifica los datos del perfil del usuario en sesión, resolviendo colisiones de datos y migrando
+elementos dinámicos (como el carrito de compras) si se edita el email principal.</p>
+<ul>
+<li>@param {Object} datos Campos actualizados del perfil.</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>datos</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Campos actualizados del perfil.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Resultado exitoso o fallido junto con el mensaje descriptivo del error/éxito.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarSesion"></a>
+                    <span class="name">
+                        <span ><b>cerrarSesion</b></span>
+                        <a href="#cerrarSesion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarSesion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="257"
+                                    class="link-to-prism">src/app/services/auth.service.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Termina de forma permanente el estado de la sesión actual removiendo las credenciales del almacenamiento local.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="login"></a>
+                    <span class="name">
+                        <span ><b>login</b></span>
+                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>login(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/services/auth.service.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja la lógica de inicio de sesión de aniMug.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Correo electrónico del usuario.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>password</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Contraseña del usuario.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Objeto con el resultado de la operación y mensaje informativo.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recuperar"></a>
+                    <span class="name">
+                        <span ><b>recuperar</b></span>
+                        <a href="#recuperar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>recuperar(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/services/auth.service.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Simula la búsqueda y envío de un enlace de recuperación de contraseña.</p>
+<ul>
+<li>@param {string} email El correo que se desea recuperar.</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>El correo que se desea recuperar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Objeto con la respuesta informativa del estado del correo.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registrar"></a>
+                    <span class="name">
+                        <span ><b>registrar</b></span>
+                        <a href="#registrar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registrar(datos: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">src/app/services/auth.service.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ejecuta el registro de un nuevo cliente aplicando reglas de negocio y validación de duplicados.</p>
+<ul>
+<li>@param {Object} datos Estructura con la información requerida del nuevo cliente.</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>datos</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Estructura con la información requerida del nuevo cliente.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Objeto indicando el resultado del registro (<code>ok</code>) y su respectivo <code>mensaje</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sesion"></a>
+                        <span class="name"><b>sesion</b><a href="#sesion"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>sesion()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/services/auth.service.ts:21</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Obtiene los datos de la sesión activa desde el almacenamiento local.</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/Sesion.html" target="_self" >Sesion | null</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="autenticado"></a>
+                        <span class="name"><b>autenticado</b><a href="#autenticado"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>autenticado()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/services/auth.service.ts:29</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Evalúa el estado de autenticación actual del usuario.</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="esCliente"></a>
+                        <span class="name"><b>esCliente</b><a href="#esCliente"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>esCliente()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/services/auth.service.ts:37</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Verifica si el usuario logueado posee el rol de cliente.</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="esAdmin"></a>
+                        <span class="name"><b>esAdmin</b><a href="#esAdmin"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>esAdmin()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/services/auth.service.ts:45</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Devuelve verdadero si el usuario activo es administrador.</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { DataService } from &#x27;./data.service&#x27;;
+import { MensajeVista, Sesion, Usuario } from &#x27;./modelos&#x27;;
+import { ValidacionService } from &#x27;./validacion.service&#x27;;
+
+/**
+ * authService esta encargado de gestionar los procesos de autenticación, sesión y perfil del usuario.
+ * Provee herramientas para iniciar sesión, registrarse, recuperar accesos y validar los roles dentro del sistema aniMug.
+ */
+@Injectable({ providedIn: &#x27;root&#x27; })
+export class AuthService {
+    constructor(
+        private readonly data: DataService,
+        private readonly validacion: ValidacionService
+    ) { }
+
+    /**
+     * Obtiene los datos de la sesión activa desde el almacenamiento local.
+     * @returns {Sesion | null} El objeto con la sesión activa del usuario o &#x60;null&#x60; si no hay sesión.
+     */
+    get sesion(): Sesion | null {
+        return this.data.getSesion();
+    }
+
+    /**
+     * Evalúa el estado de autenticación actual del usuario.
+     * @returns {boolean} &#x60;true&#x60; si el usuario tiene una sesión iniciada; de lo contrario, &#x60;false&#x60;.
+     */
+    get autenticado(): boolean {
+        return !!this.sesion;
+    }
+
+    /**
+     * Verifica si el usuario logueado posee el rol de cliente.
+     * @returns {boolean} &#x60;true&#x60; si el rol de la sesión actual es &#x27;cliente&#x27;.
+     */
+    get esCliente(): boolean {
+        return this.sesion?.role &#x3D;&#x3D;&#x3D; &#x27;cliente&#x27;;
+    }
+
+    /**
+     * Devuelve verdadero si el usuario activo es administrador.
+     * @returns {boolean} &#x60;true&#x60; si el rol de la sesión actual es &#x27;admin&#x27;.
+     */
+    get esAdmin(): boolean {
+        return this.sesion?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;;
+    }
+
+    /**
+     * Maneja la lógica de inicio de sesión de aniMug.
+     * @param email Correo electrónico del usuario.
+     * @param password Contraseña del usuario.
+     * @returns {Object} Objeto con el resultado de la operación y mensaje informativo.
+     */
+    login(email: string, password: string): { ok: boolean; mensaje: MensajeVista; usuario?: Usuario } {
+        if (!this.validacion.validarEmail(email) || this.validacion.estaVacio(password)) {
+            return {
+                ok: false,
+                mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Ingresa un correo válido y una contraseña.&#x27; }
+            };
+        }
+
+        const usuario &#x3D; this.data.getUsuarioPorEmail(email);
+
+        if (!usuario || usuario.password !&#x3D;&#x3D; password) {
+            return {
+                ok: false,
+                mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Correo o contraseña incorrectos.&#x27; }
+            };
+        }
+
+        this.data.guardarSesion(usuario);
+
+        return {
+            ok: true,
+            usuario,
+            mensaje: { tipo: &#x27;success&#x27;, texto: &#x60;¡Bienvenido ${usuario.username}! Redirigiendo...&#x60; }
+        };
+    }
+
+    /**
+     * Ejecuta el registro de un nuevo cliente aplicando reglas de negocio y validación de duplicados.
+     * * @param {Object} datos Estructura con la información requerida del nuevo cliente.
+     * @param {string} datos.nombre Nombre completo del usuario.
+     * @param {string} datos.username Nombre de usuario único para la plataforma.
+     * @param {string} datos.email Correo electrónico único del usuario.
+     * @param {string} datos.password Contraseña que cumpla los criterios de seguridad mínimos.
+     * @param {string} datos.repetirPassword Confirmación de contraseña para evitar errores de tipeo.
+     * @param {string} datos.fechaNacimiento Fecha en formato string para validar la edad mínima.
+     * @param {string} datos.direccion Dirección física para despachos de productos.
+     * @returns {Object} Objeto indicando el resultado del registro (&#x60;ok&#x60;) y su respectivo &#x60;mensaje&#x60;.
+     */
+    registrar(datos: {
+        nombre: string;
+        username: string;
+        email: string;
+        password: string;
+        repetirPassword: string;
+        fechaNacimiento: string;
+        direccion: string;
+    }): { ok: boolean; mensaje: MensajeVista } {
+        const usuarios &#x3D; this.data.getUsuarios();
+
+        if (!this.validacion.validarTexto(datos.nombre, 4)) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Ingresa un nombre completo válido.&#x27; } };
+        }
+        if (!this.validacion.validarTexto(datos.username, 4)) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Ingresa un nombre de usuario de al menos 4 caracteres.&#x27; } };
+        }
+        if (!this.validacion.validarEmail(datos.email)) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Ingresa un correo válido.&#x27; } };
+        }
+        if (!this.validacion.validarEdadMinima(datos.fechaNacimiento, 13)) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Debes tener al menos 13 años para registrarte.&#x27; } };
+        }
+        const ResultadoPassword &#x3D; this.validacion.validarPassword(datos.password);
+        if (!ResultadoPassword.valida) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;La contraseña no cumple todos los requisitos de seguridad.&#x27; } };
+        }
+        if (datos.password !&#x3D;&#x3D; datos.repetirPassword) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Las contraseñas no coinciden.&#x27; } };
+        }
+        const emailExiste &#x3D; usuarios.some(u &#x3D;&gt; u.email.toLowerCase() &#x3D;&#x3D;&#x3D; datos.email.trim().toLowerCase());
+        if (emailExiste) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Este correo ya está registrado.&#x27; } };
+        }
+        const usuarioExiste &#x3D; usuarios.some(u &#x3D;&gt; u.username.toLowerCase() &#x3D;&#x3D;&#x3D; datos.username.trim().toLowerCase());
+        if (usuarioExiste) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;El nombre de usuario ya está en uso.&#x27; } };
+        }
+
+        const nuevoUsuario: Usuario &#x3D; {
+            id: this.data.generarId(usuarios),
+            nombre: datos.nombre.trim(),
+            username: datos.username.trim(),
+            email: datos.email.trim().toLowerCase(),
+            password: datos.password,
+            fechaNacimiento: datos.fechaNacimiento,
+            direccion: datos.direccion.trim(),
+            role: &#x27;cliente&#x27;
+        };
+
+        usuarios.push(nuevoUsuario);
+        this.data.guardarUsuarios(usuarios);
+
+        return {
+            ok: true,
+            mensaje: {
+                tipo: &#x27;success&#x27;,
+                texto: &#x27;Registro completado con éxito. Ahora puedes iniciar sesión.&#x27;
+            }
+        };
+    }
+
+    /**
+     * Simula la búsqueda y envío de un enlace de recuperación de contraseña.
+     * * @param {string} email El correo que se desea recuperar.
+     * @returns {Object} Objeto con la respuesta informativa del estado del correo.
+     */
+    recuperar(email: string): { ok: boolean; mensaje: MensajeVista } {
+        if (!this.validacion.validarEmail(email)) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Ingresa un correo válido.&#x27; } };
+        }
+
+        const usuario &#x3D; this.data.getUsuarioPorEmail(email);
+
+        if (!usuario) {
+            return {
+                ok: false,
+                mensaje: { tipo: &#x27;warning&#x27;, texto: &#x27;No existe ninguna cuenta asociada a este correo.&#x27; }
+            };
+        }
+
+        return {
+            ok: true,
+            mensaje: {
+                tipo: &#x27;success&#x27;,
+                texto: &#x27;Simulación exitosa: Se ha enviado un enlace de recuperación a su bandeja de entrada.&#x27;
+            }
+        };
+    }
+
+    /**
+     * Modifica los datos del perfil del usuario en sesión, resolviendo colisiones de datos y migrando
+     * elementos dinámicos (como el carrito de compras) si se edita el email principal.
+     * * @param {Object} datos Campos actualizados del perfil.
+     * @param {string} datos.nombre Nombre actualizado del usuario.
+     * @param {string} datos.username Nombre de usuario (nickname) modificado.
+     * @param {string} datos.email Nuevo correo electrónico asociado.
+     * @param {string} datos.fechaNacimiento Fecha de nacimiento modificada.
+     * @param {string} datos.direccion Nueva ubicación de despacho.
+     * @returns {Object} Resultado exitoso o fallido junto con el mensaje descriptivo del error/éxito.
+     */
+    actualizarPerfil(datos: {
+        nombre: string;
+        username: string;
+        email: string;
+        fechaNacimiento: string;
+        direccion: string;
+    }): { ok: boolean; mensaje: MensajeVista } {
+        const sesion &#x3D; this.sesion;
+
+        if (!sesion) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;No hay ninguna sesión activa.&#x27; } };
+        }
+
+        const usuarios &#x3D; this.data.getUsuarios();
+        const usuario &#x3D; usuarios.find(u &#x3D;&gt; Number(u.id) &#x3D;&#x3D;&#x3D; Number(sesion.id));
+
+        if (!usuario) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;No se encontró el usuario actual en el sistema.&#x27; } };
+        }
+
+        if (!this.validacion.validarTexto(datos.nombre, 4) ||
+            !this.validacion.validarTexto(datos.username, 4) ||
+            !this.validacion.validarEmail(datos.email)) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Por favor, revise los campos marcados.&#x27; } };
+        }
+
+        const EmailUsado &#x3D; usuarios.some(u &#x3D;&gt; u.email.toLowerCase() &#x3D;&#x3D;&#x3D; datos.email.trim().toLowerCase() &amp;&amp; Number(u.id) !&#x3D;&#x3D; Number(usuario.id));
+        if (EmailUsado) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Este correo ya está siendo usado por otra cuenta.&#x27; } };
+        }
+
+        const usernameUsado &#x3D; usuarios.some(u &#x3D;&gt; u.username.toLowerCase() &#x3D;&#x3D;&#x3D; datos.username.trim().toLowerCase() &amp;&amp; Number(u.id) !&#x3D;&#x3D; Number(usuario.id));
+        if (usernameUsado) {
+            return { ok: false, mensaje: { tipo: &#x27;danger&#x27;, texto: &#x27;Este nombre de usuario ya está ocupado.&#x27; } };
+        }
+
+        const emailAnterior &#x3D; usuario.email;
+
+        usuario.nombre &#x3D; datos.nombre.trim();
+        usuario.username &#x3D; datos.username.trim();
+        usuario.email &#x3D; datos.email.trim().toLowerCase();
+        usuario.fechaNacimiento &#x3D; datos.fechaNacimiento;
+        usuario.direccion &#x3D; datos.direccion.trim();
+
+        this.data.guardarUsuarios(usuarios);
+        this.data.guardarSesion(usuario);
+
+        if (emailAnterior !&#x3D;&#x3D; usuario.email) {
+            const carritos &#x3D; this.data.getCarritos();
+            if (carritos[emailAnterior] &amp;&amp; !carritos[usuario.email]) {
+                carritos[usuario.email] &#x3D; carritos[emailAnterior];
+                delete carritos[emailAnterior];
+                this.data.guardarCarritos(carritos);
+            }
+        }
+
+        return { ok: true, mensaje: { tipo: &#x27;success&#x27;, texto: &#x27;¡Perfil actualizado con éxito!&#x27; } };
+    }
+
+    /**
+     * Termina de forma permanente el estado de la sesión actual removiendo las credenciales del almacenamiento local.
+     * @returns {void}
+     */
+    cerrarSesion(): void {
+        this.data.cerrarSesion();
+    }
+}</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

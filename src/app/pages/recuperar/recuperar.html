@@ -43,21 +43,30 @@
 
                             <div [hidden]="pasoActual !== 2" id="seccionNuevasClaves">
                                 <div class="mb-3">
-                                    <label for="newPassword" class="form-label fw-semibold text-muted">Nueva
-                                        Contraseña</label>
+                                    <label for="newPassword" class="form-label fw-semibold text-muted">Nueva Contraseña</label>
                                     <input type="password" class="form-control" id="newPassword"
                                         formControlName="newPassword" placeholder="Ingrese su nueva contraseña"
                                         [ngClass]="{'is-invalid': campoInvalido('newPassword')}">
+                                    
                                     <div *ngIf="campoInvalido('newPassword')" class="invalid-feedback">
-                                        <span *ngIf="erroresControles['newPassword'].errors?.['required']">La contraseña
-                                            nueva es obligatoria.</span>
-                                        <span *ngIf="erroresControles['newPassword'].errors?.['minlength']">La
-                                            contraseña debe tener al menos 4 caracteres.</span>
+                                        <span *ngIf="erroresControles['newPassword'].errors?.['required']">
+                                            La contraseña nueva es obligatoria.
+                                        </span>
+                                        <span *ngIf="erroresControles['newPassword'].errors?.['minlength'] || erroresControles['newPassword'].errors?.['maxlength']">
+                                            La contraseña debe tener entre 6 y 18 caracteres.
+                                        </span>
+                                        <span *ngIf="erroresControles['newPassword'].errors?.['pattern'] && !erroresControles['newPassword'].errors?.['minlength']">
+                                            Debe contener al menos una letra mayúscula y un número.
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="form-text text-muted small mt-1" *ngIf="pasoActual === 2 && !campoInvalido('newPassword')">
+                                        De 6 a 18 caracteres, incluyendo una mayúscula y un número.
                                     </div>
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="repeatPassword" class="form-label fw-semibold text-muted">Repetir
-                                        Contraseña</label>
+                                    <label for="repeatPassword" class="form-label fw-semibold text-muted">Repetir Contraseña</label>
                                     <input type="password" class="form-control" id="repeatPassword"
                                         formControlName="repeatPassword" placeholder="Repita su nueva contraseña"
                                         [ngClass]="{'is-invalid': campoInvalido('repeatPassword')}">

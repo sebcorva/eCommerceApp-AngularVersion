@@ -8,7 +8,10 @@ describe('Recuperar', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Recuperar, provideRouter([])],
+      imports: [Recuperar],
+      providers: [
+        provideRouter([])
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Recuperar);

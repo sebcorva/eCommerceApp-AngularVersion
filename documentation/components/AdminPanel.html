@@ -1,0 +1,412 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecommerce-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">ecommerce-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AdminPanel</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/admin-panel/admin-panel.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-admin-panel</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./admin-panel.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./admin-panel.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { RouterLink } from &#x27;@angular/router&#x27;;
+
+@Component({
+  selector: &#x27;app-admin-panel&#x27;,
+  imports: [RouterLink],
+  templateUrl: &#x27;./admin-panel.html&#x27;,
+  styleUrl: &#x27;./admin-panel.css&#x27;,
+})
+export class AdminPanel { }
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!--Panel de Administrador--&gt;
+&lt;main&gt;
+    &lt;section class&#x3D;&quot;container-perfil&quot;&gt;
+        &lt;div class&#x3D;&quot;row justify-content-center mx-2&quot;&gt;
+            &lt;div class&#x3D;&quot;col-12 col-sm-10 col-md-8 col-lg-9 bg-light rounded shadow my-4 my-lg-5 overflow-hidden&quot;&gt;
+                &lt;div class&#x3D;&quot;row g-0 align-items-stretch&quot;&gt;
+
+                    &lt;div class&#x3D;&quot;col-lg-5 d-none d-lg-flex p-0&quot; style&#x3D;&quot;position: relative;&quot;&gt;
+                        &lt;img src&#x3D;&quot;assets/img/login.jpg&quot; alt&#x3D;&quot;Perfil AniMug&quot; class&#x3D;&quot;w-100 h-100 loginImage&quot;&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class&#x3D;&quot;col-12 col-lg-7 p-4 p-lg-5&quot;&gt;
+                        &lt;h2 class&#x3D;&quot;text-center mb-4 text-secondary&quot;&gt;Panel de Administrador&lt;/h2&gt;
+
+                        &lt;div class&#x3D;&quot;card shadow-sm border-0 mb-4 p-3 bg-white&quot;&gt;
+                            &lt;div class&#x3D;&quot;d-flex align-items-center justify-content-between&quot;&gt;
+                                &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+                                    &lt;img src&#x3D;&quot;assets/img/admin.jpg&quot; alt&#x3D;&quot;Foto de perfil&quot;
+                                        class&#x3D;&quot;rounded-circle perfilImage&quot;&gt;
+
+                                    &lt;div&gt;
+                                        &lt;h5 class&#x3D;&quot;m-0 h6 fw-bold text-dark&quot; id&#x3D;&quot;perfilNombre&quot;&gt;&lt;/h5&gt;
+                                        &lt;small class&#x3D;&quot;text-muted d-block&quot; id&#x3D;&quot;perfilEmail&quot;&gt;&lt;/small&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+
+                        &lt;div class&#x3D;&quot;card shadow-sm border-0 p-4 bg-white&quot;&gt;
+                            &lt;div class&#x3D;&quot;d-flex flex-column gap-3&quot;&gt;
+
+                                &lt;div class&#x3D;&quot;d-flex justify-content-center justify-content-sm-start&quot;&gt;
+                                    &lt;a routerLink&#x3D;&quot;/productoPanel&quot;
+                                        class&#x3D;&quot;btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2&quot;&gt;
+                                        &lt;i class&#x3D;&quot;bi bi-bag-check&quot;&gt;&lt;/i&gt; &lt;span&gt;Productos&lt;/span&gt;
+                                    &lt;/a&gt;
+                                &lt;/div&gt;
+
+                                &lt;div class&#x3D;&quot;d-flex justify-content-center justify-content-sm-start&quot;&gt;
+                                    &lt;button
+                                        class&#x3D;&quot;btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2&quot;&gt;
+                                        &lt;i class&#x3D;&quot;bi bi-people&quot;&gt;&lt;/i&gt; &lt;span&gt;Usuarios&lt;/span&gt;
+                                    &lt;/button&gt;
+                                &lt;/div&gt;
+
+                                &lt;div class&#x3D;&quot;d-flex justify-content-center justify-content-sm-start&quot;&gt;
+                                    &lt;button
+                                        class&#x3D;&quot;btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2&quot;&gt;
+                                        &lt;i class&#x3D;&quot;bi bi-people&quot;&gt;&lt;/i&gt; &lt;span&gt;Compras&lt;/span&gt;
+                                    &lt;/button&gt;
+                                &lt;/div&gt;
+
+                                &lt;div class&#x3D;&quot;d-flex justify-content-center justify-content-sm-start&quot;&gt;
+                                    &lt;button
+                                        class&#x3D;&quot;btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2&quot;&gt;
+                                        &lt;i class&#x3D;&quot;bi bi-people&quot;&gt;&lt;/i&gt; &lt;span&gt;Despachos&lt;/span&gt;
+                                    &lt;/button&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!--Panel de Administrador--><main>    <section class="container-perfil">        <div class="row justify-content-center mx-2">            <div class="col-12 col-sm-10 col-md-8 col-lg-9 bg-light rounded shadow my-4 my-lg-5 overflow-hidden">                <div class="row g-0 align-items-stretch">                    <div class="col-lg-5 d-none d-lg-flex p-0" style="position: relative;">                        <img src="assets/img/login.jpg" alt="Perfil AniMug" class="w-100 h-100 loginImage">                    </div>                    <div class="col-12 col-lg-7 p-4 p-lg-5">                        <h2 class="text-center mb-4 text-secondary">Panel de Administrador</h2>                        <div class="card shadow-sm border-0 mb-4 p-3 bg-white">                            <div class="d-flex align-items-center justify-content-between">                                <div class="d-flex align-items-center gap-3">                                    <img src="assets/img/admin.jpg" alt="Foto de perfil"                                        class="rounded-circle perfilImage">                                    <div>                                        <h5 class="m-0 h6 fw-bold text-dark" id="perfilNombre"></h5>                                        <small class="text-muted d-block" id="perfilEmail"></small>                                    </div>                                </div>                            </div>                        </div>                        <div class="card shadow-sm border-0 p-4 bg-white">                            <div class="d-flex flex-column gap-3">                                <div class="d-flex justify-content-center justify-content-sm-start">                                    <a routerLink="/productoPanel"                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">                                        <i class="bi bi-bag-check"></i> <span>Productos</span>                                    </a>                                </div>                                <div class="d-flex justify-content-center justify-content-sm-start">                                    <button                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">                                        <i class="bi bi-people"></i> <span>Usuarios</span>                                    </button>                                </div>                                <div class="d-flex justify-content-center justify-content-sm-start">                                    <button                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">                                        <i class="bi bi-people"></i> <span>Compras</span>                                    </button>                                </div>                                <div class="d-flex justify-content-center justify-content-sm-start">                                    <button                                        class="btn btn-outline-primary btn-custom-profile d-flex align-items-center justify-content-center gap-2">                                        <i class="bi bi-people"></i> <span>Despachos</span>                                    </button>                                </div>                            </div>                        </div>                    </div>                </div>            </div>        </div>    </section></main></div>'
+    var COMPONENTS = [{'name': 'AdminPanel', 'selector': 'app-admin-panel'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoPanel', 'selector': 'app-producto-panel'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AdminPanel'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminPanel.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
