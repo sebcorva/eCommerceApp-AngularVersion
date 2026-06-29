@@ -26,8 +26,10 @@
                     <a class="nav-link p-0 text-danger position-relative" routerLink="/carrito"
                         title="Carrito de compras">
                         <i class="bi bi-cart fs-4"></i>
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                        <span *ngIf="totalProductos > 0"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ totalProductos }}
+                        </span>
                     </a>
                 </li>
             </ul>
@@ -36,7 +38,7 @@
                     routerLink="/adminPanel">
                     <i class="bi bi-shield-lock-fill"></i> Panel Admin
                 </a>
-                <a *ngIf="rolUsuario === 'cliente'"
+                <a *ngIf="rolUsuario === 'cliente' || rolUsuario === 'admin'"
                     class="nav-link text-primary fw-bold d-flex align-items-center gap-2 py-1 px-2 border rounded bg-light"
                     routerLink="/perfil" style="transition: all 0.3s ease;">
                     <i class="bi bi-person-circle fs-5 text-primary"></i>

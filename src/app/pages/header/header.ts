@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class Header {
 
   constructor(
+    public dataService: DataService,
     public authService: AuthService,
     private router: Router
   ) { }
@@ -24,5 +26,9 @@ export class Header {
   logout(): void {
     this.authService.cerrarSesion();
     this.router.navigate(['/login']);
+  }
+
+  get totalProductos(): number {
+    return this.dataService.carritoSignal().reduce((total, item) => total + item.cantidad, 0);
   }
 }

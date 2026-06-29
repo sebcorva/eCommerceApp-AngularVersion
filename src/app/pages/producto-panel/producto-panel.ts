@@ -66,7 +66,9 @@ export class ProductoPanel implements OnInit {
    */
   ngOnInit(): void {
     if (!this.authService.autenticado || this.authService.sesion?.role !== 'admin') {
-      alert('Acceso denegado. Se requieren permisos de Administrador.');
+      if (typeof window !== 'undefined') {
+        alert('Acceso denegado. Se requieren permisos de Administrador.');
+      }
       this.router.navigate(['/']);
       return;
     }

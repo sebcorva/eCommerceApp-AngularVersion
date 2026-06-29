@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Categorias, Producto, Usuario, Sesion, ElementoCarrito } from "./modelos";
 
@@ -200,8 +200,19 @@ export class DataService {
     /** Colección por defecto de usuarios registrados en la aplicación. */
     readonly usuarios: Usuario[] = this.clonar(DATOS_BASE.usuarios) as unknown as Usuario[];
 
+    /** Señales reactivas para la sesión y el carrito del usuario. */
+    readonly sesionSignal = signal<Sesion | null>(null);
+    readonly carritoSignal = signal<ElementoCarrito[]>([]);
+
     constructor() {
         this.inicializarDatos();
+        const sesion = this.getSesion();
+        this.sesionSignal.set(sesion);
+        if (sesion && sesion.email) {
+            this.carritoSignal.set(this.getCarritoUsuario(sesion.email));
+        } else {
+            this.carritoSignal.set([]);
+        }
     }
 
     /**
@@ -393,6 +404,8 @@ export class DataService {
         };
 
         sessionStorage.setItem(this.KEYS.sesion, JSON.stringify(sesion));
+        this.sesionSignal.set(sesion);
+        this.carritoSignal.set(this.getCarritoUsuario(usuario.email));
     }
     /**
      * Extrae el estado actual de la sesión desde SessionStorage controlando errores de casteo de objetos.
@@ -418,6 +431,8 @@ export class DataService {
         if (!this.sessionDisponible()) return;
 
         sessionStorage.removeItem(this.KEYS.sesion);
+        this.sesionSignal.set(null);
+        this.carritoSignal.set([]);
     }
     /**
      * Recupera el mapa relacional completo de todos los carritos registrados por los usuarios del sistema.
@@ -451,6 +466,10 @@ export class DataService {
         const carritos = this.getCarritos();
         carritos[email] = carrito;
         this.guardarCarritos(carritos);
+        const sesion = this.getSesion();
+        if (sesion && sesion.email === email) {
+            this.carritoSignal.set([...carrito]);
+        }
     }
     /**
      * Vacía por completo el carro de compras activo de un cliente dejándolo como un arreglo vacío.
@@ -547,4 +566,9 @@ export class DataService {
      * @returns {T} Una nueva copia profunda sin referencias cruzadas al original.
      */
     private clonar<T>(valor: T): T { return JSON.parse(JSON.stringify(valor)) as T; }
+
+    obtenerTotalItemsCarrito(emailUsuario: string): number {
+        const carrito = this.getCarritoUsuario(emailUsuario);
+        return carrito.reduce((total, item) => total + item.cantidad, 0);
+    }
 }

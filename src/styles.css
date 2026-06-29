@@ -1,1 +1,315 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --color-primario: #1a3d72;
+    --color-secundario: #6c757d;
+    --color-bg: #f8f9fa;
+}
+
+.container-categoria {
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 100px auto;
+    max-width: 960px;
+    padding: 0 15px;
+}
+
+.categoria-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--color-bg);
+    margin-bottom: 20px;
+    animation: aparecerDesdeArriba 0.6s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.categoria-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.categoria-card:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.categoria-card:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.categoria-card:nth-child(4) {
+    animation-delay: 0.7s;
+}
+
+.categoria-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.categoria-card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.hover-link {
+    transition: color 0.2s ease;
+}
+
+.hover-link:hover {
+    color: #0d6efd !important;
+}
+
+.about-us-title {
+    font-size: 52px;
+    color: var(--color-secundario);
+}
+
+.about-us-text {
+    font-size: 1.15rem;
+    letter-spacing: 1.2px;
+    text-align: right;
+    width: 100%;
+    margin-left: 0;
+    transition: color 0.5s ease;
+    cursor: default;
+}
+
+.about-us-text:hover {
+    animation: animacionAboutUs 4s linear infinite;
+}
+
+.text-primary {
+    color: var(--color-primario) !important;
+}
+
+.text-secondary {
+    color: var(--color-secundario) !important;
+}
+
+.productos-grid {
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 30px auto;
+    max-width: 960px;
+    padding: 0 15px;
+}
+
+.producto-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--color-bg);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: aparecerDesdeArriba 0.6s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.producto-card:hover p.badge-new {
+    animation: zumbidoBadge 0.7s linear 1;
+    transform-origin: center;
+}
+
+.producto-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.producto-card:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.producto-card:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.producto-card img {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.producto-card .card-body p.text-start {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 4.5rem;
+}
+
+.producto-card:hover img {
+    transform: scale(1.05);
+}
+
+.bi-cart-plus {
+    display: inline-block;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.bi-cart-plus.activo {
+    color: #dc3545 !important;
+    animation: saltito 0.4s ease-out;
+}
+
+.with_categoria {
+    width: 18rem;
+}
+
+.badge-new {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(163, 5, 5, 0.827);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #f2f2f2;
+    border: 1px solid rgba(217, 9, 9, 0.55);
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 1;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.badge-new:hover {
+    animation: zumbidoBadge 0.5s linear infinite;
+    transform-origin: center;
+}
+
+.animacion_logo:hover {
+    animation: agrandarLogo 0.3s ease-in-out forwards;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body,
+app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.loginImage {
+    position: relative;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.perfilImage {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.btn-custom-profile {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .about-us-text {
+        margin-left: 40%;
+        width: 40%;
+    }
+}
+
+@keyframes agrandarLogo {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes animacionAboutUs {
+    0% {
+        color: #0d6efd;
+    }
+
+    33% {
+        color: #6f42c1;
+    }
+
+    66% {
+        color: #fd7e14;
+    }
+
+    100% {
+        color: #0d6efd;
+    }
+}
+
+@keyframes aparecerDesdeArriba {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zumbidoBadge {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(20deg);
+    }
+
+    40% {
+        transform: rotate(-20deg);
+    }
+
+    60% {
+        transform: rotate(15deg);
+    }
+
+    80% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes saltito {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

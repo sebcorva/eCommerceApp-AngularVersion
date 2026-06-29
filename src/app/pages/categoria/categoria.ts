@@ -66,6 +66,10 @@ export class Categoria implements OnInit {
       });
     }
     this.dataService.guardarCarritoUsuario(emailUsuario, carrito);
-    alert(`¡${producto.nombre} añadido al carrito con éxito!`);
+
+    producto.animando = true;
+    setTimeout(() => {
+      producto.animando = false;
+    }, 400);
   }
 }

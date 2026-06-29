@@ -19,7 +19,7 @@ export class AuthService {
      * @returns {Sesion | null} El objeto con la sesión activa del usuario o `null` si no hay sesión.
      */
     get sesion(): Sesion | null {
-        return this.data.getSesion();
+        return this.data.sesionSignal();
     }
 
     /**
@@ -27,7 +27,7 @@ export class AuthService {
      * @returns {boolean} `true` si el usuario tiene una sesión iniciada; de lo contrario, `false`.
      */
     get autenticado(): boolean {
-        return !!this.sesion;
+        return !!this.data.sesionSignal();
     }
 
     /**
@@ -35,7 +35,7 @@ export class AuthService {
      * @returns {boolean} `true` si el rol de la sesión actual es 'cliente'.
      */
     get esCliente(): boolean {
-        return this.sesion?.role === 'cliente';
+        return this.data.sesionSignal()?.role === 'cliente';
     }
 
     /**
@@ -43,7 +43,7 @@ export class AuthService {
      * @returns {boolean} `true` si el rol de la sesión actual es 'admin'.
      */
     get esAdmin(): boolean {
-        return this.sesion?.role === 'admin';
+        return this.data.sesionSignal()?.role === 'admin';
     }
 
     /**
@@ -236,7 +236,6 @@ export class AuthService {
         usuario.direccion = datos.direccion.trim();
 
         this.data.guardarUsuarios(usuarios);
-        this.data.guardarSesion(usuario);
 
         if (emailAnterior !== usuario.email) {
             const carritos = this.data.getCarritos();
@@ -246,6 +245,8 @@ export class AuthService {
                 this.data.guardarCarritos(carritos);
             }
         }
+
+        this.data.guardarSesion(usuario);
 
         return { ok: true, mensaje: { tipo: 'success', texto: '¡Perfil actualizado con éxito!' } };
     }

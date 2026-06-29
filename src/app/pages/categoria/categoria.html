@@ -30,54 +30,59 @@
             *ngIf="productosFiltrados.length > 0">
         </div>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" *ngIf="productosFiltrados.length > 0">
+        <div class="productos-grid">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"
+                *ngIf="productosFiltrados.length > 0">
 
-            <div class="col" *ngFor="let producto of productosFiltrados">
-                <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+                <div class="col producto-card" *ngFor="let producto of productosFiltrados">
+                    <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
 
-                    <div class="bg-light position-relative" style="height: 250px;">
-                        <img [src]="producto.imagen" [alt]="producto.nombre" class="w-100 h-100 object-fit-cover">
+                        <div class="bg-light position-relative" style="height: 250px;">
+                            <img [src]="producto.imagen" [alt]="producto.nombre" class="w-100 h-100 object-fit-cover">
 
-                        <span *ngIf="producto.descuento > 0 && producto.stock > 0"
-                            class="badge bg-danger position-absolute top-0 start-0 m-2 fs-6">
-                            -{{ producto.descuento }}%
-                        </span>
+                            <span *ngIf="producto.descuento > 0 && producto.stock > 0"
+                                class="badge bg-danger position-absolute top-0 start-0 m-2 fs-6">
+                                -{{ producto.descuento }}%
+                            </span>
 
-                        <span *ngIf="producto.stock === 0" class="badge bg-secondary position-absolute top-0 end-0 m-2">
-                            Agotado
-                        </span>
-                    </div>
-
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title h6 fw-bold text-dark text-truncate mb-1">{{ producto.nombre }}</h5>
-                        <p class="card-text text-muted small text-truncate-2 flex-grow-1">{{ producto.descripcion }}</p>
-
-                        <div class="my-2">
-                            <div *ngIf="producto.descuento > 0; else precioNormal">
-                                <span class="fs-5 fw-bold text-danger me-2">
-                                    {{ dataService.formatearPrecio(dataService.calcularPrecioFinal(producto)) }}
-                                </span>
-                                <span class="text-muted text-decoration-line-through small">
-                                    {{ dataService.formatearPrecio(producto.precio) }}
-                                </span>
-                            </div>
-
-                            <ng-template #precioNormal>
-                                <span class="fs-5 fw-bold text-dark">
-                                    {{ dataService.formatearPrecio(producto.precio) }}
-                                </span>
-                            </ng-template>
+                            <span *ngIf="producto.stock === 0"
+                                class="badge bg-secondary position-absolute top-0 end-0 m-2">
+                                Agotado
+                            </span>
                         </div>
 
-                        <button (click)="agregarProducto(producto)" class="btn btn-outline-danger w-100 btn-sm mt-2"
-                            [disabled]="producto.stock === 0">
-                            <i class="bi bi-cart-plus"></i>
-                        </button>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title h6 fw-bold text-dark text-truncate mb-1">{{ producto.nombre }}</h5>
+                            <p class="card-text text-muted small text-truncate-2 flex-grow-1">{{ producto.descripcion }}
+                            </p>
+
+                            <div class="my-2">
+                                <div *ngIf="producto.descuento > 0; else precioNormal">
+                                    <span class="fs-5 fw-bold text-danger me-2">
+                                        {{ dataService.formatearPrecio(dataService.calcularPrecioFinal(producto)) }}
+                                    </span>
+                                    <span class="text-muted text-decoration-line-through small">
+                                        {{ dataService.formatearPrecio(producto.precio) }}
+                                    </span>
+                                </div>
+
+                                <ng-template #precioNormal>
+                                    <span class="fs-5 fw-bold text-dark">
+                                        {{ dataService.formatearPrecio(producto.precio) }}
+                                    </span>
+                                </ng-template>
+                            </div>
+
+                            <button (click)="agregarProducto(producto)" class="btn btn-outline-danger w-100 btn-sm mt-2"
+                                [disabled]="producto.stock === 0">
+                                <i class="bi bi-cart-plus" [class.activo]="producto.animando"></i>
+                            </button>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
     </section>
 </main>

@@ -15,6 +15,7 @@ export interface Producto {
     imagen: string;
     stock: number;
     categoria: string;
+    animando?: boolean;
 }
 
 export interface ElementoCarrito {
