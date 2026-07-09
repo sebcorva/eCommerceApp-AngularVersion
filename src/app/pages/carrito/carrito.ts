@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
-import { ElementoCarrito } from '../../services/modelos';
+import { ElementoCarrito } from '../../models/elemento-carrito';
 
 /**
  * Componente que administra la vista y operaciones del carrito de compras de aniMug.

@@ -11,7 +11,7 @@ import { CommonModule as NgCommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
-import { Producto } from '../../services/modelos';
+import { Producto } from '../../models/producto';
 
 /**
  * Componente que representa el panel de administración de productos (CRUD).

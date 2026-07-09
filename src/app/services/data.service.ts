@@ -1,12 +1,19 @@
 import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Categorias, Producto, Usuario, Sesion, ElementoCarrito } from "./modelos";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Categorias } from '../models/categoria';
+import { Producto } from '../models/producto';
+import { Usuario } from '../models/usuario';
+import { Sesion } from '../models/sesion';
+import { ElementoCarrito } from '../models/elemento-carrito';
 
 /**
  * Constante estática con los datos de inicialización por defecto del sistema aniMug.
  * Contiene el catálogo inicial estructurado por categorías, lista de productos base y cuentas de prueba.
  */
-const DATOS_BASE = {
+/* const DATOS_BASE = {
     "categorias": {
         "tazas": {
             "nombre": "Tazas",
@@ -160,7 +167,7 @@ const DATOS_BASE = {
             "password": "seba1234!",
             "fechaNacimiento": "1994-03-31",
             "direccion": "Los Duraznos #323",
-            "role": "cliente",
+            "role": "cliente"
         },
         {
             "id": 2,
@@ -170,10 +177,10 @@ const DATOS_BASE = {
             "password": "admin1234!",
             "fechaNacimiento": "1994-03-31",
             "direccion": "Los Admin #67",
-            "role": "admin",
+            "role": "admin"
         }
     ]
-} as const;
+} as const; */
 
 /**
  * Servicio encargado de centralizar, persistir y transformar los datos operacionales de la tienda.
@@ -182,30 +189,18 @@ const DATOS_BASE = {
  */
 @Injectable({ providedIn: 'root' })
 export class DataService {
-    /**
-     * Diccionario estático que define las llaves exclusivas para la persistencia en la Web Storage API.
-     */
+
+    private readonly API_URL = 'http://localhost:3000';
+
     readonly KEYS = {
-        productos: 'animug_productos',
-        usuarios: 'animug_usuarios',
         carritos: 'animug_carritos',
-        compras: 'animug_compras',
         sesion: 'animug_sesion'
-    };
-
-    /** Listado de categorías base clonadas listas para lectura en la aplicación. */
-    readonly categorias: Record<string, Categorias> = this.clonar(DATOS_BASE.categorias) as Record<string, Categorias>;
-    /** Colección por defecto de productos en la aplicación. */
-    readonly productos: Producto[] = this.clonar(DATOS_BASE.productos) as unknown as Producto[];
-    /** Colección por defecto de usuarios registrados en la aplicación. */
-    readonly usuarios: Usuario[] = this.clonar(DATOS_BASE.usuarios) as unknown as Usuario[];
-
+    }
     /** Señales reactivas para la sesión y el carrito del usuario. */
     readonly sesionSignal = signal<Sesion | null>(null);
     readonly carritoSignal = signal<ElementoCarrito[]>([]);
 
-    constructor() {
-        this.inicializarDatos();
+    constructor(private http: HttpClient) {
         const sesion = this.getSesion();
         this.sesionSignal.set(sesion);
         if (sesion && sesion.email) {
@@ -216,22 +211,89 @@ export class DataService {
     }
 
     /**
-     * Evalúa la disponibilidad de almacenamiento en el navegador e inyecta los datos de respaldo (`DATOS_BASE`)
-     * en el `localStorage` en caso de que sea la primera ejecución de la aplicación.
+     * Obtiene el listado completo de categorías disponibles para la venta.
+     * @returns {Observable<Record<string, Categorias>>} Un observable que emite el listado de categorías.
      */
-    inicializarDatos(): void {
-        if (!this.storageDisponible()) return;
-
-        if (!localStorage.getItem(this.KEYS.productos)) {
-            this.guardarProductos(this.productos);
-        }
-        if (!localStorage.getItem(this.KEYS.usuarios)) {
-            this.guardarUsuarios(this.usuarios);
-        }
-        if (!localStorage.getItem(this.KEYS.carritos)) {
-            this.guardarCarritos({});
-        }
+    getCategorias(): Observable<Record<string, Categorias>> {
+        return this.http.get<Record<string, Categorias>>(`${this.API_URL}/categorias`);
     }
+    /**
+     * Recupera y normaliza las imágenes de productos.
+     * @returns {Observable<Producto[]>} Un observable que emite el listado de productos mapeados.
+     */
+    getProductos(): Observable<Producto[]> {
+        return this.http.get<Producto[]>(`${this.API_URL}/productos`).pipe(
+            map(productos => productos.map(producto => ({
+                ...producto,
+                imagen: this.normalizarRutaImagen(producto.imagen)
+            })))
+        );
+    }
+    /** Obtener producto por ID */
+    getProductoPorId(id: number | string): Observable<Producto> {
+        return this.http.get<Producto>(`${this.API_URL}/productos/${id}`).pipe(
+            map(producto => ({
+                ...producto,
+                imagen: this.normalizarRutaImagen(producto.imagen)
+            }))
+        );
+    }
+    /** 
+     * Obtener productos por categoría
+     * @param categoriaKey
+     * @returns Observable<Producto[]> 
+     */
+    getProductosPorCategoria(categoriaKey: string): Observable<Producto[]> {
+        return this.getProductos().pipe(
+            map(productos => productos.filter(p => p.categoria.toLowerCase() === categoriaKey.toLowerCase()))
+        );
+    }
+
+    /** Agregar producto mediante POST */
+    agregarProductoGlobal(nuevoProducto: Omit<Producto, 'id'>): Observable<Producto> {
+        return this.http.post<Producto>(`${this.API_URL}/productos`, nuevoProducto);
+    }
+
+    /** Actualizar producto mediante PUT */
+    actualizarProductoGlobal(productoEditado: Producto): Observable<Producto> {
+        return this.http.put<Producto>(`${this.API_URL}/productos/${productoEditado.id}`, productoEditado);
+    }
+
+    /** Eliminar producto mediante DELETE */
+    eliminarProductoGlobal(id: number | string): Observable<void> {
+        return this.http.delete<void>(`${this.API_URL}/productos/${id}`);
+    }
+
+    /**
+     * Recupera el conjunto completo de usuarios registrados en el servidor remoto.
+     */
+    getUsuarios(): Observable<Usuario[]> {
+        return this.http.get<Usuario[]>(`${this.API_URL}/usuarios`);
+    }
+
+    /**
+     * Registra/Guarda de forma remota un nuevo usuario en la API Rest.
+     */
+    guardarUsuarios(nuevoUsuario: Omit<Usuario, 'id'>): Observable<Usuario> {
+        return this.http.post<Usuario>(`${this.API_URL}/usuarios`, nuevoUsuario);
+    }
+    /**
+     * Busca un usuario específico usando su correo electrónico mediante Query Params remotos.
+     */
+    getUsuarioPorEmail(email: string): Observable<Usuario | undefined> {
+        const emailNormalizado = email.trim().toLowerCase();
+        return this.http.get<Usuario[]>(`${this.API_URL}/usuarios?email=${emailNormalizado}`).pipe(
+            map(usuarios => usuarios.length > 0 ? usuarios[0] : undefined)
+        );
+    }
+
+    /**
+     * Localiza a un usuario específico mediante la comparación directa de su ID numérico remoto.
+     */
+    getUsuarioPorId(id: number | string): Observable<Usuario> {
+        return this.http.get<Usuario>(`${this.API_URL}/usuarios/${id}`);
+    }
+
 
     /**
      * Recupera y parsea un objeto JSON guardado en el almacenamiento del navegador de manera segura.
@@ -261,134 +323,7 @@ export class DataService {
 
         localStorage.setItem(clave, JSON.stringify(valor));
     }
-    /**
-     * Extrae el catálogo completo de productos vigentes normalizando de forma dinámica sus rutas de imágenes.
-     * @returns {Producto[]} Listado completo de productos mapeados.
-     */
-    getProductos(): Producto[] {
-        return this.leerJSON<Producto[]>(this.KEYS.productos, this.productos).map(producto => ({
-            ...producto,
-            imagen: this.normalizarRutaImagen(producto.imagen)
-        }));
-    }
-    /**
-     * Filtra los productos de acuerdo con un identificador de categoría ignorando mayúsculas y minúsculas.
-     * @param {string} categoriaKey Nombre interno de la categoría (ej: 'tazas').
-     * @returns {Producto[]} Colección filtrada correspondiente a la categoría.
-     */
-    getProductosPorCategoria(categoriaKey: string): Producto[] {
-        return this.getProductos().filter(p => p.categoria.toLowerCase() === categoriaKey.toLowerCase());
-    }
-    /**
-     * Actualiza masivamente el catálogo de productos en LocalStorage forzando el tipado numérico en sus campos críticos.
-     * @param {Producto[]} productos Arreglo completo de productos a persistir.
-     */
-    guardarProductos(productos: Producto[]): void {
-        const normalizados = productos.map(producto => ({
-            ...producto,
-            precio: Number(producto.precio),
-            descuento: Number(producto.descuento),
-            stock: Number(producto.stock),
-            imagen: this.normalizarRutaImagen(producto.imagen)
-        }));
 
-        this.guardarJSON(this.KEYS.productos, normalizados);
-    }
-    /**
-     * Busca un producto específico por su identificador único controlando nulidades o vacíos de forma segura.
-     * @param {number | string | null} id Identificador del producto a buscar.
-     * @returns {Producto | undefined} El producto encontrado o `undefined` si no coincide ninguno.
-     */
-    getProductoPorId(id: number | string | null): Producto | undefined {
-        if (id === null || id === undefined || id === '') return undefined;
-
-        return this.getProductos().find(producto => Number(producto.id) === Number(id));
-    }
-    /**
-     * Obtiene el listado sin filtros alternativos de los productos almacenados a nivel global.
-     * @returns {Producto[]} Listado completo de productos globales.
-     */
-    getProductosGlobales(): Producto[] {
-        return this.getProductos();
-    }
-    /**
-     * Añade un nuevo producto al catálogo asignándole automáticamente un identificador incremental e unificado.
-     * @param {Omit<Producto, 'id'> & { id?: number | string }} nuevoProducto Objeto del producto sin la obligación de incluir el ID.
-     */
-    agregarProductoGlobal(nuevoProducto: Omit<Producto, 'id'> & { id?: number | string }): void {
-        const productosActuales = this.getProductos();
-
-        // Usamos la función generarId que ya programaste en tu servicio
-        const proximoId = this.generarId(productosActuales as unknown as Array<{ id: number }>);
-
-        const productoFinal: Producto = {
-            ...nuevoProducto,
-            id: proximoId // Asignamos el ID numérico unificado
-        } as unknown as Producto;
-
-        productosActuales.push(productoFinal);
-        this.guardarProductos(productosActuales);
-    }
-    /**
-     * Busca y actualiza las propiedades de un producto existente manteniendo inalterado su identificador original.
-     * @param {Producto} productoEditado Objeto del producto modificado con sus nuevos valores.
-     */
-    actualizarProductoGlobal(productoEditado: Producto): void {
-        const productosActuales = this.getProductos();
-        const index = productosActuales.findIndex(p => Number(p.id) === Number(productoEditado.id));
-
-        if (index !== -1) {
-            productosActuales[index] = {
-                ...productoEditado,
-                id: productosActuales[index].id // Preservamos el ID original
-            };
-            this.guardarProductos(productosActuales);
-        }
-    }
-    /**
-     * Remueve de forma definitiva un producto del catálogo global según su identificador.
-     * @param {number | string} id Identificador único del producto que se desea eliminar.
-     */
-    eliminarProductoGlobal(id: number | string): void {
-        let productosActuales = this.getProductos();
-        productosActuales = productosActuales.filter(p => Number(p.id) !== Number(id));
-        this.guardarProductos(productosActuales);
-    }
-    /**
-     * Recupera el conjunto completo de usuarios registrados en LocalStorage.
-     * @returns {Usuario[]} Lista de usuarios registrados.
-     */
-    getUsuarios(): Usuario[] {
-        return this.leerJSON<Usuario[]>(this.KEYS.usuarios, this.usuarios);
-    }
-    /**
-     * Guarda de forma atómica la lista completa de usuarios actualizados en el almacenamiento local.
-     * @param {Usuario[]} usuarios Colección de usuarios a guardar.
-     */
-    guardarUsuarios(usuarios: Usuario[]): void {
-        this.guardarJSON(this.KEYS.usuarios, usuarios);
-    }
-    /**
-     * Busca a un usuario por su correo electrónico ignorando espacios y variaciones de capitalización.
-     * @param {string} email Correo a consultar.
-     * @returns {Usuario | undefined} Instancia de usuario encontrada o `undefined`.
-     */
-    getUsuarioPorEmail(email: string): Usuario | undefined {
-        const emailNormalizado = email.trim().toLowerCase();
-        return this.getUsuarios().find(usuario => usuario.email.toLowerCase() === emailNormalizado);
-    }
-    /**
-     * Localiza a un usuario específico mediante la comparación directa de su ID numérico.
-     * @param {number | string} id Identificador numérico o en cadena del usuario.
-     * @returns {Usuario | undefined} Instancia de usuario encontrada o `undefined`.
-     */
-    getUsuarioPorId(id: number | string): Usuario | undefined {
-        return this.getUsuarios().find(usuario => Number(usuario.id) === Number(id));
-    }
-    /**
-     * Genera y guarda de manera volátil un objeto de tipo `Sesion` en SessionStorage marcándolo con estado activo.
-     * @param {Usuario} usuario Cuenta de usuario que inicia la sesión actual.
-     */
     guardarSesion(usuario: Usuario): void {
         if (!this.sessionDisponible()) return;
 
@@ -503,34 +438,6 @@ export class DataService {
             return Number(producto.precio);
         }
         return Math.round(Number(producto.precio) * (1 - Number(producto.descuento) / 100));
-    }
-    /**
-     * Analiza una lista de objetos dotados con ID numérico e identifica el valor máximo para generar un nuevo identificador secuencial no repetitivo.
-     * @param {Array<{ id: number }>} lista Colección de ítems sobre los cuales inferir el ID correlativo.
-     * @returns {number} Identificador numérico correlativo disponible (`max + 1`).
-     */
-    generarId(lista: Array<{ id: number }>): number {
-        if (!lista.length) return 1;
-
-        return Math.max(...lista.map(item => Number(item.id))) + 1;
-    }
-    /**
-     * Retorna la propiedad de visualización amigable (`nombre`) asociada a un ID de categoría.
-     * @param {string} key Llave identificadora interna de la categoría.
-     * @returns {string} Nombre estético listo para el HTML o en su defecto la misma llave recibida.
-     */
-    categoriaNombre(key: string): string {
-        return this.categorias[key]?.nombre || key;
-    }
-    /**
-     * Transforma el diccionario de categorías en un arreglo plano indexado con su clave interna para iteraciones complejas en la vista (como un `*ngFor`).
-     * @returns {Array<{ key: string; categoria: Categorias }>} Lista mapeada con llaves y objetos completos de categorías.
-     */
-    categoriaEntradas(): Array<{ key: string; categoria: Categorias }> {
-        return Object.keys(this.categorias).map(key => ({
-            key,
-            categoria: this.categorias[key]
-        }));
     }
     /**
      * Normaliza rutas de strings de imágenes arbitrarias para asegurar que cumplan de forma uniforme el estándar relacional de carpetas internas de Angular (`assets/img/`).

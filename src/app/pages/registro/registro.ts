@@ -10,7 +10,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { MensajeVista, Usuario } from '../../services/modelos';
+import { MensajeVista } from '../../models/mensaje-vista';
+import { Usuario } from '../../models/usuario';
 
 /**
  * Componente para la creación de nuevas cuentas de clientes.

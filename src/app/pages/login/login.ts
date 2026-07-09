@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { MensajeVista } from '../../services/modelos';
+import { MensajeVista } from '../../models/mensaje-vista';
 
 @Component({
   selector: 'app-login',

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DataService } from '../../services/data.service';
-import { Producto, Categorias } from '../../services/modelos';
+import { Producto } from '../../models/producto';
+import { Categorias } from '../../models/categoria';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class Categoria implements OnInit {
 
-  categoriaNombre: string = '';
+  categoriaIdUrl: string = '';
   categoriaInfo: Categorias | null = null;
   productosFiltrados: Producto[] = [];
 
@@ -26,16 +27,31 @@ export class Categoria implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.categoriaNombre = params.get('nombre') || '';
-      this.cargarDatos();
+      this.categoriaIdUrl = params.get('id') || params.get('nombre') || '';
+
+      if (this.categoriaIdUrl) {
+        this.cargarDatosVíaAPI(this.categoriaIdUrl);
+      }
     });
   }
 
-  cargarDatos(): void {
-    const categoriasMapa = this.dataService.categorias;
-    this.categoriaInfo = categoriasMapa[this.categoriaNombre] || null;
+  /**
+   * Centraliza la carga asíncrona tanto de la información de la categoría como de sus productos desde la API.
+   */
+  cargarDatosVíaAPI(categoriaKey: string): void {
+    this.dataService.getCategorias().subscribe({
+      next: (categoriasMapa) => {
+        this.categoriaInfo = categoriasMapa[categoriaKey] || null;
 
-    this.productosFiltrados = this.dataService.getProductosPorCategoria(this.categoriaNombre);
+        this.dataService.getProductosPorCategoria(categoriaKey).subscribe({
+          next: (productos) => {
+            this.productosFiltrados = productos;
+          },
+          error: (err) => console.error('Error al filtrar productos en la API:', err)
+        });
+      },
+      error: (err) => console.error('Error al obtener el mapa de categorías de la API:', err)
+    });
   }
 
   agregarProducto(producto: any): void {
@@ -46,10 +62,8 @@ export class Categoria implements OnInit {
     }
 
     const emailUsuario = this.authService.sesion.email;
-    //Obtener carrito de usuario segun su email
     let carrito = this.dataService.getCarritoUsuario(emailUsuario);
 
-    //Verificar si el producto ya existe en el carrito
     const existente = carrito.find(item => Number(item.producto.id) === Number(producto.id));
 
     if (existente) {

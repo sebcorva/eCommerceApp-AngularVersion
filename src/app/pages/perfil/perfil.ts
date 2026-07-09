@@ -9,7 +9,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Sesion, MensajeVista } from '../../services/modelos';
+import { MensajeVista } from '../../models/mensaje-vista';
+import { Sesion } from '../../models/sesion';
 
 /**
 * Componente Perfil de usuarios clientes

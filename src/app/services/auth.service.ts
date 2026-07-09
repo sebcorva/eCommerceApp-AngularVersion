@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
-import { MensajeVista, Sesion, Usuario } from './modelos';
 import { ValidacionService } from './validacion.service';
+import { MensajeVista } from '../models/mensaje-vista';
+import { Sesion } from '../models/sesion';
+import { Usuario } from '../models/usuario';
 
 /**
  * authService esta encargado de gestionar los procesos de autenticación, sesión y perfil del usuario.

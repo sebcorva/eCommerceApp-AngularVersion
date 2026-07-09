@@ -1,0 +1,175 @@
+{
+  "categorias": {
+    "tazas": {
+      "nombre": "Tazas",
+      "imagen": "/assets/img/tazas.png"
+    },
+    "platos": {
+      "nombre": "Platos",
+      "imagen": "/assets/img/platos.png"
+    },
+    "maceteros": {
+      "nombre": "Maceteros",
+      "imagen": "/assets/img/maceteros.png"
+    },
+    "bowls": {
+      "nombre": "Bowls",
+      "imagen": "/assets/img/bowls.png"
+    }
+  },
+  "productos": [
+    {
+      "id": "1",
+      "nombre": "Main Character Energy",
+      "descripcion": "Una taza diseñada para aquellos que comienzan su día con energía.",
+      "precio": 12990,
+      "descuento": 0,
+      "imagen": "/assets/img/tazas/taza.jpg",
+      "stock": 15,
+      "categoria": "tazas"
+    },
+    {
+      "id": "2",
+      "nombre": "But First Coffee",
+      "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
+      "precio": 12990,
+      "descuento": 30,
+      "imagen": "/assets/img/tazas/taza2.jpg",
+      "stock": 30,
+      "categoria": "tazas"
+    },
+    {
+      "id": "3",
+      "nombre": "Ask Me About My Cat",
+      "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
+      "precio": 12990,
+      "descuento": 45,
+      "imagen": "/assets/img/tazas/taza3.jpg",
+      "stock": 8,
+      "categoria": "tazas"
+    },
+    {
+      "id": "4",
+      "nombre": "Diseño Clásico",
+      "descripcion": "Un plato con un diseño clásico y elegante.",
+      "precio": 15990,
+      "descuento": 0,
+      "imagen": "/assets/img/platos/plato.jpg",
+      "stock": 15,
+      "categoria": "platos"
+    },
+    {
+      "id": "5",
+      "nombre": "But First Coffee",
+      "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
+      "precio": 12990,
+      "descuento": 30,
+      "imagen": "/assets/img/platos/plato2.jpg",
+      "stock": 30,
+      "categoria": "platos"
+    },
+    {
+      "id": "6",
+      "nombre": "Ask Me About My Cat",
+      "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
+      "precio": 12990,
+      "descuento": 0,
+      "imagen": "/assets/img/platos/plato3.jpg",
+      "stock": 5,
+      "categoria": "platos"
+    },
+    {
+      "id": "7",
+      "nombre": "Macetero de Diseño Montaña",
+      "descripcion": "Un macetero con un diseño inspirado en la naturaleza.",
+      "precio": 13000,
+      "descuento": 15,
+      "imagen": "/assets/img/maceteros/macetero.jpg",
+      "stock": 15,
+      "categoria": "maceteros"
+    },
+    {
+      "id": "8",
+      "nombre": "But First Coffee",
+      "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
+      "precio": 12990,
+      "descuento": 30,
+      "imagen": "/assets/img/maceteros/macetero2.jpg",
+      "stock": 30,
+      "categoria": "maceteros"
+    },
+    {
+      "id": "9",
+      "nombre": "Ask Me About My Cat",
+      "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
+      "precio": 12990,
+      "descuento": 45,
+      "imagen": "/assets/img/maceteros/macetero3.jpg",
+      "stock": 8,
+      "categoria": "maceteros"
+    },
+    {
+      "id": "10",
+      "nombre": "Macetero de Diseño Montaña",
+      "descripcion": "Un macetero con un diseño inspirado en la naturaleza.",
+      "precio": 13000,
+      "descuento": 15,
+      "imagen": "/assets/img/bowls/bowl.jpg",
+      "stock": 15,
+      "categoria": "bowls"
+    },
+    {
+      "id": "11",
+      "nombre": "But First Coffee",
+      "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
+      "precio": 12990,
+      "descuento": 30,
+      "imagen": "/assets/img/bowls/bowl2.jpg",
+      "stock": 30,
+      "categoria": "bowls"
+    },
+    {
+      "id": "12",
+      "nombre": "Ask Me About My Cat",
+      "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
+      "precio": 12990,
+      "descuento": 45,
+      "imagen": "/assets/img/bowls/bowl3.jpg",
+      "stock": 8,
+      "categoria": "bowls"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "nombre": "Sebastian Corvalan",
+      "username": "sebastian",
+      "email": "seba@gmail.com",
+      "password": "seba1234!",
+      "fechaNacimiento": "1994-03-31",
+      "direccion": "Los Duraznos #323",
+      "role": "cliente"
+    },
+    {
+      "id": "2",
+      "nombre": "Administrador",
+      "username": "admin",
+      "email": "admin@animug.com",
+      "password": "admin1234!",
+      "fechaNacimiento": "1994-03-31",
+      "direccion": "Los Admin #67",
+      "role": "admin"
+    },
+    {
+      "id": "-Xet9g4IAHE",
+      "nombre": "Sebastian Corvalan E.",
+      "username": "sebastian",
+      "email": "seba@gmail.com",
+      "password": "seba1234!",
+      "fechaNacimiento": "1994-03-31",
+      "direccion": "Los Duraznos #323",
+      "role": "cliente"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
