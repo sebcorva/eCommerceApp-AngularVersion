@@ -9,7 +9,7 @@ import {
   ValidationErrors
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
 import { MensajeVista } from '../../models/mensaje-vista';
 import { Usuario } from '../../models/usuario';
 
@@ -38,7 +38,7 @@ export class Registro {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly dataService: DataService,
+    private readonly authService: AuthService,
     private readonly router: Router
   ) {
     this.formularioRegistro = this.fb.group({
@@ -138,38 +138,33 @@ export class Registro {
     }
 
     const formValues = this.formularioRegistro.getRawValue();
-    const usuariosActuales = this.dataService.getUsuarios();
 
-    if (usuariosActuales.some(u => u.username.toLowerCase() === formValues.username.trim().toLowerCase())) {
-      this.controles['username'].setErrors({ duplicado: true });
-      this.mensajeAlert = { tipo: 'danger', texto: 'El nombre de usuario ya está registrado.' };
-      return;
-    }
-
-    if (usuariosActuales.some(u => u.email.toLowerCase() === formValues.email.trim().toLowerCase())) {
-      this.controles['email'].setErrors({ duplicado: true });
-      this.mensajeAlert = { tipo: 'danger', texto: 'El correo electrónico ya está registrado.' };
-      return;
-    }
-
-    const nuevoId = this.dataService.generarId(usuariosActuales as unknown as Array<{ id: number }>);
-
-    const nuevoUsuario: Usuario = {
-      id: nuevoId,
-      nombre: formValues.nombre.trim(),
-      fechaNacimiento: formValues.fechaNacimiento,
-      email: formValues.email.trim(),
-      direccion: formValues.direccion.trim(),
-      username: formValues.username.trim(),
+    this.authService.registrar({
+      nombre: formValues.nombre,
+      username: formValues.username,
+      email: formValues.email,
       password: formValues.password,
-      role: 'cliente'
-    };
-
-    usuariosActuales.push(nuevoUsuario);
-    this.dataService.guardarUsuarios(usuariosActuales);
-
-    alert('¡Registro completado con éxito! Ahora puedes iniciar sesión.');
-    this.router.navigate(['/login']);
+      repetirPassword: formValues.password2,
+      fechaNacimiento: formValues.fechaNacimiento,
+      direccion: formValues.direccion || ''
+    }).subscribe({
+      next: (resultado) => {
+        if (resultado.ok) {
+          alert('¡Registro completado con éxito! Ahora puedes iniciar sesión.');
+          this.router.navigate(['/login']);
+        } else {
+          this.mensajeAlert = resultado.mensaje;
+          if (resultado.mensaje.texto.toLowerCase().includes('usuario')) {
+            this.controles['username'].setErrors({ duplicado: true });
+          } else if (resultado.mensaje.texto.toLowerCase().includes('correo') || resultado.mensaje.texto.toLowerCase().includes('email')) {
+            this.controles['email'].setErrors({ duplicado: true });
+          }
+        }
+      },
+      error: (err) => {
+        this.mensajeAlert = { tipo: 'danger', texto: 'Error al conectar con el servidor.' };
+      }
+    });
   }
 
   /**

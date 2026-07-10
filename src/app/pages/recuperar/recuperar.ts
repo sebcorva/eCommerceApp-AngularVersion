@@ -125,46 +125,50 @@ export class Recuperar {
       }
 
       const correoIngresado = formValues.email.trim().toLowerCase();
-      const usuarios = this.dataService.getUsuarios();
+      
+      this.dataService.getUsuarios().subscribe({
+        next: (usuarios) => {
+          this.usuarioEncontrado = usuarios.find(u => u.email && u.email.toLowerCase() === correoIngresado) || null;
 
-      this.usuarioEncontrado = usuarios.find(u => u.email && u.email.toLowerCase() === correoIngresado) || null;
+          if (!this.usuarioEncontrado) {
+            emailControl.setErrors({ noRegistrado: true });
+            this.mensajeAlert = { tipo: 'danger', texto: 'Este correo electrónico no está registrado en aniMug.' };
+            return;
+          }
 
-      if (!this.usuarioEncontrado) {
-        emailControl.setErrors({ noRegistrado: true });
-        this.mensajeAlert = { tipo: 'danger', texto: 'Este correo electrónico no está registrado en aniMug.' };
-        return;
-      }
-
-      this.instruccionesTexto = `Hola ${this.usuarioEncontrado.username}, ingresa tu nueva contraseña:`;
-      this.mensajeAlert = null;
-      this.enviado = false;
-      this.pasoActual = 2;
+          this.instruccionesTexto = `Hola ${this.usuarioEncontrado.username}, ingresa tu nueva contraseña:`;
+          this.mensajeAlert = null;
+          this.enviado = false;
+          this.pasoActual = 2;
+        },
+        error: (err) => {
+          this.mensajeAlert = { tipo: 'danger', texto: 'Error al conectar con el servidor.' };
+        }
+      });
       return;
     }
 
     // 2: Cambio definitivo de credenciales
     if (this.pasoActual === 2) {
-      if (this.recuperarForm.invalid) {
+      if (this.recuperarForm.invalid || !this.usuarioEncontrado) {
         this.recuperarForm.markAllAsTouched();
         this.mensajeAlert = { tipo: 'danger', texto: 'La contraseña no cumple todos los requisitos de seguridad o las contraseñas no coinciden.' };
         return;
       }
 
-      const usuarios = this.dataService.getUsuarios();
-      const index = usuarios.findIndex(u => u.username.toLowerCase() === this.usuarioEncontrado?.username.toLowerCase());
+      this.usuarioEncontrado.password = formValues.newPassword;
+      this.dataService.actualizarUsuario(this.usuarioEncontrado).subscribe({
+        next: () => {
+          // Bloqueo de seguridad: Evita mantener sesiones corruptas antiguas activas.
+          this.dataService.cerrarSesion();
 
-      if (index !== -1) {
-        usuarios[index].password = formValues.newPassword;
-        this.dataService.guardarUsuarios(usuarios);
-
-        // Bloqueo de seguridad: Evita mantener sesiones corruptas antiguas activas.
-        this.dataService.cerrarSesion();
-
-        alert('¡Contraseña actualizada con éxito!');
-        this.router.navigate(['/login']);
-      } else {
-        this.mensajeAlert = { tipo: 'danger', texto: 'Error del sistema al localizar tu cuenta.' };
-      }
+          alert('¡Contraseña actualizada con éxito!');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          this.mensajeAlert = { tipo: 'danger', texto: 'Error al actualizar la contraseña en el servidor.' };
+        }
+      });
     }
   }
 }

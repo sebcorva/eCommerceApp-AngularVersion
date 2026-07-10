@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MensajeVista } from '../../models/mensaje-vista';
 import { Sesion } from '../../models/sesion';
@@ -21,7 +21,7 @@ import { Sesion } from '../../models/sesion';
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
 })
@@ -105,32 +105,37 @@ export class Perfil implements OnInit {
 
     const { direccion } = this.direccionForm.getRawValue();
 
-    const resultado = this.authService.actualizarPerfil({
+    this.authService.actualizarPerfil({
       nombre: this.usuarioLogeado.nombre,
       username: this.usuarioLogeado.username,
       email: this.usuarioLogeado.email,
       fechaNacimiento: this.usuarioLogeado.fechaNacimiento,
       direccion: direccion.trim()
-    });
+    }).subscribe({
+      next: (resultado) => {
+        if (resultado.ok) {
+          this.mensajeAlert = { tipo: 'success', texto: 'Direccion de Despacho actualizada.' };
+          this.usuarioLogeado = this.authService.sesion;
+          this.enviado = false;
 
-    if (resultado.ok) {
-      this.mensajeAlert = { tipo: 'success', texto: 'Direccion de Despacho actualizada.' };
-      this.usuarioLogeado = this.authService.sesion;
-      this.enviado = false;
+          const modalElement = document.getElementById('modalDireccion');
+          if (modalElement) {
+            const bootstrap = (window as any).bootstrap;
+            if (bootstrap) {
+              const modalInstancia = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+              modalInstancia.hide();
+            }
+          }
 
-      const modalElement = document.getElementById('modalDireccion');
-      if (modalElement) {
-        const bootstrap = (window as any).bootstrap;
-        if (bootstrap) {
-          const modalInstancia = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-          modalInstancia.hide();
+          setTimeout(() => this.mensajeAlert = null, 3000);
+        } else {
+          this.mensajeAlert = resultado.mensaje;
         }
+      },
+      error: (err) => {
+        this.mensajeAlert = { tipo: 'danger', texto: 'Error al conectar con el servidor.' };
       }
-
-      setTimeout(() => this.mensajeAlert = null, 3000);
-    } else {
-      this.mensajeAlert = resultado.mensaje;
-    }
+    });
   }
 
 

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { DataService } from './data.service';
 import { ValidacionService } from './validacion.service';
-import { MensajeVista } from '../models/mensaje-vista';
+import { MensajeVista, TipoMensaje } from '../models/mensaje-vista';
 import { Sesion } from '../models/sesion';
 import { Usuario } from '../models/usuario';
 
@@ -52,45 +54,51 @@ export class AuthService {
      * Maneja la lógica de inicio de sesión de aniMug.
      * @param email Correo electrónico del usuario.
      * @param password Contraseña del usuario.
-     * @returns {Object} Objeto con el resultado de la operación y mensaje informativo.
+     * @returns {Observable<Object>} Observable con el resultado de la operación y mensaje informativo.
      */
-    login(email: string, password: string): { ok: boolean; mensaje: MensajeVista; usuario?: Usuario } {
+    login(email: string, password: string): Observable<{ ok: boolean; mensaje: MensajeVista; usuario?: Usuario }> {
         if (!this.validacion.validarEmail(email) || this.validacion.estaVacio(password)) {
-            return {
+            return of({
                 ok: false,
-                mensaje: { tipo: 'danger', texto: 'Ingresa un correo válido y una contraseña.' }
-            };
+                mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Ingresa un correo válido y una contraseña.' }
+            });
         }
 
-        const usuario = this.data.getUsuarioPorEmail(email);
+        return this.data.getUsuarioPorEmail(email).pipe(
+            map(usuario => {
+                if (!usuario || usuario.password !== password) {
+                    return {
+                        ok: false,
+                        mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Correo o contraseña incorrectos.' }
+                    };
+                }
 
-        if (!usuario || usuario.password !== password) {
-            return {
+                this.data.guardarSesion(usuario);
+
+                return {
+                    ok: true,
+                    usuario,
+                    mensaje: { tipo: 'success' as TipoMensaje, texto: `¡Bienvenido ${usuario.username}! Redirigiendo...` }
+                };
+            }),
+            catchError(() => of({
                 ok: false,
-                mensaje: { tipo: 'danger', texto: 'Correo o contraseña incorrectos.' }
-            };
-        }
-
-        this.data.guardarSesion(usuario);
-
-        return {
-            ok: true,
-            usuario,
-            mensaje: { tipo: 'success', texto: `¡Bienvenido ${usuario.username}! Redirigiendo...` }
-        };
+                mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Error al conectar con el servidor.' }
+            }))
+        );
     }
 
     /**
      * Ejecuta el registro de un nuevo cliente aplicando reglas de negocio y validación de duplicados.
-     * * @param {Object} datos Estructura con la información requerida del nuevo cliente.
+     * @param {Object} datos Estructura con la información requerida del nuevo cliente.
      * @param {string} datos.nombre Nombre completo del usuario.
      * @param {string} datos.username Nombre de usuario único para la plataforma.
      * @param {string} datos.email Correo electrónico único del usuario.
      * @param {string} datos.password Contraseña que cumpla los criterios de seguridad mínimos.
      * @param {string} datos.repetirPassword Confirmación de contraseña para evitar errores de tipeo.
-     * @param {string} datos.fechaNacimiento Fecha en formato string para validar la edad mínima.
+     * @param {string} datos.fechaNacimiento Fecha de nacimiento del usuario.
      * @param {string} datos.direccion Dirección física para despachos de productos.
-     * @returns {Object} Objeto indicando el resultado del registro (`ok`) y su respectivo `mensaje`.
+     * @returns {Observable<Object>} Observable indicando el resultado del registro (`ok`) y su respectivo `mensaje`.
      */
     registrar(datos: {
         nombre: string;
@@ -100,98 +108,113 @@ export class AuthService {
         repetirPassword: string;
         fechaNacimiento: string;
         direccion: string;
-    }): { ok: boolean; mensaje: MensajeVista } {
-        const usuarios = this.data.getUsuarios();
-
+    }): Observable<{ ok: boolean; mensaje: MensajeVista }> {
         if (!this.validacion.validarTexto(datos.nombre, 4)) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Ingresa un nombre completo válido.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Ingresa un nombre completo válido.' } });
         }
         if (!this.validacion.validarTexto(datos.username, 4)) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Ingresa un nombre de usuario de al menos 4 caracteres.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Ingresa un nombre de usuario de al menos 4 caracteres.' } });
         }
         if (!this.validacion.validarEmail(datos.email)) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Ingresa un correo válido.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Ingresa un correo válido.' } });
         }
         if (!this.validacion.validarEdadMinima(datos.fechaNacimiento, 13)) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Debes tener al menos 13 años para registrarte.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Debes tener al menos 13 años para registrarte.' } });
         }
         const ResultadoPassword = this.validacion.validarPassword(datos.password);
         if (!ResultadoPassword.valida) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'La contraseña no cumple todos los requisitos de seguridad.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'La contraseña no cumple todos los requisitos de seguridad.' } });
         }
         if (datos.password !== datos.repetirPassword) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Las contraseñas no coinciden.' } };
-        }
-        const emailExiste = usuarios.some(u => u.email.toLowerCase() === datos.email.trim().toLowerCase());
-        if (emailExiste) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Este correo ya está registrado.' } };
-        }
-        const usuarioExiste = usuarios.some(u => u.username.toLowerCase() === datos.username.trim().toLowerCase());
-        if (usuarioExiste) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'El nombre de usuario ya está en uso.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Las contraseñas no coinciden.' } });
         }
 
-        const nuevoUsuario: Usuario = {
-            id: this.data.generarId(usuarios),
-            nombre: datos.nombre.trim(),
-            username: datos.username.trim(),
-            email: datos.email.trim().toLowerCase(),
-            password: datos.password,
-            fechaNacimiento: datos.fechaNacimiento,
-            direccion: datos.direccion.trim(),
-            role: 'cliente'
-        };
+        return this.data.getUsuarios().pipe(
+            switchMap(usuarios => {
+                const emailExiste = usuarios.some(u => u.email.toLowerCase() === datos.email.trim().toLowerCase());
+                if (emailExiste) {
+                    return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Este correo ya está registrado.' } });
+                }
+                const usuarioExiste = usuarios.some(u => u.username.toLowerCase() === datos.username.trim().toLowerCase());
+                if (usuarioExiste) {
+                    return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'El nombre de usuario ya está en uso.' } });
+                }
 
-        usuarios.push(nuevoUsuario);
-        this.data.guardarUsuarios(usuarios);
+                const nuevoUsuario: Omit<Usuario, 'id'> = {
+                    nombre: datos.nombre.trim(),
+                    username: datos.username.trim(),
+                    email: datos.email.trim().toLowerCase(),
+                    password: datos.password,
+                    fechaNacimiento: datos.fechaNacimiento,
+                    direccion: datos.direccion.trim(),
+                    role: 'cliente'
+                };
 
-        return {
-            ok: true,
-            mensaje: {
-                tipo: 'success',
-                texto: 'Registro completado con éxito. Ahora puedes iniciar sesión.'
-            }
-        };
+                return this.data.guardarUsuarios(nuevoUsuario).pipe(
+                    map(() => ({
+                        ok: true,
+                        mensaje: {
+                            tipo: 'success' as TipoMensaje,
+                            texto: 'Registro completado con éxito. Ahora puedes iniciar sesión.'
+                        }
+                    })),
+                    catchError(() => of({
+                        ok: false,
+                        mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Error al registrar el usuario en el servidor.' }
+                    }))
+                );
+            }),
+            catchError(() => of({
+                ok: false,
+                mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Error al conectar con el servidor.' }
+            }))
+        );
     }
 
     /**
      * Simula la búsqueda y envío de un enlace de recuperación de contraseña.
-     * * @param {string} email El correo que se desea recuperar.
-     * @returns {Object} Objeto con la respuesta informativa del estado del correo.
+     * @param {string} email El correo que se desea recuperar.
+     * @returns {Observable<Object>} Observable con la respuesta informativa del estado del correo.
      */
-    recuperar(email: string): { ok: boolean; mensaje: MensajeVista } {
+    recuperar(email: string): Observable<{ ok: boolean; mensaje: MensajeVista }> {
         if (!this.validacion.validarEmail(email)) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Ingresa un correo válido.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Ingresa un correo válido.' } });
         }
 
-        const usuario = this.data.getUsuarioPorEmail(email);
+        return this.data.getUsuarioPorEmail(email).pipe(
+            map(usuario => {
+                if (!usuario) {
+                    return {
+                        ok: false,
+                        mensaje: { tipo: 'warning' as TipoMensaje, texto: 'No existe ninguna cuenta asociada a este correo.' }
+                    };
+                }
 
-        if (!usuario) {
-            return {
+                return {
+                    ok: true,
+                    mensaje: {
+                        tipo: 'success' as TipoMensaje,
+                        texto: 'Simulación exitosa: Se ha enviado un enlace de recuperación a su bandeja de entrada.'
+                    }
+                };
+            }),
+            catchError(() => of({
                 ok: false,
-                mensaje: { tipo: 'warning', texto: 'No existe ninguna cuenta asociada a este correo.' }
-            };
-        }
-
-        return {
-            ok: true,
-            mensaje: {
-                tipo: 'success',
-                texto: 'Simulación exitosa: Se ha enviado un enlace de recuperación a su bandeja de entrada.'
-            }
-        };
+                mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Error al conectar con el servidor.' }
+            }))
+        );
     }
 
     /**
      * Modifica los datos del perfil del usuario en sesión, resolviendo colisiones de datos y migrando
      * elementos dinámicos (como el carrito de compras) si se edita el email principal.
-     * * @param {Object} datos Campos actualizados del perfil.
+     * @param {Object} datos Campos actualizados del perfil.
      * @param {string} datos.nombre Nombre actualizado del usuario.
      * @param {string} datos.username Nombre de usuario (nickname) modificado.
      * @param {string} datos.email Nuevo correo electrónico asociado.
      * @param {string} datos.fechaNacimiento Fecha de nacimiento modificada.
      * @param {string} datos.direccion Nueva ubicación de despacho.
-     * @returns {Object} Resultado exitoso o fallido junto con el mensaje descriptivo del error/éxito.
+     * @returns {Observable<Object>} Observable con el resultado exitoso o fallido junto con el mensaje descriptivo.
      */
     actualizarPerfil(datos: {
         nombre: string;
@@ -199,58 +222,74 @@ export class AuthService {
         email: string;
         fechaNacimiento: string;
         direccion: string;
-    }): { ok: boolean; mensaje: MensajeVista } {
+    }): Observable<{ ok: boolean; mensaje: MensajeVista }> {
         const sesion = this.sesion;
 
         if (!sesion) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'No hay ninguna sesión activa.' } };
-        }
-
-        const usuarios = this.data.getUsuarios();
-        const usuario = usuarios.find(u => Number(u.id) === Number(sesion.id));
-
-        if (!usuario) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'No se encontró el usuario actual en el sistema.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'No hay ninguna sesión activa.' } });
         }
 
         if (!this.validacion.validarTexto(datos.nombre, 4) ||
             !this.validacion.validarTexto(datos.username, 4) ||
             !this.validacion.validarEmail(datos.email)) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Por favor, revise los campos marcados.' } };
+            return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Por favor, revise los campos marcados.' } });
         }
 
-        const EmailUsado = usuarios.some(u => u.email.toLowerCase() === datos.email.trim().toLowerCase() && Number(u.id) !== Number(usuario.id));
-        if (EmailUsado) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Este correo ya está siendo usado por otra cuenta.' } };
-        }
+        return this.data.getUsuarios().pipe(
+            switchMap(usuarios => {
+                const usuario = usuarios.find(u => String(u.id) === String(sesion.id));
 
-        const usernameUsado = usuarios.some(u => u.username.toLowerCase() === datos.username.trim().toLowerCase() && Number(u.id) !== Number(usuario.id));
-        if (usernameUsado) {
-            return { ok: false, mensaje: { tipo: 'danger', texto: 'Este nombre de usuario ya está ocupado.' } };
-        }
+                if (!usuario) {
+                    return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'No se encontró el usuario actual en el sistema.' } });
+                }
 
-        const emailAnterior = usuario.email;
+                const EmailUsado = usuarios.some(u => u.email.toLowerCase() === datos.email.trim().toLowerCase() && String(u.id) !== String(usuario.id));
+                if (EmailUsado) {
+                    return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Este correo ya está siendo usado por otra cuenta.' } });
+                }
 
-        usuario.nombre = datos.nombre.trim();
-        usuario.username = datos.username.trim();
-        usuario.email = datos.email.trim().toLowerCase();
-        usuario.fechaNacimiento = datos.fechaNacimiento;
-        usuario.direccion = datos.direccion.trim();
+                const usernameUsado = usuarios.some(u => u.username.toLowerCase() === datos.username.trim().toLowerCase() && String(u.id) !== String(usuario.id));
+                if (usernameUsado) {
+                    return of({ ok: false, mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Este nombre de usuario ya está ocupado.' } });
+                }
 
-        this.data.guardarUsuarios(usuarios);
+                const emailAnterior = usuario.email;
 
-        if (emailAnterior !== usuario.email) {
-            const carritos = this.data.getCarritos();
-            if (carritos[emailAnterior] && !carritos[usuario.email]) {
-                carritos[usuario.email] = carritos[emailAnterior];
-                delete carritos[emailAnterior];
-                this.data.guardarCarritos(carritos);
-            }
-        }
+                const usuarioActualizado: Usuario = {
+                    ...usuario,
+                    nombre: datos.nombre.trim(),
+                    username: datos.username.trim(),
+                    email: datos.email.trim().toLowerCase(),
+                    fechaNacimiento: datos.fechaNacimiento,
+                    direccion: datos.direccion.trim()
+                };
 
-        this.data.guardarSesion(usuario);
+                return this.data.actualizarUsuario(usuarioActualizado).pipe(
+                    map(() => {
+                        if (emailAnterior !== usuarioActualizado.email) {
+                            const carritos = this.data.getCarritos();
+                            if (carritos[emailAnterior] && !carritos[usuarioActualizado.email]) {
+                                carritos[usuarioActualizado.email] = carritos[emailAnterior];
+                                delete carritos[emailAnterior];
+                                this.data.guardarCarritos(carritos);
+                            }
+                        }
 
-        return { ok: true, mensaje: { tipo: 'success', texto: '¡Perfil actualizado con éxito!' } };
+                        this.data.guardarSesion(usuarioActualizado);
+
+                        return { ok: true, mensaje: { tipo: 'success' as TipoMensaje, texto: '¡Perfil actualizado con éxito!' } };
+                    }),
+                    catchError(() => of({
+                        ok: false,
+                        mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Error al actualizar el usuario en el servidor.' }
+                    }))
+                );
+            }),
+            catchError(() => of({
+                ok: false,
+                mensaje: { tipo: 'danger' as TipoMensaje, texto: 'Error al conectar con el servidor.' }
+            }))
+        );
     }
 
     /**

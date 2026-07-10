@@ -10,6 +10,9 @@ import { Carrito } from './pages/carrito/carrito';
 import { AdminPanel } from './pages/admin-panel/admin-panel';
 import { ProductoPanel } from './pages/producto-panel/producto-panel';
 import { Categoria } from './pages/categoria/categoria';
+import { MisCompras } from './pages/mis-compras/mis-compras';
+import { ComprasPanel } from './pages/compras-panel/compras-panel';
+import { UsuarioPanel } from './pages/usuario-panel/usuario-panel';
 
 export const routes: Routes = [
     { path: 'header', component: Header },
@@ -23,5 +26,8 @@ export const routes: Routes = [
     { path: 'adminPanel', component: AdminPanel },
     { path: 'productoPanel', component: ProductoPanel },
     { path: 'categoria/:nombre', component: Categoria },
+    { path: 'mis-compras', component: MisCompras },
+    { path: 'comprasPanel', component: ComprasPanel },
+    { path: 'usuarioPanel', component: UsuarioPanel },
     { path: '**', redirectTo: 'home' }
 ];

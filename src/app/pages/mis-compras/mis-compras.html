@@ -1,0 +1,107 @@
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12 text-center text-md-start">
+            <h1 class="h3 mb-2 text-dark fw-bold">Mis Compras</h1>
+            <p class="text-muted">Revisa el historial y estado de tus pedidos realizados en aniMug</p>
+            <hr class="text-secondary opacity-25">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+
+            <div *ngIf="comprasUsuario.length === 0" class="card shadow-sm border-0 text-center py-5 px-4 bg-light">
+                <div class="card-body">
+                    <span class="fs-1 d-block mb-3">🛍️</span>
+                    <h3 class="h5 fw-bold text-secondary">Aún no has realizado ninguna compra</h3>
+                    <p class="text-muted small mb-4">Explora nuestro catálogo y añade tus productos favoritos al
+                        carrito.</p>
+                    <a routerLink="/productos" class="btn btn-primary px-4 shadow-sm">Ver Catálogo</a>
+                </div>
+            </div>
+
+            <div *ngIf="comprasUsuario.length > 0" class="d-flex flex-column gap-4">
+
+                <div *ngFor="let compra of comprasUsuario" class="card shadow-sm border-0 overflow-hidden">
+
+                    <div class="card-header bg-white py-3 px-4 border-bottom border-light">
+                        <div class="row align-items-center g-3">
+                            <div class="col-12 col-md-3">
+                                <span class="text-muted small d-block">NÚMERO DE PEDIDO</span>
+                                <span class="fw-bold text-primary">#{{ compra.id }}</span>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <span class="text-muted small d-block">FECHA DE COMPRA</span>
+                                <span class="text-dark fw-semibold">{{ compra.fecha }}</span>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <span class="text-muted small d-block">TOTAL PAGADO</span>
+                                <span class="text-dark fw-bold fs-5">{{ formatearPrecioGlobal(compra.total) }}</span>
+                            </div>
+                            <div class="col-12 col-md-3 text-md-end">
+                                <span class="text-muted small d-block d-md-none mb-1">ESTADO DEL PEDIDO</span>
+                                <span class="badge px-3 py-2 fs-6 rounded-pill" [ngClass]="{
+                  'bg-warning text-dark': compra.estado === 'Pendiente',
+                  'bg-info text-white': compra.estado === 'Despachado',
+                  'bg-success text-white': compra.estado === 'Entregado'
+                }">
+                                    {{ compra.estado }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body bg-light p-4">
+                        <h6 class="text-secondary fw-bold mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">
+                            RESUMEN DE ARTÍCULOS</h6>
+
+                        <div class="row g-3">
+                            <div *ngFor="let item of compra.items" class="col-12">
+                                <div
+                                    class="bg-white p-3 rounded shadow-xs border border-light d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img [src]="item.producto.imagen" [alt]="item.producto.nombre"
+                                            class="rounded object-fit-cover border border-light"
+                                            style="width: 55px; height: 55px;">
+                                        <div>
+                                            <h5 class="h6 mb-1 text-dark fw-semibold">{{ item.producto.nombre }}</h5>
+                                            <small class="text-muted">Cantidad: <span class="fw-bold text-secondary">x{{
+                                                    item.cantidad }}</span></small>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="text-dark fw-bold d-block">{{
+                                            formatearPrecioGlobal(item.producto.precio * item.cantidad) }}</span>
+                                        <small *ngIf="item.cantidad > 1" class="text-muted" style="font-size: 0.75rem;">
+                                            ({{ formatearPrecioGlobal(item.producto.precio) }} c/u)
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer bg-white py-3 px-4 border-top border-light text-muted small">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2">
+                            <span><i class="bi bi-geo-alt-fill text-secondary me-1"></i> Dirección de envío registrada:
+                                <strong>{{ authService.sesion?.direccion }}</strong></span>
+                            <span *ngIf="compra.estado === 'Pendiente'" class="text-warning-emphasis fw-medium">
+                                Tu pedido está en preparación en nuestro taller.
+                            </span>
+                            <span *ngIf="compra.estado === 'Despachado'" class="text-info-emphasis fw-medium">
+                                Tu paquete va en camino con la empresa de transportes.
+                            </span>
+                            <span *ngIf="compra.estado === 'Entregado'" class="text-success fw-medium">
+                                ¡Pedido recibido! Gracias por comprar en aniMug.
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

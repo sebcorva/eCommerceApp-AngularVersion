@@ -1,0 +1,154 @@
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Panel de Control de Ventas</h1>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-start border-primary border-4 shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row align-items-center g-0">
+                        <div class="col me-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                style="font-size: 0.8rem;">Total Recaudado</div>
+                            <div class="h5 mb-0 font-weight-bold text-secondary">{{
+                                formatearPrecioGlobal(totalRecaudado) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-start border-warning border-4 shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row align-items-center g-0">
+                        <div class="col me-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+                                style="font-size: 0.8rem;">Pedidos Pendientes</div>
+                            <div class="h5 mb-0 font-weight-bold text-secondary">{{ totalPendientes }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-start border-info border-4 shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row align-items-center g-0">
+                        <div class="col me-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"
+                                style="font-size: 0.8rem;">Pedidos Despachados</div>
+                            <div class="h5 mb-0 font-weight-bold text-secondary">{{ totalDespachados }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-start border-success border-4 shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row align-items-center g-0">
+                        <div class="col me-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                                style="font-size: 0.8rem;">Pedidos Entregados</div>
+                            <div class="h5 mb-0 font-weight-bold text-secondary">{{ totalEntregados }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div
+            class="card-header bg-white py-3 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <h6 class="m-0 font-weight-bold text-primary fs-5">Historial General de Compras</h6>
+            <div class="search-box position-relative" style="max-width: 350px; width: 100%;">
+                <input type="text" class="form-control" placeholder="Buscar por cliente o email..."
+                    [(ngModel)]="terminoBusqueda" (input)="filtrarComprasLocalmente()">
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-nowrap">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="ps-4">ID Pedido</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Productos (Cant.)</th>
+                            <th scope="col">Total Pagado</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" class="text-center pe-4">Gestión</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let compra of comprasFiltradas">
+                            <td class="ps-4 font-weight-bold text-primary">#{{ compra.id }}</td>
+                            <td>{{ compra.fecha }}</td>
+                            <td>
+                                <div class="fw-bold">{{ compra.nombreUsuario }}</div>
+                                <small class="text-muted d-block" style="font-size: 0.75rem;">{{ compra.emailUsuario
+                                    }}</small>
+                            </td>
+                            <td>
+                                <ul class="list-unstyled mb-0" style="max-width: 250px; white-space: normal;">
+                                    <li *ngFor="let item of compra.items" class="small text-truncate">
+                                        • {{ item.producto.nombre }} <span class="text-primary fw-bold">x{{
+                                            item.cantidad }}</span>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="fw-bold text-dark">{{ formatearPrecioGlobal(compra.total) }}</td>
+                            <td>
+                                <span class="badge" [ngClass]="{
+                  'bg-warning text-dark': compra.estado === 'Pendiente',
+                  'bg-info text-white': compra.estado === 'Despachado',
+                  'bg-success text-white': compra.estado === 'Entregado'
+                }">
+                                    {{ compra.estado }}
+                                </span>
+                            </td>
+                            <td class="text-center pe-4">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button *ngIf="compra.estado === 'Pendiente'" type="button"
+                                        class="btn btn-outline-info" (click)="cambiarEstado(compra, 'Despachado')"
+                                        title="Marcar como Despachado">
+                                        Despachar
+                                    </button>
+                                    <button *ngIf="compra.estado === 'Despachado'" type="button"
+                                        class="btn btn-outline-success" (click)="cambiarEstado(compra, 'Entregado')"
+                                        title="Marcar como Entregado">
+                                        Entregar
+                                    </button>
+                                    <button *ngIf="compra.estado === 'Entregado'" type="button"
+                                        class="btn btn-outline-danger">
+                                        Pedido Finalizado
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-outline-danger" (click)="eliminarCompra(compra.id)"
+                                    title="Eliminar de forma permanente">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="comprasFiltradas.length === 0">
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <p class="mb-0 fs-5">No se encontraron registros de compras.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Control de Usuarios Registrados</h1>
+            <p class="text-muted mb-0">Administración total de credenciales, direcciones y rangos</p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4" *ngIf="mostrarFormulario">
+        <div class="card-header bg-light py-3">
+            <h6 class="m-0 fw-bold text-primary">{{ editandoId ? '✏️ Editar Perfil de Usuario' : '➕ Registrar Nuevo
+                Usuario' }}</h6>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="usuarioForm" (ngSubmit)="onGuardarUsuario()">
+                <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Nombre Completo</label>
+                        <input type="text" class="form-control" formControlName="nombre"
+                            [ngClass]="{'is-invalid': campoInvalido('nombre')}">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Nombre de Usuario (Username)</label>
+                        <input type="text" class="form-control" formControlName="username"
+                            [ngClass]="{'is-invalid': campoInvalido('username')}">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Correo Electrónico</label>
+                        <input type="email" class="form-control" formControlName="email"
+                            [ngClass]="{'is-invalid': campoInvalido('email')}">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Contraseña</label>
+                        <input type="password" class="form-control" formControlName="password"
+                            [ngClass]="{'is-invalid': campoInvalido('password')}" placeholder="••••••">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" formControlName="fechaNacimiento"
+                            [ngClass]="{'is-invalid': campoInvalido('fechaNacimiento')}">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Tipo de Usuario (Rol)</label>
+                        <select class="form-select" formControlName="role"
+                            [ngClass]="{'is-invalid': campoInvalido('role')}">
+                            <option value="cliente">Cliente Normal</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Dirección de Despacho</label>
+                        <input type="text" class="form-control" formControlName="direccion"
+                            [ngClass]="{'is-invalid': campoInvalido('direccion')}">
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-2 justify-content-end">
+                    <button type="button" class="btn btn-secondary px-4" (click)="cancelarEdicion()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary px-4">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <div class="row align-items-center g-3">
+                <div class="col-12 col-md-6">
+                    <h6 class="m-0 fw-bold text-primary fs-5">Cuentas del Sistema</h6>
+                </div>
+                <div class="col-12 col-md-6 d-flex flex-column flex-sm-row justify-content-md-end gap-3">
+                    <div class="search-box position-relative flex-grow-1" style="max-width: 350px;">
+                        <input type="text" class="form-control" placeholder="Buscar usuario..."
+                            [(ngModel)]="terminoBusqueda" (input)="filtrarUsuarios()">
+                    </div>
+                    <button type="button" class="btn btn-success text-nowrap" (click)="abrirFormularioCreacion()">
+                        ➕ Agregar Usuario
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-nowrap">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="ps-4">ID</th>
+                            <th scope="col">Nombre Completo</th>
+                            <th scope="col">Nombre de Usuario</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Rol actual</th>
+                            <th scope="col" class="text-center pe-4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of usuariosFiltrados">
+                            <td class="ps-4 text-muted fw-bold">#{{ usuario.id }}</td>
+                            <td>
+                                <div class="fw-bold text-dark">{{ usuario.nombre }}</div>
+                                <small class="text-muted d-block" style="font-size: 0.75rem;">{{ usuario.email
+                                    }}</small>
+                            </td>
+                            <td><span class="badge bg-light text-dark border">&#64;{{ usuario.username }}</span></td>
+                            <td class="text-truncate" style="max-width: 200px;">{{ usuario.direccion || 'No registrada'
+                                }}</td>
+                            <td>
+                                <span class="badge rounded px-2 py-1" [ngClass]="{
+                  'bg-danger text-white': usuario.role === 'admin',
+                  'bg-secondary text-white': usuario.role === 'cliente'
+                }">
+                                    {{ usuario.role === 'admin' ? 'Admin' : 'Cliente' }}
+                                </span>
+                            </td>
+                            <td class="text-center pe-4">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-outline-primary"
+                                        (click)="activarEdicion(usuario)">
+                                        Editar
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                        [disabled]="authService.sesion?.id === usuario.id"
+                                        (click)="eliminarUsuario(usuario.id)">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="usuariosFiltrados.length === 0">
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                No se encontraron usuarios activos.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

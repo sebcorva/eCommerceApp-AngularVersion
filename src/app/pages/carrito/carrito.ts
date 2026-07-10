@@ -4,6 +4,7 @@ import { RouterLink, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { ElementoCarrito } from '../../models/elemento-carrito';
+import { Compra } from '../../models/compra';
 
 /**
  * Componente que administra la vista y operaciones del carrito de compras de aniMug.
@@ -128,8 +129,23 @@ export class Carrito implements OnInit {
    * @returns {void}
    */
   procesarPago(): void {
-    alert('¡Gracias por tu compra en aniMug! Procesando pago...');
-    this.dataService.limpiarCarritoUsuario(this.emailUsuario);
-    this.router.navigate(['/']);
+    const nuevaCompra: Omit<Compra, 'id'> = {
+      emailUsuario: this.authService.sesion!.email,
+      nombreUsuario: this.authService.sesion!.nombre,
+      fecha: new Date().toLocaleString('es-CL'),
+      items: this.dataService.carritoSignal(),
+      total: this.totalAPagar,
+      estado: 'Pendiente'
+    };
+
+    this.dataService.guardarCompra(nuevaCompra).subscribe({
+      next: (compraGuardada) => {
+        console.log('Compra guardada en DB', compraGuardada);
+        alert('¡Compra realizada con éxito!');
+        this.dataService.limpiarCarritoUsuario(nuevaCompra.emailUsuario);
+        this.router.navigate(['/']);
+      },
+      error: (err) => console.error('Error al procesar el pago', err)
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DataService } from '../../services/data.service';
@@ -22,7 +22,8 @@ export class Categoria implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +46,8 @@ export class Categoria implements OnInit {
 
         this.dataService.getProductosPorCategoria(categoriaKey).subscribe({
           next: (productos) => {
-            this.productosFiltrados = productos;
+            this.productosFiltrados = productos.map(p => ({ ...p, animando: false }));
+            this.cdr.detectChanges();
           },
           error: (err) => console.error('Error al filtrar productos en la API:', err)
         });

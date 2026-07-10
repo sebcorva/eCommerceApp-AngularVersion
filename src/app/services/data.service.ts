@@ -8,185 +8,8 @@ import { Producto } from '../models/producto';
 import { Usuario } from '../models/usuario';
 import { Sesion } from '../models/sesion';
 import { ElementoCarrito } from '../models/elemento-carrito';
+import { Compra } from '../models/compra';
 
-/**
- * Constante estática con los datos de inicialización por defecto del sistema aniMug.
- * Contiene el catálogo inicial estructurado por categorías, lista de productos base y cuentas de prueba.
- */
-/* const DATOS_BASE = {
-    "categorias": {
-        "tazas": {
-            "nombre": "Tazas",
-            "imagen": "/assets/img/tazas.png"
-        },
-        "platos": {
-            "nombre": "Platos",
-            "imagen": "/assets/img/platos.png"
-        },
-        "maceteros": {
-            "nombre": "Maceteros",
-            "imagen": "/assets/img/maceteros.png"
-        },
-        "bowls": {
-            "nombre": "Bowls",
-            "imagen": "/assets/img/bowls.png"
-        }
-    },
-    "productos": [
-        //Tazas
-        {
-            "id": 1,
-            "nombre": "Main Character Energy",
-            "descripcion": "Una taza diseñada para aquellos que comienzan su día con energía.",
-            "precio": 12990,
-            "descuento": 0,
-            "imagen": "/assets/img/tazas/taza.jpg",
-            "stock": 15,
-            "categoria": "tazas"
-        },
-        {
-            "id": 2,
-            "nombre": "But First Coffee",
-            "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
-            "precio": 12990,
-            "descuento": 30,
-            "imagen": "/assets/img/tazas/taza2.jpg",
-            "stock": 30,
-            "categoria": "tazas"
-        },
-        {
-            "id": 3,
-            "nombre": "Ask Me About My Cat",
-            "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
-            "precio": 12990,
-            "descuento": 45,
-            "imagen": "/assets/img/tazas/taza3.jpg",
-            "stock": 8,
-            "categoria": "tazas"
-        },
-        //Platos
-        {
-            "id": 4,
-            "nombre": "Diseño Clásico",
-            "descripcion": "Un plato con un diseño clásico y elegante.",
-            "precio": 15990,
-            "descuento": 0,
-            "imagen": "/assets/img/platos/plato.jpg",
-            "stock": 15,
-            "categoria": "platos"
-        },
-        {
-            "id": 5,
-            "nombre": "But First Coffee",
-            "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
-            "precio": 12990,
-            "descuento": 30,
-            "imagen": "/assets/img/platos/plato2.jpg",
-            "stock": 30,
-            "categoria": "platos"
-        },
-        {
-            "id": 6,
-            "nombre": "Ask Me About My Cat",
-            "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
-            "precio": 12990,
-            "descuento": 0,
-            "imagen": "/assets/img/platos/plato3.jpg",
-            "stock": 5,
-            "categoria": "platos"
-        },
-        //Maceteros
-        {
-            "id": 7,
-            "nombre": "Macetero de Diseño Montaña",
-            "descripcion": "Un macetero con un diseño inspirado en la naturaleza.",
-            "precio": 13000,
-            "descuento": 15,
-            "imagen": "/assets/img/maceteros/macetero.jpg",
-            "stock": 15,
-            "categoria": "maceteros"
-        },
-        {
-            "id": 8,
-            "nombre": "But First Coffee",
-            "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
-            "precio": 12990,
-            "descuento": 30,
-            "imagen": "/assets/img/maceteros/macetero2.jpg",
-            "stock": 30,
-            "categoria": "maceteros"
-        },
-        {
-            "id": 9,
-            "nombre": "Ask Me About My Cat",
-            "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
-            "precio": 12990,
-            "descuento": 45,
-            "imagen": "/assets/img/maceteros/macetero3.jpg",
-            "stock": 8,
-            "categoria": "maceteros"
-        },
-        //Bowls
-        {
-            "id": 10,
-            "nombre": "Macetero de Diseño Montaña",
-            "descripcion": "Un macetero con un diseño inspirado en la naturaleza.",
-            "precio": 13000,
-            "descuento": 15,
-            "imagen": "/assets/img/bowls/bowl.jpg",
-            "stock": 15,
-            "categoria": "bowls"
-        },
-        {
-            "id": 11,
-            "nombre": "But First Coffee",
-            "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
-            "precio": 12990,
-            "descuento": 30,
-            "imagen": "/assets/img/bowls/bowl2.jpg",
-            "stock": 30,
-            "categoria": "bowls"
-        },
-        {
-            "id": 12,
-            "nombre": "Ask Me About My Cat",
-            "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
-            "precio": 12990,
-            "descuento": 45,
-            "imagen": "/assets/img/bowls/bowl3.jpg",
-            "stock": 8,
-            "categoria": "bowls"
-        }
-    ],
-    "usuarios": [
-        {
-            "id": 1,
-            "nombre": "Sebastian Corvalan",
-            "username": "sebastian",
-            "email": "seba@gmail.com",
-            "password": "seba1234!",
-            "fechaNacimiento": "1994-03-31",
-            "direccion": "Los Duraznos #323",
-            "role": "cliente"
-        },
-        {
-            "id": 2,
-            "nombre": "Administrador",
-            "username": "admin",
-            "email": "admin@animug.com",
-            "password": "admin1234!",
-            "fechaNacimiento": "1994-03-31",
-            "direccion": "Los Admin #67",
-            "role": "admin"
-        }
-    ]
-} as const; */
-
-/**
- * Servicio encargado de centralizar, persistir y transformar los datos operacionales de la tienda.
- * Actúa como una capa de abstracción sobre `localStorage` y `sessionStorage`, garantizando la sincronización
- * segura del estado en el navegador y resolviendo cálculos de precios y lógicas CRUD globales.
- */
 @Injectable({ providedIn: 'root' })
 export class DataService {
 
@@ -200,7 +23,10 @@ export class DataService {
     readonly sesionSignal = signal<Sesion | null>(null);
     readonly carritoSignal = signal<ElementoCarrito[]>([]);
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        @Inject(PLATFORM_ID) private platformId: Object // 👈 Añade esta línea
+    ) {
         const sesion = this.getSesion();
         this.sesionSignal.set(sesion);
         if (sesion && sesion.email) {
@@ -245,7 +71,10 @@ export class DataService {
      */
     getProductosPorCategoria(categoriaKey: string): Observable<Producto[]> {
         return this.getProductos().pipe(
-            map(productos => productos.filter(p => p.categoria.toLowerCase() === categoriaKey.toLowerCase()))
+            map(productos => {
+                const llaveNormalizada = (categoriaKey || '').trim().toLowerCase();
+                return productos.filter(p => p.categoria && p.categoria.toLowerCase() === llaveNormalizada);
+            })
         );
     }
 
@@ -277,6 +106,13 @@ export class DataService {
     guardarUsuarios(nuevoUsuario: Omit<Usuario, 'id'>): Observable<Usuario> {
         return this.http.post<Usuario>(`${this.API_URL}/usuarios`, nuevoUsuario);
     }
+
+    /**
+     * Actualiza los datos de un usuario existente mediante PUT.
+     */
+    actualizarUsuario(usuario: Usuario): Observable<Usuario> {
+        return this.http.put<Usuario>(`${this.API_URL}/usuarios/${usuario.id}`, usuario);
+    }
     /**
      * Busca un usuario específico usando su correo electrónico mediante Query Params remotos.
      */
@@ -294,6 +130,43 @@ export class DataService {
         return this.http.get<Usuario>(`${this.API_URL}/usuarios/${id}`);
     }
 
+    /** Eliminar usuario mediante DELETE */
+    eliminarUsuarioGlobal(id: number | string): Observable<void> {
+        return this.http.delete<void>(`${this.API_URL}/usuarios/${id}`);
+    }
+
+    /**
+     * Guarda una nueva compra en el servidor remoto (POST)
+     */
+    guardarCompra(nuevaCompra: Omit<Compra, 'id'>): Observable<Compra> {
+        return this.http.post<Compra>(`${this.API_URL}/compras`, nuevaCompra);
+    }
+
+    /**
+     * Recupera absolutamente todas las compras realizadas en la tienda (Para el Admin)
+     */
+    getTodasLasCompras(): Observable<Compra[]> {
+        return this.http.get<Compra[]>(`${this.API_URL}/compras`).pipe(
+            map(compras => compras.reverse())
+        );
+    }
+
+    /**
+     * Recupera las compras de un usuario específico usando Query Params (?emailUsuario=...)
+     */
+    getComprasPorUsuario(email: string): Observable<Compra[]> {
+        const emailNormalizado = email.trim().toLowerCase();
+        return this.http.get<Compra[]>(`${this.API_URL}/compras?emailUsuario=${emailNormalizado}`).pipe(
+            map(compras => compras.reverse())
+        );
+    }
+
+    /**
+     * Permite al administrador cambiar el estado de una compra (ej: de Pendiente a Despachado)
+     */
+    actualizarEstadoCompra(compra: Compra): Observable<Compra> {
+        return this.http.put<Compra>(`${this.API_URL}/compras/${compra.id}`, compra);
+    }
 
     /**
      * Recupera y parsea un objeto JSON guardado en el almacenamiento del navegador de manera segura.
@@ -458,14 +331,14 @@ export class DataService {
      * @returns {boolean} `true` si se puede interactuar con el almacenamiento del navegador en el hilo de ejecución actual.
      */
     private storageDisponible(): boolean {
-        return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+        return isPlatformBrowser(this.platformId) && typeof localStorage !== 'undefined';
     }
     /**
      * Valida si el contexto global de ejecución posee acceso seguro a la API de `sessionStorage`.
      * @returns {boolean} `true` si está disponible de forma nativa.
      */
     private sessionDisponible(): boolean {
-        return typeof window !== 'undefined' && typeof sessionStorage !== 'undefined';
+        return isPlatformBrowser(this.platformId) && typeof sessionStorage !== 'undefined';
     }
     /**
      * Rompe de forma intencional la referencia en memoria de un objeto o arreglo creando una copia idéntica e independiente mediante serialización por texto.
@@ -477,5 +350,13 @@ export class DataService {
     obtenerTotalItemsCarrito(emailUsuario: string): number {
         const carrito = this.getCarritoUsuario(emailUsuario);
         return carrito.reduce((total, item) => total + item.cantidad, 0);
+    }
+
+    /**
+     * Elimina de forma permanente una compra del servidor remoto mediante DELETE.
+     * @param id Identificador único de la compra.
+     */
+    eliminarCompraGlobal(id: number | string): Observable<void> {
+        return this.http.delete<void>(`${this.API_URL}/compras/${id}`);
     }
 }

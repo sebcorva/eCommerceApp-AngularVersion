@@ -72,18 +72,18 @@ export class Login {
     };
 
     //Ejecucion de login
-    const resultado = this.authService.login(email, password);
-
-    if (resultado.ok) {
-      if (this.authService.esAdmin) {
-        this.router.navigate(['/']);
-      } else {
-        this.router.navigate(['/']);
+    this.authService.login(email, password).subscribe({
+      next: (resultado) => {
+        if (resultado.ok) {
+          this.router.navigate(['/']);
+        } else {
+          this.mensajeAlert = resultado.mensaje;
+        }
+      },
+      error: (err) => {
+        this.mensajeAlert = { tipo: 'danger', texto: 'Error al conectar con el servidor.' };
       }
-
-    } else {
-      this.mensajeAlert = resultado.mensaje;
-    }
+    });
   }
 
   limpiar(): void {

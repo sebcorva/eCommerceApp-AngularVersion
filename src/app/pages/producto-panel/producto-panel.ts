@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import {
   AbstractControl,
@@ -45,7 +45,8 @@ export class ProductoPanel implements OnInit {
     public dataService: DataService,
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {
     this.productoForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
@@ -103,7 +104,13 @@ export class ProductoPanel implements OnInit {
    * @returns {void}
    */
   cargarTabla(): void {
-    this.listaProductos = this.dataService.getProductosGlobales();
+    this.dataService.getProductos().subscribe({
+      next: (productos) => {
+        this.listaProductos = productos;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error al cargar productos:', err)
+    });
   }
 
   /**
@@ -136,33 +143,45 @@ export class ProductoPanel implements OnInit {
         descripcion: formValues.descripcion.trim()
       };
 
-      this.dataService.actualizarProductoGlobal(editado);
-      alert('Producto actualizado correctamente');
+      this.dataService.actualizarProductoGlobal(editado).subscribe({
+        next: () => {
+          alert('Producto actualizado correctamente');
+          this.cancelarEdicion();
+          this.cargarTabla();
+        },
+        error: (err) => alert('Error al actualizar el producto.')
+      });
     } else {
-      const productosActuales = this.dataService.getProductosGlobales();
       const nombreNormalizado = formValues.nombre.trim().toLowerCase();
+      this.dataService.getProductos().subscribe({
+        next: (productosActuales) => {
+          if (productosActuales.some(p => p.nombre?.trim().toLowerCase() === nombreNormalizado)) {
+            alert('Ya existe un producto con ese nombre. Por favor, elige otro.');
+            return;
+          }
 
-      if (productosActuales.some(p => p.nombre?.trim().toLocaleLowerCase() === nombreNormalizado)) {
-        alert('Ya existe un producto con ese nombre. Por favor, elige otro.');
-        return;
-      }
+          const nuevoProducto: Omit<Producto, 'id'> = {
+            nombre: formValues.nombre.trim(),
+            categoria: formValues.categoria,
+            precio: formValues.precio,
+            descuento: formValues.descuento || 0,
+            stock: formValues.stock,
+            imagen: formValues.imagen.trim(),
+            descripcion: formValues.descripcion.trim()
+          };
 
-      const nuevoProducto: Omit<Producto, 'id'> = {
-        nombre: formValues.nombre.trim(),
-        categoria: formValues.categoria,
-        precio: formValues.precio,
-        descuento: formValues.descuento || 0,
-        stock: formValues.stock,
-        imagen: formValues.imagen.trim(),
-        descripcion: formValues.descripcion.trim()
-      };
-
-      this.dataService.agregarProductoGlobal(nuevoProducto as Producto);
-      alert('Producto agregado exitosamente');
+          this.dataService.agregarProductoGlobal(nuevoProducto).subscribe({
+            next: () => {
+              alert('Producto agregado exitosamente');
+              this.cancelarEdicion();
+              this.cargarTabla();
+            },
+            error: (err) => alert('Error al agregar el producto.')
+          });
+        },
+        error: (err) => alert('Error al consultar los productos existentes.')
+      });
     }
-
-    this.cancelarEdicion();
-    this.cargarTabla();
   }
 
   /**
@@ -184,6 +203,8 @@ export class ProductoPanel implements OnInit {
       imagen: producto.imagen,
       descripcion: producto.descripcion
     });
+
+    this.cdr.detectChanges();
   }
 
   /**
@@ -194,8 +215,13 @@ export class ProductoPanel implements OnInit {
    */
   eliminarProducto(id: number | string): void {
     if (confirm('¿Estás completamente seguro de eliminar este producto del catálogo?')) {
-      this.dataService.eliminarProductoGlobal(id);
-      this.cargarTabla();
+      this.dataService.eliminarProductoGlobal(id).subscribe({
+        next: () => {
+          alert('Producto eliminado exitosamente.');
+          this.cargarTabla();
+        },
+        error: (err) => alert('Error al eliminar el producto.')
+      });
     }
   }
 
