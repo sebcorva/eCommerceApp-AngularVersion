@@ -19,16 +19,6 @@
   },
   "productos": [
     {
-      "id": "1",
-      "nombre": "Main Character Energy",
-      "descripcion": "Una taza diseñada para aquellos que comienzan su día con energía.",
-      "precio": 12990,
-      "descuento": 0,
-      "imagen": "/assets/img/tazas/taza.jpg",
-      "stock": 15,
-      "categoria": "tazas"
-    },
-    {
       "id": "2",
       "nombre": "But First Coffee",
       "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
@@ -215,6 +205,44 @@
       "total": 20143,
       "estado": "Pendiente",
       "id": "95IxIiCZK9A"
+    },
+    {
+      "emailUsuario": "seba@gmail.com",
+      "nombreUsuario": "Sebastian Corvalan",
+      "fecha": "11-07-2026, 11:44:35 a.m.",
+      "items": [
+        {
+          "producto": {
+            "id": "1",
+            "nombre": "Main Character Energy",
+            "descripcion": "Una taza diseñada para aquellos que comienzan su día con energía.",
+            "precio": 12990,
+            "descuento": 0,
+            "imagen": "/assets/img/tazas/taza.jpg",
+            "stock": 15,
+            "categoria": "tazas",
+            "animando": false
+          },
+          "cantidad": 1
+        },
+        {
+          "producto": {
+            "id": "5",
+            "nombre": "But First Coffee",
+            "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
+            "precio": 12990,
+            "descuento": 30,
+            "imagen": "/assets/img/platos/plato2.jpg",
+            "stock": 30,
+            "categoria": "platos",
+            "animando": false
+          },
+          "cantidad": 1
+        }
+      ],
+      "total": 22083,
+      "estado": "Pendiente",
+      "id": "S_WXOLE_Vz4"
     }
   ],
   "usuarios": [
@@ -226,7 +254,7 @@
       "password": "seba1234!",
       "fechaNacimiento": "1994-03-31",
       "direccion": "Los Duraznos #323",
-      "role": "cliente"
+      "role": "admin"
     },
     {
       "id": "2",
@@ -237,16 +265,6 @@
       "fechaNacimiento": "1994-03-31",
       "direccion": "Los Admin #67",
       "role": "admin"
-    },
-    {
-      "nombre": "Alfonso Corvalan E.",
-      "username": "alfonso",
-      "email": "alfonso@gmail.com",
-      "password": "alfonso1234!",
-      "fechaNacimiento": "1994-03-31",
-      "direccion": "Los Duraznos #323",
-      "role": "cliente",
-      "id": "s5oGCLEGqpI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
