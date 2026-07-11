@@ -24,7 +24,9 @@ const angularApp = new AngularNodeAppEngine({
   // 2. Registra explícitamente los hosts seguros para mitigar el bloqueo SSRF
   allowedHosts: ['localhost', 'angular-app', '127.0.0.1']
 });
-
+app.use('/api', (req, res) => {
+  res.redirect(307, `http://api-server:3000${req.url}`);
+});
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.

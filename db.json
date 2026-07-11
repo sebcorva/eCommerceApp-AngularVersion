@@ -177,6 +177,44 @@
       "total": 22083,
       "estado": "Entregado",
       "id": "XoJVv8Qfir8"
+    },
+    {
+      "emailUsuario": "seba@gmail.com",
+      "nombreUsuario": "Sebastian Corvalan",
+      "fecha": "10-07-2026, 10:33:38 p.m.",
+      "items": [
+        {
+          "producto": {
+            "id": "10",
+            "nombre": "Macetero de Diseño Montaña",
+            "descripcion": "Un macetero con un diseño inspirado en la naturaleza.",
+            "precio": 13000,
+            "descuento": 15,
+            "imagen": "/assets/img/bowls/bowl.jpg",
+            "stock": 15,
+            "categoria": "bowls",
+            "animando": false
+          },
+          "cantidad": 1
+        },
+        {
+          "producto": {
+            "id": "11",
+            "nombre": "But First Coffee",
+            "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
+            "precio": 12990,
+            "descuento": 30,
+            "imagen": "/assets/img/bowls/bowl2.jpg",
+            "stock": 30,
+            "categoria": "bowls",
+            "animando": false
+          },
+          "cantidad": 1
+        }
+      ],
+      "total": 20143,
+      "estado": "Pendiente",
+      "id": "95IxIiCZK9A"
     }
   ],
   "usuarios": [
@@ -199,6 +237,16 @@
       "fechaNacimiento": "1994-03-31",
       "direccion": "Los Admin #67",
       "role": "admin"
+    },
+    {
+      "nombre": "Alfonso Corvalan E.",
+      "username": "alfonso",
+      "email": "alfonso@gmail.com",
+      "password": "alfonso1234!",
+      "fechaNacimiento": "1994-03-31",
+      "direccion": "Los Duraznos #323",
+      "role": "cliente",
+      "id": "s5oGCLEGqpI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

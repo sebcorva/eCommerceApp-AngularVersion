@@ -26,5 +26,5 @@ services:
       context: .
       dockerfile: Dockerfile.api
     volumes:
-      - ./db.json:/api/db.json
+      - .:/api
     # Ya no necesita ports: aquí, Nginx le habla de forma interna por el puerto 3000

@@ -13,7 +13,7 @@ import { Compra } from '../models/compra';
 @Injectable({ providedIn: 'root' })
 export class DataService {
 
-    private readonly API_URL = 'http://localhost:3000';
+    private readonly API_URL = '/api';
 
     readonly KEYS = {
         carritos: 'animug_carritos',
