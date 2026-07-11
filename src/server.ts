@@ -10,18 +10,24 @@ import { join } from 'node:path';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+
+// Configuración obligatoria para que Express entienda el proxy de Nginx
+app.set('trust proxy', true);
+
+// ============================================================
+// 🔥 ACTUALIZACIÓN DE SEGURIDAD PARA ANGULAR 19+ SSR
+// ============================================================
+const angularApp = new AngularNodeAppEngine({
+  // 1. Permite que el motor procese las cabeceras x-forwarded-for y x-forwarded-proto de Nginx
+  trustProxyHeaders: true,
+
+  // 2. Registra explícitamente los hosts seguros para mitigar el bloqueo SSRF
+  allowedHosts: ['localhost', 'angular-app', '127.0.0.1']
+});
 
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
  */
 
 /**

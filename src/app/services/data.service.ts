@@ -287,8 +287,6 @@ export class DataService {
         this.guardarCarritoUsuario(correo, []);
     }
 
-    //Mis compras(en proceso)
-
     /**
      * Aplica reglas de localización internacional utilizando el estándar 'es-CL' para formatear números en formato de moneda chilena (CLP).
      * @param {number} valor Monto numérico en bruto.

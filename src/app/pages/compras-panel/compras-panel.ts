@@ -36,11 +36,7 @@ export class ComprasPanel implements OnInit {
       next: (compras) => {
         this.todasLasCompras = compras;
         this.comprasFiltradas = compras;
-
-        // Calcular los KPIs de las tarjetas superiores
         this.calcularMetricas();
-
-        // Forzamos a Bootstrap y Angular a renderizar los datos
         this.cdr.detectChanges();
       },
       error: (err) => console.error('Error cargando el panel de administración:', err)
@@ -68,19 +64,16 @@ export class ComprasPanel implements OnInit {
   }
 
   cambiarEstado(compra: Compra, nuevoEstado: 'Pendiente' | 'Despachado' | 'Entregado'): void {
-    // Clonamos el objeto de la compra y le cambiamos el estado
     const compraActualizada: Compra = { ...compra, estado: nuevoEstado };
 
-    // Hacemos el PUT al db.json de forma asíncrona mediante el DataService
     this.dataService.actualizarEstadoCompra(compraActualizada).subscribe({
       next: (resultado) => {
-        // Buscamos la compra original en nuestra lista local y la actualizamos
         const index = this.todasLasCompras.findIndex(c => c.id === resultado.id);
         if (index !== -1) {
           this.todasLasCompras[index] = resultado;
-          this.filtrarComprasLocalmente(); // Refrescar filtro
-          this.calcularMetricas();        // Refrescar tarjetas
-          this.cdr.detectChanges();       // Forzar pintado HTML
+          this.filtrarComprasLocalmente();
+          this.calcularMetricas();
+          this.cdr.detectChanges();
         }
       },
       error: (err) => console.error('Error al actualizar el estado de la venta:', err)
@@ -90,20 +83,13 @@ export class ComprasPanel implements OnInit {
   eliminarCompra(id: number | string | undefined): void {
     if (!id) return;
 
-    // 1. Añadimos una ventana de confirmación para evitar accidentes
     if (confirm(`¿Estás completamente seguro de que deseas eliminar la compra #${id}? Esta acción no se puede deshacer.`)) {
 
-      // 2. Ejecutamos la petición asíncrona DELETE
       this.dataService.eliminarCompraGlobal(id).subscribe({
         next: () => {
-          // 3. Removemos la compra eliminada de nuestro arreglo local 'todasLasCompras'
           this.todasLasCompras = this.todasLasCompras.filter(c => c.id !== id);
-
-          // 4. Refrescamos la vista, los filtros y recalculamos las métricas superiores
           this.filtrarComprasLocalmente();
           this.calcularMetricas();
-
-          // 5. Forzamos el redibujado inmediato del HTML
           this.cdr.detectChanges();
 
           alert(`La compra #${id} fue eliminada con éxito.`);

@@ -199,16 +199,6 @@
       "fechaNacimiento": "1994-03-31",
       "direccion": "Los Admin #67",
       "role": "admin"
-    },
-    {
-      "nombre": "Cristobal",
-      "username": "cristobal",
-      "email": "cristobal@gmail.com",
-      "password": "Clave1234!",
-      "fechaNacimiento": "1993-07-15",
-      "direccion": "",
-      "role": "cliente",
-      "id": "WbciuHrhwRQ"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
