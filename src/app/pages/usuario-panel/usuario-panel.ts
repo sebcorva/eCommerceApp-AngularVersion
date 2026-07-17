@@ -142,11 +142,11 @@ export class UsuarioPanel implements OnInit {
 
       this.dataService.actualizarUsuario(usuarioEditado).subscribe({
         next: () => {
-          alert('Usuario actualizado correctamente.');
+          alert('¡Usuario actualizado con éxito!');
           this.cancelarEdicion();
           this.cargarUsuarios();
         },
-        error: () => alert('Error al actualizar el usuario.')
+        error: () => alert('Ocurrió un error al actualizar el usuario.')
       });
 
     } else {
@@ -172,11 +172,11 @@ export class UsuarioPanel implements OnInit {
 
           this.dataService.guardarUsuarios(nuevoUsuario).subscribe({
             next: () => {
-              alert('Usuario creado exitosamente.');
+              alert('¡Usuario creado con éxito!');
               this.cancelarEdicion();
               this.cargarUsuarios();
             },
-            error: () => alert('Error al crear el usuario.')
+            error: () => alert('Ocurrió un error al crear el usuario.')
           });
         }
       });
@@ -189,15 +189,15 @@ export class UsuarioPanel implements OnInit {
       return;
     }
 
-    if (confirm('¿Estás completamente seguro de que deseas eliminar este usuario? Esta acción es irreversible.')) {
+    if (confirm('¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.')) {
       this.dataService.eliminarUsuarioGlobal(id).subscribe({
         next: () => {
-          alert('Usuario eliminado exitosamente de la base de datos.');
+          alert('¡Usuario eliminado con éxito!');
           this.cargarUsuarios();
         },
         error: (err) => {
           console.error('Error al intentar borrar el usuario de la API:', err);
-          alert('Hubo un error en el servidor al intentar eliminar al usuario.');
+          alert('Ocurrió un error al intentar eliminar al usuario.');
         }
       });
     }

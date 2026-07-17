@@ -60,7 +60,7 @@ export class Login {
       this.formularioLogin.markAllAsTouched();
       this.mensajeAlert = {
         tipo: 'danger',
-        texto: 'Por favor, rellena todos los campos correctamente.',
+        texto: 'Por favor, completa el formulario correctamente.',
       };
       return;
     }

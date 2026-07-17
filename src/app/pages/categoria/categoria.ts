@@ -72,7 +72,7 @@ export class Categoria implements OnInit {
       if (existente.cantidad < producto.stock) {
         existente.cantidad += 1;
       } else {
-        alert('No puedes agregar más de este producto, superaría el stock disponible.');
+        alert('Alcanzaste el límite de stock disponible.');
         return;
       }
     } else {

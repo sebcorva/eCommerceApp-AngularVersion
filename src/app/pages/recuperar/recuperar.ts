@@ -120,7 +120,7 @@ export class Recuperar {
       const emailControl = this.recuperarForm.get('email');
 
       if (!emailControl || emailControl.invalid) {
-        this.mensajeAlert = { tipo: 'danger', texto: 'Por favor, ingresa un formato de correo válido.' };
+        this.mensajeAlert = { tipo: 'danger', texto: 'Por favor, ingresa un correo electrónico válido.' };
         return;
       }
 
@@ -132,7 +132,7 @@ export class Recuperar {
 
           if (!this.usuarioEncontrado) {
             emailControl.setErrors({ noRegistrado: true });
-            this.mensajeAlert = { tipo: 'danger', texto: 'Este correo electrónico no está registrado en aniMug.' };
+            this.mensajeAlert = { tipo: 'danger', texto: 'Este correo electrónico no está registrado.' };
             return;
           }
 
@@ -166,7 +166,7 @@ export class Recuperar {
           this.router.navigate(['/login']);
         },
         error: (err) => {
-          this.mensajeAlert = { tipo: 'danger', texto: 'Error al actualizar la contraseña en el servidor.' };
+          this.mensajeAlert = { tipo: 'danger', texto: 'Ocurrió un error al actualizar la contraseña.' };
         }
       });
     }

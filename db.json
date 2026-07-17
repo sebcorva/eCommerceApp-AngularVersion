@@ -243,6 +243,44 @@
       "total": 22083,
       "estado": "Pendiente",
       "id": "S_WXOLE_Vz4"
+    },
+    {
+      "emailUsuario": "admin@animug.com",
+      "nombreUsuario": "Administrador",
+      "fecha": "17-07-2026, 6:23:27 p.m.",
+      "items": [
+        {
+          "producto": {
+            "id": "3",
+            "nombre": "Ask Me About My Cat",
+            "descripcion": "Una taza diseñada para aquellos que aman hablar de sus gatos.",
+            "precio": 12990,
+            "descuento": 45,
+            "imagen": "/assets/img/tazas/taza3.jpg",
+            "stock": 8,
+            "categoria": "tazas",
+            "animando": false
+          },
+          "cantidad": 2
+        },
+        {
+          "producto": {
+            "id": "8",
+            "nombre": "But First Coffee",
+            "descripcion": "Una taza diseñada para aquellos que no pueden conocer su día sin café",
+            "precio": 12990,
+            "descuento": 30,
+            "imagen": "/assets/img/maceteros/macetero2.jpg",
+            "stock": 30,
+            "categoria": "maceteros",
+            "animando": false
+          },
+          "cantidad": 1
+        }
+      ],
+      "total": 23383,
+      "estado": "Pendiente",
+      "id": "yDF7p_DlIsQ"
     }
   ],
   "usuarios": [

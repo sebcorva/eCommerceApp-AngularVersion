@@ -6,12 +6,13 @@ import { Registro } from './registro';
 import { DataService } from '../../services/data.service';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Usuario } from '../../services/modelos';
+import { Usuario } from '../../models/usuario';
 import { vi } from 'vitest';
+import { of } from 'rxjs';
 
 class DataServiceMock {
-  getUsuarios(): Usuario[] {
-    return [
+  getUsuarios() {
+    return of([
       {
         id: 1,
         nombre: 'Usuario Existente',
@@ -22,14 +23,18 @@ class DataServiceMock {
         direccion: '',
         role: 'cliente'
       }
-    ];
+    ]);
   }
 
   generarId(usuarios: any[]): number {
     return usuarios.length + 1;
   }
 
-  guardarUsuarios(usuarios: Usuario[]): void {
+  guardarUsuarios(nuevoUsuario: Omit<Usuario, 'id'>) {
+    return of({
+      id: 2,
+      ...nuevoUsuario
+    } as Usuario);
   }
 }
 
@@ -76,8 +81,8 @@ describe('Registro', () => {
     component.formularioRegistro.controls['fechaNacimiento'].setValue('2010-01-01');
     component.formularioRegistro.controls['email'].setValue('natsu@animug.com');
     component.formularioRegistro.controls['username'].setValue('salamander');
-    component.formularioRegistro.controls['password'].setValue('Password123');
-    component.formularioRegistro.controls['password2'].setValue('Password123');
+    component.formularioRegistro.controls['password'].setValue('Password123!');
+    component.formularioRegistro.controls['password2'].setValue('Password123!');
     component.formularioRegistro.controls['direccion'].setValue('Magnolia');
 
     component.onRegistro();

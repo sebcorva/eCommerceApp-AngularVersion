@@ -99,7 +99,7 @@ export class Perfil implements OnInit {
     this.enviado = true;
 
     if (this.direccionForm.invalid || !this.usuarioLogeado) {
-      this.mensajeAlert = { tipo: 'danger', texto: 'Por favor, ingresa una direccion valida.' };
+      this.mensajeAlert = { tipo: 'danger', texto: 'Por favor, ingresa una dirección válida.' };
       return;
     }
 
@@ -114,7 +114,7 @@ export class Perfil implements OnInit {
     }).subscribe({
       next: (resultado) => {
         if (resultado.ok) {
-          this.mensajeAlert = { tipo: 'success', texto: 'Direccion de Despacho actualizada.' };
+          this.mensajeAlert = { tipo: 'success', texto: '¡Dirección de despacho actualizada con éxito!' };
           this.usuarioLogeado = this.authService.sesion;
           this.enviado = false;
 

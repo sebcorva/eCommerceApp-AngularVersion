@@ -6,31 +6,34 @@ import { Login } from './login';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { of } from 'rxjs';
+import { vi } from 'vitest';
 
 class AuthServiceMock {
   autenticado = false;
   sesion = null;
 
-  login(email: string, clave: string) {
-    if (email === 'ejemplo@animug.com' && clave === 'ClaveValida123') {
-      return {
+  login(email: string, password: string) {
+    if (email === 'ejemplo@animug.com' && password === 'ClaveValida123') {
+      return of({
         ok: true,
         mensaje: null
-      };
+      });
     }
-    return {
+    return of({
       ok: false,
       mensaje: {
         tipo: 'danger',
         texto: 'Contraseña incorrecta.'
       }
-    };
+    });
   }
 }
 
 describe('Login', () => {
   let component: Login;
   let fixture: ComponentFixture<Login>;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -50,6 +53,8 @@ describe('Login', () => {
 
     fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    vi.spyOn(router, 'navigate').mockImplementation(() => Promise.resolve(true));
     fixture.detectChanges();
   });
 
@@ -77,6 +82,7 @@ describe('Login', () => {
     component.onSubmit();
 
     expect(component.mensajeAlert).toBeNull();
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('debe bloquear el acceso y activar la alerta si la contraseña es incorrecta', () => {

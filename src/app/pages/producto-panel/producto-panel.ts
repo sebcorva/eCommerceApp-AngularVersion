@@ -125,7 +125,7 @@ export class ProductoPanel implements OnInit {
 
     if (this.productoForm.invalid) {
       this.productoForm.markAllAsTouched();
-      alert('Por favor, completa todos los campos correctamente');
+      alert('Por favor, completa el formulario correctamente.');
       return;
     }
 
@@ -143,14 +143,14 @@ export class ProductoPanel implements OnInit {
         descripcion: formValues.descripcion.trim()
       };
 
-      this.dataService.actualizarProductoGlobal(editado).subscribe({
-        next: () => {
-          alert('Producto actualizado correctamente');
-          this.cancelarEdicion();
-          this.cargarTabla();
-        },
-        error: (err) => alert('Error al actualizar el producto.')
-      });
+          this.dataService.actualizarProductoGlobal(editado).subscribe({
+            next: () => {
+              alert('¡Producto actualizado con éxito!');
+              this.cancelarEdicion();
+              this.cargarTabla();
+            },
+            error: (err) => alert('Ocurrió un error al actualizar el producto.')
+          });
     } else {
       const nombreNormalizado = formValues.nombre.trim().toLowerCase();
       this.dataService.getProductos().subscribe({
@@ -172,11 +172,11 @@ export class ProductoPanel implements OnInit {
 
           this.dataService.agregarProductoGlobal(nuevoProducto).subscribe({
             next: () => {
-              alert('Producto agregado exitosamente');
+              alert('¡Producto creado con éxito!');
               this.cancelarEdicion();
               this.cargarTabla();
             },
-            error: (err) => alert('Error al agregar el producto.')
+            error: (err) => alert('Ocurrió un error al crear el producto.')
           });
         },
         error: (err) => alert('Error al consultar los productos existentes.')
@@ -214,13 +214,13 @@ export class ProductoPanel implements OnInit {
    * @returns {void}
    */
   eliminarProducto(id: number | string): void {
-    if (confirm('¿Estás completamente seguro de eliminar este producto del catálogo?')) {
+    if (confirm('¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.')) {
       this.dataService.eliminarProductoGlobal(id).subscribe({
         next: () => {
-          alert('Producto eliminado exitosamente.');
+          alert('¡Producto eliminado con éxito!');
           this.cargarTabla();
         },
-        error: (err) => alert('Error al eliminar el producto.')
+        error: (err) => alert('Ocurrió un error al eliminar el producto.')
       });
     }
   }

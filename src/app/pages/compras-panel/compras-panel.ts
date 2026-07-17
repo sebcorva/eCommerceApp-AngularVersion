@@ -83,7 +83,7 @@ export class ComprasPanel implements OnInit {
   eliminarCompra(id: number | string | undefined): void {
     if (!id) return;
 
-    if (confirm(`¿Estás completamente seguro de que deseas eliminar la compra #${id}? Esta acción no se puede deshacer.`)) {
+    if (confirm(`¿Estás seguro de que deseas eliminar la compra #${id}? Esta acción no se puede deshacer.`)) {
 
       this.dataService.eliminarCompraGlobal(id).subscribe({
         next: () => {
@@ -92,7 +92,7 @@ export class ComprasPanel implements OnInit {
           this.calcularMetricas();
           this.cdr.detectChanges();
 
-          alert(`La compra #${id} fue eliminada con éxito.`);
+          alert('¡Compra eliminada con éxito!');
         },
         error: (err) => console.error('Error al intentar eliminar la compra de la API:', err)
       });
